@@ -7,8 +7,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
-@SpringBootTest(classes = TestApplication.class)
-public class Test {
+@SpringBootTest
+public class CloudDemoIntegrationTest {
     @Autowired
     private DataSource dataSource;
 
