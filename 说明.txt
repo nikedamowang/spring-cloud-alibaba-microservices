@@ -1,0 +1,3 @@
+cloudDemo是父项目,services是父模块
+
+我的nacos端口是8080
