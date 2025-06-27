@@ -1,5 +1,6 @@
 package com.cloudDemo;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -15,7 +16,7 @@ public class CloudDemoIntegrationTest {
     @Autowired(required = false)
     private StringRedisTemplate redisTemplate;
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testMySQLConnection() throws Exception {
         try (Connection conn = dataSource.getConnection()) {
             System.out.println("[MySQL测试] 数据库连接成功: " + conn.getMetaData().getURL());
@@ -25,7 +26,7 @@ public class CloudDemoIntegrationTest {
         }
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void testRedisConnection() {
         if (redisTemplate == null) {
             System.err.println("[Redis测试] 未找到 RedisTemplate Bean，请检查依赖和配置");
