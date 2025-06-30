@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>order-service</artifactId>
+    <artifactId>common-api</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -18,12 +18,25 @@
     </properties>
 
     <dependencies>
-        <!-- 依赖公共API模块 -->
+        <!-- 只包含必要的依赖，不包含实现相关的 -->
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>common-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 跳过Spring Boot的repackage插件，因为这是一个纯API模块 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
