@@ -104,13 +104,59 @@ java -jar gateway-service.jar
 - 用户服务：http://localhost:8080/api/user/xxx
 - 订单服务：http://localhost:8080/api/order/xxx
 
-### 3. 认证请求
+### 3. AI专用 - Nacos信息查询接口
+
+为了帮助AI实时获取系统状态，网关提供了以下管理接口：
+
+#### 获取完整Nacos快照（推荐AI使用）
+```bash
+GET http://localhost:8080/admin/nacos/snapshot
+```
+返回所有服务注册信息和配置文件内容的完整快照。
+
+#### 获取所有服务信息
+```bash
+GET http://localhost:8080/admin/nacos/services
+```
+
+#### 获取指定服务详情
+```bash
+GET http://localhost:8080/admin/nacos/services/{serviceName}
+# 例如：GET http://localhost:8080/admin/nacos/services/user-service
+```
+
+#### 获取所有配置信息
+```bash
+GET http://localhost:8080/admin/nacos/configs
+```
+
+#### 获取指定配置详情
+```bash
+GET http://localhost:8080/admin/nacos/configs/{group}/{dataId}
+# 例如：GET http://localhost:8080/admin/nacos/configs/DEFAULT_GROUP/user-service.properties
+```
+
+#### 健康检查
+```bash
+GET http://localhost:8080/admin/nacos/health
+```
+
+**注意**：这些接口专为AI调试和问题诊断设计，可以实时获取最新的服务注册状态和配置信息。
+
+### 4. 认证请求
 
 请求头中添加：
 
 ```
 Authorization: Bearer <your-jwt-token>
 ```
+
+**白名单接口**（无需认证）：
+- `/api/user/login`
+- `/api/user/register` 
+- `/api/user/list`
+- `/api/order/list`
+- `/admin/nacos/**` (AI专用接口)
 
 ## 过滤器说明
 
