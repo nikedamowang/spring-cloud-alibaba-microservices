@@ -44,7 +44,7 @@
     "order-service": {
       "instances": [
         {
-          "ip": "192.168.244.1", 
+          "ip": "192.168.244.1",
           "port": 8000,
           "healthy": true,
           "enabled": true,
@@ -57,7 +57,7 @@
   "configs": {
     "DEFAULT_GROUP/user-service.properties": {
       "dataId": "user-service.properties",
-      "group": "DEFAULT_GROUP", 
+      "group": "DEFAULT_GROUP",
       "content": "server.port=9000\nspring.datasource.url=...",
       "contentLength": 485
     }
@@ -124,7 +124,7 @@
 ```json
 {
   "status": "UP",
-  "nacos": "Connected", 
+  "nacos": "Connected",
   "timestamp": 1751426940138
 }
 ```
