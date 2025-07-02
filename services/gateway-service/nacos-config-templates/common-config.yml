@@ -4,28 +4,40 @@
 # 命名空间: public
 
 # 通用配置
+# DataID: common-config.yml
+# Group: COMMON_GROUP
+# 说明: 所有服务共享的通用配置
+
+# 通用Spring配置
+spring:
+  # Jackson配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+
+  # 国际化配置
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+
+# 通用日志配置
+logging:
+  level:
+    root: INFO
+    org.springframework: WARN
+    org.apache.dubbo: WARN
+    com.alibaba.nacos: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+
+# 通用管理端点配置
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,info,metrics
   endpoint:
     health:
-      show-details: always
-
-# 通用日志配置
-logging:
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-  level:
-    root: INFO
-    com.cloudDemo: DEBUG
-
-# 通用Spring配置
-spring:
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
-    serialization:
-      write-dates-as-timestamps: false
+      show-details: when_authorized

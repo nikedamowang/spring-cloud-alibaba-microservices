@@ -39,7 +39,7 @@ public class NacosInfoController {
      */
     @GetMapping("/services")
     public Map<String, Object> getServices(@RequestParam(defaultValue = "1") int pageNo,
-                                          @RequestParam(defaultValue = "100") int pageSize) {
+                                           @RequestParam(defaultValue = "100") int pageSize) {
         Map<String, Object> result = new HashMap<>();
 
         try {
@@ -144,22 +144,22 @@ public class NacosInfoController {
         try {
             // 预定义的一些常用配置
             List<Map<String, String>> configList = Arrays.asList(
-                new HashMap<String, String>(){{
-                    put("dataId", "user-service.properties");
-                    put("group", "DEFAULT_GROUP");
-                }},
-                new HashMap<String, String>(){{
-                    put("dataId", "order-service.properties");
-                    put("group", "DEFAULT_GROUP");
-                }},
-                new HashMap<String, String>(){{
-                    put("dataId", "gateway-routes.yml");
-                    put("group", "GATEWAY_GROUP");
-                }},
-                new HashMap<String, String>(){{
-                    put("dataId", "common-config.yml");
-                    put("group", "COMMON_GROUP");
-                }}
+                    new HashMap<String, String>() {{
+                        put("dataId", "user-service.properties");
+                        put("group", "DEFAULT_GROUP");
+                    }},
+                    new HashMap<String, String>() {{
+                        put("dataId", "order-service.properties");
+                        put("group", "DEFAULT_GROUP");
+                    }},
+                    new HashMap<String, String>() {{
+                        put("dataId", "gateway-routes.yml");
+                        put("group", "GATEWAY_GROUP");
+                    }},
+                    new HashMap<String, String>() {{
+                        put("dataId", "common-config.yml");
+                        put("group", "COMMON_GROUP");
+                    }}
             );
 
             Map<String, Object> configs = new HashMap<>();
@@ -217,7 +217,7 @@ public class NacosInfoController {
      */
     @GetMapping("/configs/{group}/{dataId}")
     public Map<String, Object> getConfigDetail(@PathVariable String group,
-                                              @PathVariable String dataId) {
+                                               @PathVariable String dataId) {
         Map<String, Object> result = new HashMap<>();
 
         try {

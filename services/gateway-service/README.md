@@ -109,34 +109,41 @@ java -jar gateway-service.jar
 为了帮助AI实时获取系统状态，网关提供了以下管理接口：
 
 #### 获取完整Nacos快照（推荐AI使用）
+
 ```bash
 GET http://localhost:8080/admin/nacos/snapshot
 ```
+
 返回所有服务注册信息和配置文件内容的完整快照。
 
 #### 获取所有服务信息
+
 ```bash
 GET http://localhost:8080/admin/nacos/services
 ```
 
 #### 获取指定服务详情
+
 ```bash
 GET http://localhost:8080/admin/nacos/services/{serviceName}
 # 例如：GET http://localhost:8080/admin/nacos/services/user-service
 ```
 
 #### 获取所有配置信息
+
 ```bash
 GET http://localhost:8080/admin/nacos/configs
 ```
 
 #### 获取指定配置详情
+
 ```bash
 GET http://localhost:8080/admin/nacos/configs/{group}/{dataId}
 # 例如：GET http://localhost:8080/admin/nacos/configs/DEFAULT_GROUP/user-service.properties
 ```
 
 #### 健康检查
+
 ```bash
 GET http://localhost:8080/admin/nacos/health
 ```
@@ -152,8 +159,9 @@ Authorization: Bearer <your-jwt-token>
 ```
 
 **白名单接口**（无需认证）：
+
 - `/api/user/login`
-- `/api/user/register` 
+- `/api/user/register`
 - `/api/user/list`
 - `/api/order/list`
 - `/admin/nacos/**` (AI专用接口)

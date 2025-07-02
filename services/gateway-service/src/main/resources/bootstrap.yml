@@ -18,10 +18,16 @@ spring:
           - data-id: common-config.yml
             group: COMMON_GROUP
             refresh: true
+          - data-id: common-database.yml
+            group: COMMON_GROUP
+            refresh: true
         extension-configs: # 扩展配置
+          - data-id: gateway-service-dev.yml
+            group: GATEWAY_GROUP
+            refresh: true  # 网关主配置
           - data-id: gateway-routes.yml
             group: GATEWAY_GROUP
-            refresh: true  # 支持动态刷新
+            refresh: true  # 路由配置
     # 添加负载均衡配置
     loadbalancer:
       ribbon:
