@@ -7,7 +7,10 @@ import com.cloudDemo.api.service.UserService;
 import com.cloudDemo.orderservice.entity.Orders;
 import com.cloudDemo.orderservice.mapper.OrdersMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

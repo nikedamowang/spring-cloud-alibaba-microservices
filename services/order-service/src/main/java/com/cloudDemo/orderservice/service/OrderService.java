@@ -69,8 +69,8 @@ public class OrderService {
 
         // 查询用户的订单
         List<Orders> orders = ordersMapper.selectList(
-            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<Orders>()
-                .eq("user_id", userId)
+                new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<Orders>()
+                        .eq("user_id", userId)
         );
 
         return "用户：" + user.getUsername() + "（" + user.getEmail() + "）共有 " + orders.size() + " 个订单";

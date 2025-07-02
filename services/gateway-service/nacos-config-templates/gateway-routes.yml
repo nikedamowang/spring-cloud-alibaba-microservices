@@ -1,0 +1,50 @@
+# Nacos配置中心 - 路由专用配置（支持动态刷新）
+# Data ID: gateway-routes.yml
+# Group: GATEWAY_GROUP
+# 命名空间: public
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        # 用户服务路由
+        - id: user-service-route
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1  # 修改为1，/api/user/list -> /user/list
+            - AddRequestHeader=X-Gateway-Source, cloudDemo-gateway
+            - AddResponseHeader=X-Response-Gateway, gateway-service
+
+        # 订单服务路由
+        - id: order-service-route
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - StripPrefix=1  # 修改为1，/api/order/list -> /order/list
+            - AddRequestHeader=X-Gateway-Source, cloudDemo-gateway
+
+        # 测试服务路由
+        - id: test-service-route
+          uri: lb://test-service
+          predicates:
+            - Path=/api/test/**
+          filters:
+            - StripPrefix=2
+
+        # 健康检查路由
+        - id: health-check-route
+          uri: lb://user-service
+          predicates:
+            - Path=/health/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Health-Check, true
+
+# 动态路由开关
+gateway:
+  dynamic-routes:
+    enabled: true
+    refresh-interval: 30s

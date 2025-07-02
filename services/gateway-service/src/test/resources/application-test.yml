@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: gateway-service-test
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+
+# 测试环境日志配置
+logging:
+  level:
+    root: INFO
+    com.cloudDemo.gateway: DEBUG

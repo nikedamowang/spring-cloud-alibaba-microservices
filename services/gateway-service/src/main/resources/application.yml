@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+# 本地保留最基本的配置，其他配置从Nacos获取
+spring:
+  application:
+    name: gateway-service
+
+# 启用actuator端点用于调试
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# 本地日志配置（临时调试用）
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    com.cloudDemo.gateway: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
+    org.springframework.cloud.gateway.filter: DEBUG
+    org.springframework.cloud.gateway.route: DEBUG
+
+# 移除本地路由配置，全部使用Nacos动态配置
