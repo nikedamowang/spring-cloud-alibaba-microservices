@@ -18,6 +18,7 @@ com\cloudDemo\gateway\filter\RateLimitFilter.class
 com\cloudDemo\gateway\config\CircuitBreakerConfig.class
 com\cloudDemo\gateway\controller\NacosInfoController$2.class
 com\cloudDemo\gateway\controller\FallbackController.class
+com\cloudDemo\gateway\config\WebFluxConfig.class
 com\cloudDemo\gateway\controller\GatewayController.class
 com\cloudDemo\gateway\filter\CustomHeaderGatewayFilterFactory.class
 com\cloudDemo\gateway\controller\NacosInfoController$4.class

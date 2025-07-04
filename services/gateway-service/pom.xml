@@ -44,11 +44,27 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Common API - 包含JWT工具类 -->
+        <!-- Common API - 包含JWT工具类，排除Web MVC依赖 -->
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>common-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Spring WebFlux - Gateway需要的WebFlux支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
         <!-- Spring Data Redis Reactive - 支持WebFlux环境下的Redis操作 -->

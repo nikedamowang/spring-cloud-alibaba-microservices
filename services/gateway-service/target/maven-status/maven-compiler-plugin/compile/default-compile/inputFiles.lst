@@ -3,6 +3,7 @@ D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\LoadBalancerConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\NacosServiceConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\RedisConfig.java
+D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\WebFluxConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\controller\AuthController.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\controller\FallbackController.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\controller\GatewayController.java
