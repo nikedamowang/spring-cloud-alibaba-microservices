@@ -1,6 +1,8 @@
 package com.cloudDemo.gateway.filter;
 
+import com.cloudDemo.gateway.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -16,18 +18,22 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 认证过滤器
+ * 认证过滤器 - 集成JWT和Redis的完整认证方案
  */
 @Slf4j
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {
+
+    @Autowired
+    private AuthService authService;
 
     // 不需要认证的路径
     private static final List<String> SKIP_AUTH_PATHS = Arrays.asList(
             "/api/user/login",
             "/api/user/register",
             "/api/user/list",  // 用户列表接口
-            "/api/order/list", // 添加订单列表接口到白名单
+            "/api/order/list", // 订单列表接口
+            "/redis/ping",     // Redis测试接口
             "/actuator",
             "/favicon.ico"
     );
@@ -37,8 +43,11 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
 
+        log.debug("Processing request: {} {}", request.getMethod(), path);
+
         // 检查是否需要跳过认证
         if (shouldSkipAuth(path)) {
+            log.debug("Skipping auth for path: {}", path);
             return chain.filter(exchange);
         }
 
@@ -47,18 +56,30 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
         if (!StringUtils.hasText(token)) {
             log.warn("Access denied: No token provided for path: {}", path);
-            return unauthorized(exchange);
+            return unauthorized(exchange, "Missing authentication token");
         }
 
-        // 这里可以添加JWT token验证逻辑
-        // 现在简单验证token是否存在
-        if (!isValidToken(token)) {
-            log.warn("Access denied: Invalid token for path: {}", path);
-            return unauthorized(exchange);
-        }
+        // 使用AuthService验证JWT token
+        return authService.validateToken(token)
+                .flatMap(userInfo -> {
+                    log.debug("Authentication successful for user: {} accessing path: {}",
+                             userInfo.getUserId(), path);
 
-        // 验证通过，继续执行
-        return chain.filter(exchange);
+                    // 将用户信息添加到请求头中，供下游服务使用
+                    ServerHttpRequest modifiedRequest = request.mutate()
+                            .header("X-User-Id", userInfo.getUserId())
+                            .header("X-Username", userInfo.getUsername())
+                            .header("X-User-Roles", userInfo.getRoles())
+                            .build();
+
+                    return chain.filter(exchange.mutate().request(modifiedRequest).build());
+                })
+                .switchIfEmpty(
+                    Mono.defer(() -> {
+                        log.warn("Access denied: Invalid or expired token for path: {}", path);
+                        return unauthorized(exchange, "Invalid or expired token");
+                    })
+                );
     }
 
     private boolean shouldSkipAuth(String path) {
@@ -66,29 +87,28 @@ public class AuthFilter implements GlobalFilter, Ordered {
     }
 
     private String getToken(ServerHttpRequest request) {
+        // 优先从Authorization header获取
         String authHeader = request.getHeaders().getFirst("Authorization");
         if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
 
-        // 也可以从query参数获取token
+        // 备选方案：从query参数获取token
         return request.getQueryParams().getFirst("token");
     }
 
-    private boolean isValidToken(String token) {
-        // TODO: 实现真正的JWT token验证逻辑
-        // 这里仅做示例，实际应该验证JWT签名、过期时间等
-        return StringUtils.hasText(token) && token.length() > 10;
-    }
-
-    private Mono<Void> unauthorized(ServerWebExchange exchange) {
+    private Mono<Void> unauthorized(ServerWebExchange exchange, String message) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
+
+        // 添加错误信息到响应头
+        response.getHeaders().add("X-Auth-Error", message);
+
         return response.setComplete();
     }
 
     @Override
     public int getOrder() {
-        return 0; // 在日志过滤器之后执行
+        return 1; // 在日志过滤器之后执行
     }
 }

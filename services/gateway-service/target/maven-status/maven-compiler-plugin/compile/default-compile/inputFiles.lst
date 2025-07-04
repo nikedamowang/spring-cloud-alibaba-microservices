@@ -2,6 +2,8 @@ D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\GatewayConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\LoadBalancerConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\NacosServiceConfig.java
+D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\RedisConfig.java
+D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\controller\AuthController.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\controller\FallbackController.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\controller\GatewayController.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\controller\NacosInfoController.java
@@ -11,3 +13,4 @@ D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\filter\GlobalLogFilter.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\filter\RateLimitFilter.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\GatewayApplication.java
+D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\service\AuthService.java
