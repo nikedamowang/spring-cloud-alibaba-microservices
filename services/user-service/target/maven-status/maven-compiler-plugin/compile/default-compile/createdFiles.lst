@@ -1,0 +1,5 @@
+com\cloudDemo\userservice\entity\User.class
+com\cloudDemo\userservice\mapper\UserMapper.class
+com\cloudDemo\userservice\controller\UserController.class
+com\cloudDemo\userservice\UserServiceApplication.class
+com\cloudDemo\userservice\service\impl\UserServiceImpl.class

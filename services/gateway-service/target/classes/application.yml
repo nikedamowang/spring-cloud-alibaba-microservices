@@ -1,0 +1,9 @@
+# 本地保留最基本的配置，其他配置从Nacos获取
+spring:
+  application:
+    name: gateway-service
+
+# 本地仅保留最基础的日志配置，详细配置在Nacos中
+logging:
+  level:
+    root: INFO
