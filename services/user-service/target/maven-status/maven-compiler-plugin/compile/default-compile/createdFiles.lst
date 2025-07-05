@@ -1,14 +1,6 @@
-com\cloudDemo\userservice\service\UserService.class
+com\cloudDemo\userservice\service\AuthService.class
 com\cloudDemo\userservice\config\RedisConfig.class
 com\cloudDemo\userservice\controller\UserController.class
-com\cloudDemo\userservice\service\UserService$LoginResult.class
 com\cloudDemo\userservice\UserServiceApplication.class
-com\cloudDemo\userservice\service\AuthService$UserSession.class
 com\cloudDemo\userservice\entity\User.class
-com\cloudDemo\userservice\service\AuthService$UserSession$UserSessionBuilder.class
-com\cloudDemo\userservice\service\AuthService.class
-com\cloudDemo\userservice\service\UserService$RegisterResult$RegisterResultBuilder.class
-com\cloudDemo\userservice\service\UserService$LoginResult$LoginResultBuilder.class
 com\cloudDemo\userservice\mapper\UserMapper.class
-com\cloudDemo\userservice\service\impl\UserServiceImpl.class
-com\cloudDemo\userservice\service\UserService$RegisterResult.class

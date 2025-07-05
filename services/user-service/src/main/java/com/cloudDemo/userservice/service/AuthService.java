@@ -1,10 +1,17 @@
 package com.cloudDemo.userservice.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cloudDemo.api.dto.AuthRequest;
+import com.cloudDemo.api.dto.AuthResponse;
+import com.cloudDemo.api.dto.Result;
 import com.cloudDemo.api.util.JwtUtil;
+import com.cloudDemo.userservice.entity.User;
+import com.cloudDemo.userservice.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,168 +22,252 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class AuthService {
 
-    private static final String LOGIN_TOKEN_PREFIX = "user:token:";
-    private static final String USER_SESSION_PREFIX = "user:session:";
-    private static final long TOKEN_EXPIRE_TIME = 24; // 24小时
+    private static final String TOKEN_PREFIX = "user:token:";
+    private static final String REFRESH_TOKEN_PREFIX = "user:refresh:";
+    private static final String USER_INFO_PREFIX = "user:info:";
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
     /**
-     * 生成并缓存用户Token
+     * 用户登录
      */
-    public String generateUserToken(Integer userId, String username, String roles) {
+    public Result<AuthResponse> login(AuthRequest request) {
         try {
-            // 生成JWT Token
-            String token = JwtUtil.generateToken(userId.toString());
-
-            // 将Token缓存到Redis，用于快速验证和注销
-            String tokenKey = LOGIN_TOKEN_PREFIX + token;
-            String sessionKey = USER_SESSION_PREFIX + userId;
-
-            // 创建用户会话信息
-            UserSession userSession = UserSession.builder()
-                    .userId(userId)
-                    .username(username)
-                    .roles(roles)
-                    .token(token)
-                    .loginTime(System.currentTimeMillis())
-                    .build();
-
-            // 缓存Token -> UserSession映射
-            redisTemplate.opsForValue().set(tokenKey, userSession, TOKEN_EXPIRE_TIME, TimeUnit.HOURS);
-
-            // 缓存UserId -> Token映射（用于单点登录控制）
-            redisTemplate.opsForValue().set(sessionKey, token, TOKEN_EXPIRE_TIME, TimeUnit.HOURS);
-
-            log.info("Generated token for user: {} (ID: {})", username, userId);
-            return token;
-
-        } catch (Exception e) {
-            log.error("Failed to generate token for user: {} (ID: {})", username, userId, e);
-            throw new RuntimeException("Token generation failed", e);
-        }
-    }
-
-    /**
-     * 验证Token有效性
-     */
-    public UserSession validateToken(String token) {
-        try {
-            String tokenKey = LOGIN_TOKEN_PREFIX + token;
-            UserSession userSession = (UserSession) redisTemplate.opsForValue().get(tokenKey);
-
-            if (userSession == null) {
-                log.warn("Token not found in cache: {}", token.substring(0, 10) + "...");
-                return null;
+            // 参数验证
+            if (!StringUtils.hasText(request.getUsername()) || !StringUtils.hasText(request.getPassword())) {
+                return Result.error("用户名和密码不能为空");
             }
 
-            // 验证JWT Token
-            if (JwtUtil.isTokenExpired(token)) {
-                log.warn("Token expired for user: {}", userSession.getUsername());
-                // 清除过期的缓存
-                redisTemplate.delete(tokenKey);
-                redisTemplate.delete(USER_SESSION_PREFIX + userSession.getUserId());
-                return null;
+            // 查询用户
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", request.getUsername());
+            User user = userMapper.selectOne(queryWrapper);
+
+            if (user == null) {
+                return Result.error("用户不存在");
             }
 
-            return userSession;
+            // 验证密码（直接使用明文密码比较）
+            if (!request.getPassword().equals(user.getPassword())) {
+                return Result.error("密码错误");
+            }
+
+            // 检查用户状态 - 修复：status现在是String类型
+            if (!"active".equals(user.getStatus())) {
+                return Result.error("用户已被禁用");
+            }
+
+            // 生成token - 修复：id现在是Integer类型
+            String token = JwtUtil.generateToken(String.valueOf(user.getId()), user.getUsername());
+            String refreshToken = JwtUtil.generateRefreshToken(String.valueOf(user.getId()));
+
+            // 将token存储到Redis中，设置过期时间
+            redisTemplate.opsForValue().set(TOKEN_PREFIX + user.getId(), token, 24, TimeUnit.HOURS);
+            redisTemplate.opsForValue().set(REFRESH_TOKEN_PREFIX + user.getId(), refreshToken, 7, TimeUnit.DAYS);
+
+            // 缓存用户信息到Redis
+            redisTemplate.opsForValue().set(USER_INFO_PREFIX + user.getId(), user, 24, TimeUnit.HOURS);
+
+            // 构建响应
+            AuthResponse response = new AuthResponse(
+                    token,
+                    refreshToken,
+                    user.getId().longValue(), // 修复：将Integer转换为Long
+                    user.getUsername(),
+                    JwtUtil.getExpirationTime()
+            );
+
+            log.info("用户登录成功: {}", user.getUsername());
+            return Result.success(response);
 
         } catch (Exception e) {
-            log.error("Token validation failed: {}", e.getMessage());
-            return null;
+            log.error("用户登录失败", e);
+            return Result.error("登录失败：" + e.getMessage());
         }
     }
 
     /**
      * 用户注销
      */
-    public boolean logout(String token) {
+    public Result<String> logout(String token) {
         try {
-            String tokenKey = LOGIN_TOKEN_PREFIX + token;
-            UserSession userSession = (UserSession) redisTemplate.opsForValue().get(tokenKey);
-
-            if (userSession != null) {
-                // 删除Token缓存
-                redisTemplate.delete(tokenKey);
-                // 删除用户会话缓存
-                redisTemplate.delete(USER_SESSION_PREFIX + userSession.getUserId());
-
-                log.info("User logged out: {} (ID: {})", userSession.getUsername(), userSession.getUserId());
-                return true;
+            if (!StringUtils.hasText(token)) {
+                return Result.error("Token不能为空");
             }
 
-            return false;
-
-        } catch (Exception e) {
-            log.error("Logout failed for token: {}", token.substring(0, 10) + "...", e);
-            return false;
-        }
-    }
-
-    /**
-     * 用户注销（通过用户ID）
-     */
-    public boolean logoutByUserId(Integer userId) {
-        try {
-            String sessionKey = USER_SESSION_PREFIX + userId;
-            String token = (String) redisTemplate.opsForValue().get(sessionKey);
-
-            if (token != null) {
-                // 删除Token缓存
-                redisTemplate.delete(LOGIN_TOKEN_PREFIX + token);
-                // 删除用户会话缓存
-                redisTemplate.delete(sessionKey);
-
-                log.info("User logged out by userId: {}", userId);
-                return true;
+            // 解析token获取用户ID
+            String userId = JwtUtil.getUserIdFromToken(token);
+            if (userId == null) {
+                return Result.error("无效的Token");
             }
 
-            return false;
+            // 从Redis中删除token和用户信息
+            redisTemplate.delete(TOKEN_PREFIX + userId);
+            redisTemplate.delete(REFRESH_TOKEN_PREFIX + userId);
+            redisTemplate.delete(USER_INFO_PREFIX + userId);
+
+            log.info("用户注销成功: userId={}", userId);
+            return Result.success("注销成功");
 
         } catch (Exception e) {
-            log.error("Logout by userId failed: {}", userId, e);
-            return false;
+            log.error("用户注销失败", e);
+            return Result.error("注销失败：" + e.getMessage());
         }
     }
 
     /**
-     * 刷新Token
+     * 验证token是否有效
      */
-    public String refreshToken(String oldToken) {
-        UserSession userSession = validateToken(oldToken);
-        if (userSession != null) {
-            // 先注销旧Token
-            logout(oldToken);
-            // 生成新Token
-            return generateUserToken(userSession.getUserId(), userSession.getUsername(), userSession.getRoles());
-        }
-        return null;
-    }
-
-    /**
-     * 获取在线用户数量
-     */
-    public long getOnlineUserCount() {
+    public Result<User> validateToken(String token) {
         try {
-            return redisTemplate.keys(USER_SESSION_PREFIX + "*").size();
+            if (!StringUtils.hasText(token)) {
+                return Result.error("Token不能为空");
+            }
+
+            // 验证JWT token
+            if (!JwtUtil.validateToken(token)) {
+                return Result.error("Token无效或已过期");
+            }
+
+            // 获取用户ID
+            String userId = JwtUtil.getUserIdFromToken(token);
+            if (userId == null) {
+                return Result.error("Token中没有用户信息");
+            }
+
+            // 检查Redis中是否存在该token
+            String cachedToken = (String) redisTemplate.opsForValue().get(TOKEN_PREFIX + userId);
+            if (!token.equals(cachedToken)) {
+                return Result.error("Token已失效");
+            }
+
+            // 从Redis获取用户信息
+            User user = (User) redisTemplate.opsForValue().get(USER_INFO_PREFIX + userId);
+            if (user == null) {
+                // 如果Redis中没有，从数据库查询 - 修复：使用Integer.valueOf
+                user = userMapper.selectById(Integer.valueOf(userId));
+                if (user != null) {
+                    // 重新缓存到Redis
+                    redisTemplate.opsForValue().set(USER_INFO_PREFIX + userId, user, 24, TimeUnit.HOURS);
+                }
+            }
+
+            if (user == null) {
+                return Result.error("用户不存在");
+            }
+
+            return Result.success(user);
+
         } catch (Exception e) {
-            log.error("Failed to get online user count", e);
-            return 0;
+            log.error("Token验证失败", e);
+            return Result.error("Token验证失败：" + e.getMessage());
         }
     }
 
     /**
-     * 用户会话信息
+     * 刷新token
      */
-    @lombok.Data
-    @lombok.Builder
-    @lombok.NoArgsConstructor
-    @lombok.AllArgsConstructor
-    public static class UserSession {
-        private Integer userId;
-        private String username;
-        private String roles;
-        private String token;
-        private Long loginTime;
+    public Result<AuthResponse> refreshToken(String refreshToken) {
+        try {
+            if (!StringUtils.hasText(refreshToken)) {
+                return Result.error("RefreshToken不能为空");
+            }
+
+            // 验证refresh token
+            if (!JwtUtil.validateToken(refreshToken)) {
+                return Result.error("RefreshToken无效或已过期");
+            }
+
+            String userId = JwtUtil.getUserIdFromToken(refreshToken);
+            if (userId == null) {
+                return Result.error("RefreshToken中没有用户信息");
+            }
+
+            // 检查Redis中的refresh token
+            String cachedRefreshToken = (String) redisTemplate.opsForValue().get(REFRESH_TOKEN_PREFIX + userId);
+            if (!refreshToken.equals(cachedRefreshToken)) {
+                return Result.error("RefreshToken已失效");
+            }
+
+            // 获取用户信息 - 修复：使用Integer.valueOf
+            User user = userMapper.selectById(Integer.valueOf(userId));
+            if (user == null) {
+                return Result.error("用户不存在");
+            }
+
+            // 生成新的token
+            String newToken = JwtUtil.generateToken(userId, user.getUsername());
+            String newRefreshToken = JwtUtil.generateRefreshToken(userId);
+
+            // 更新Redis中的token
+            redisTemplate.opsForValue().set(TOKEN_PREFIX + userId, newToken, 24, TimeUnit.HOURS);
+            redisTemplate.opsForValue().set(REFRESH_TOKEN_PREFIX + userId, newRefreshToken, 7, TimeUnit.DAYS);
+
+            AuthResponse response = new AuthResponse(
+                    newToken,
+                    newRefreshToken,
+                    user.getId().longValue(), // 修复：将Integer转换为Long
+                    user.getUsername(),
+                    JwtUtil.getExpirationTime()
+            );
+
+            return Result.success(response);
+
+        } catch (Exception e) {
+            log.error("刷新Token失败", e);
+            return Result.error("刷新Token失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 用户注册
+     */
+    public Result<String> register(AuthRequest request) {
+        try {
+            // 参数验证
+            if (!StringUtils.hasText(request.getUsername()) || !StringUtils.hasText(request.getPassword())) {
+                return Result.error("用户名和密码不能为空");
+            }
+
+            if (request.getUsername().length() < 3 || request.getUsername().length() > 20) {
+                return Result.error("用户名长度必须在3-20个字符之间");
+            }
+
+            if (request.getPassword().length() < 6) {
+                return Result.error("密码长度不能少于6个字符");
+            }
+
+            // 检查用户名是否已存在
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", request.getUsername());
+            User existingUser = userMapper.selectOne(queryWrapper);
+
+            if (existingUser != null) {
+                return Result.error("用户名已存在");
+            }
+
+            // 创建新用户
+            User user = new User();
+            user.setUsername(request.getUsername());
+            user.setPassword(request.getPassword()); // 直接存储明文密码
+            user.setStatus("active"); // 修复：使用String类型，默认为active状态
+            user.setCreateTime(java.time.LocalDateTime.now());
+            user.setUpdateTime(java.time.LocalDateTime.now());
+
+            // 保存到数据库
+            int result = userMapper.insert(user);
+            if (result > 0) {
+                log.info("用户注册成功: {}", user.getUsername());
+                return Result.success("注册成功");
+            } else {
+                return Result.error("注册失败");
+            }
+
+        } catch (Exception e) {
+            log.error("用户注册失败", e);
+            return Result.error("注册失败：" + e.getMessage());
+        }
     }
 }
