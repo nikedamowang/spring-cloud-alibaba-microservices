@@ -3,7 +3,6 @@ package com.cloudDemo.management.controller;
 import com.cloudDemo.management.dto.NacosConfigInfo;
 import com.cloudDemo.management.dto.NacosServiceInstance;
 import com.cloudDemo.management.service.NacosManagementService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +21,11 @@ import java.util.Map;
 @RequestMapping("/api/nacos")
 public class NacosController {
 
-    @Autowired
-    private NacosManagementService nacosManagementService;
+    private final NacosManagementService nacosManagementService;
+
+    public NacosController(NacosManagementService nacosManagementService) {
+        this.nacosManagementService = nacosManagementService;
+    }
 
     /**
      * 获取指定配置信息
@@ -200,7 +202,7 @@ public class NacosController {
 
     /**
      * 获取 Nacos 服务器状态
-     * AI 可以调用此接口检查 Nacos 服务器的运行状态
+     * AI 可以调用此接口检查 Nacos 服务器的运��状态
      */
     @GetMapping("/server/status")
     public ResponseEntity<Map<String, Object>> getServerStatus() {

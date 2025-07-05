@@ -7,7 +7,6 @@ import com.cloudDemo.api.dto.Result;
 import com.cloudDemo.userservice.entity.User;
 import com.cloudDemo.userservice.mapper.UserMapper;
 import com.cloudDemo.userservice.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +15,11 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserMapper userMapper;
+    private final AuthService authService;
 
-    @Autowired
-    private AuthService authService;
-
-    public UserController(UserMapper userMapper) {
+    public UserController(UserMapper userMapper, AuthService authService) {
         this.userMapper = userMapper;
+        this.authService = authService;
     }
 
     @GetMapping("/list")

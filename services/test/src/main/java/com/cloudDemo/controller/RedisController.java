@@ -1,7 +1,6 @@
 package com.cloudDemo.controller;
 
 import com.cloudDemo.service.RedisService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -12,8 +11,11 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/redis")
 public class RedisController {
 
-    @Autowired
-    private RedisService redisService;
+    private final RedisService redisService;
+
+    public RedisController(RedisService redisService) {
+        this.redisService = redisService;
+    }
 
     /**
      * 设置键值对
@@ -29,7 +31,7 @@ public class RedisController {
             result.put("value", value);
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "设置失败: " + e.getMessage());
+            result.put("message", "���置失败: " + e.getMessage());
         }
         return result;
     }
