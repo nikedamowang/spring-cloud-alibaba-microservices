@@ -17,7 +17,6 @@
         <module>user-service</module>
         <module>test</module>
         <module>order-service</module>
-        <module>gateway-service</module>
     </modules>
 
     <properties>
