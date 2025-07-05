@@ -1,77 +1,76 @@
 package com.cloudDemo.orderservice.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cloudDemo.api.dto.Result;
-import com.cloudDemo.api.dto.UserDTO;
-import com.cloudDemo.api.service.UserService;
 import com.cloudDemo.orderservice.entity.Orders;
-import com.cloudDemo.orderservice.mapper.OrdersMapper;
-import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.cloudDemo.orderservice.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrdersController {
-    private final OrdersMapper ordersMapper;
 
-    // 远程引用用户服务
-    @DubboReference(version = "1.0.0")
-    private UserService userService;
+    @Autowired
+    private OrderService orderService;
 
-    public OrdersController(OrdersMapper ordersMapper) {
-        this.ordersMapper = ordersMapper;
-    }
-
-    @GetMapping("/list")
-    public List<Orders> list() {
-        QueryWrapper<Orders> wrapper = new QueryWrapper<>();
-        wrapper.last("limit 100");
-        return ordersMapper.selectList(wrapper);
+    /**
+     * 创建订单 - 简化版，不依赖数据库
+     */
+    @PostMapping("/create")
+    public Map<String, Object> createOrder(@RequestParam Long userId,
+                                           @RequestParam String productName,
+                                           @RequestParam BigDecimal amount) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        result.put("message", "订单创建成功");
+        result.put("orderId", "ORDER-" + System.currentTimeMillis());
+        result.put("userId", userId);
+        result.put("productName", productName);
+        result.put("amount", amount);
+        result.put("createTime", LocalDateTime.now());
+        return result;
     }
 
     /**
-     * 获取用户订单信息 - 演示远程调用用户服务
-     * 示例：GET /order/user/1
+     * 根据用户ID查询订单 - 简化版
      */
     @GetMapping("/user/{userId}")
-    public Result<String> getUserOrderInfo(@PathVariable Long userId) {
-        try {
-            // 远程调用用户服务获取用户信息
-            UserDTO user = userService.getUserById(userId);
-            if (user == null) {
-                return Result.error("用户不存在");
-            }
-
-            // 查询用户的订单
-            QueryWrapper<Orders> wrapper = new QueryWrapper<>();
-            wrapper.eq("user_id", userId);
-            List<Orders> orders = ordersMapper.selectList(wrapper);
-
-            String result = "用户：" + user.getUsername() + "（" + user.getEmail() + "）共有 " + orders.size() + " 个订单";
-            return Result.success(result);
-        } catch (Exception e) {
-            return Result.error("获取用户订单信息失败：" + e.getMessage());
-        }
+    public Map<String, Object> getOrdersByUserId(@PathVariable Long userId) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("userId", userId);
+        result.put("orders", "用户 " + userId + " 的订单列表（演示数据）");
+        result.put("count", 0);
+        return result;
     }
 
     /**
-     * 验证用户是否存在 - 演示远程调用用户服务
-     * 示例：GET /order/check-user/1
+     * 健康检查
      */
-    @GetMapping("/check-user/{userId}")
-    public Result<String> checkUser(@PathVariable Long userId) {
-        try {
-            // 远程调用用户服务检查用户是否存在
-            boolean exists = userService.userExists(userId);
-            String message = exists ? "用户存在" : "用户不存在";
-            return Result.success(message);
-        } catch (Exception e) {
-            return Result.error("检查用户失败：" + e.getMessage());
-        }
+    @GetMapping("/health")
+    public Map<String, Object> health() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", "UP");
+        result.put("service", "order-service");
+        result.put("timestamp", LocalDateTime.now());
+        return result;
+    }
+
+    /**
+     * 获取orders表的所有数据，最多100条
+     */
+    @GetMapping("/all")
+    public Map<String, Object> getAllOrders() {
+        List<Orders> orders = orderService.getAllOrders();
+        Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        result.put("message", "查询成功");
+        result.put("total", orders.size());
+        result.put("data", orders);
+        return result;
     }
 }

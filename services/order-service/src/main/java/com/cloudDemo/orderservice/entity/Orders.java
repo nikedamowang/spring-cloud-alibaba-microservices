@@ -1,5 +1,6 @@
 package com.cloudDemo.orderservice.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName("orders")
 public class Orders {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     @TableField("order_no")
@@ -29,7 +30,6 @@ public class Orders {
     @TableField("payment_type")
     private String paymentType;
 
-    @TableField("status")
     private String status;
 
     @TableField("shipping_address")
