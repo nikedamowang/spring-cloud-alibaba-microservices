@@ -10,6 +10,7 @@
         <module name="common-api" />
         <module name="user-service" />
         <module name="order-service" />
+        <module name="management-service" />
         <module name="test" />
       </profile>
     </annotationProcessing>
@@ -22,6 +23,7 @@
       <module name="cloudDemo" options="" />
       <module name="common-api" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="management-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
       <module name="test" options="-parameters" />
       <module name="user-service" options="-parameters" />

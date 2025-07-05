@@ -1,0 +1,7 @@
+com\cloudDemo\management\controller\NacosController.class
+com\cloudDemo\management\dto\NacosServiceInstance.class
+com\cloudDemo\management\service\impl\NacosManagementServiceImpl.class
+com\cloudDemo\management\ManagementServiceApplication.class
+com\cloudDemo\management\config\NacosConfig.class
+com\cloudDemo\management\service\NacosManagementService.class
+com\cloudDemo\management\dto\NacosConfigInfo.class

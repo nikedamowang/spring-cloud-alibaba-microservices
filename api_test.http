@@ -1,0 +1,37 @@
+### Test Nacos Controller APIs
+
+### 1. Get all configs
+GET http://localhost:9090/api/nacos/configs
+Content-Type: application/json
+
+###
+
+### 2. Get specific config
+GET http://localhost:9090/api/nacos/config?dataId=user-service.properties&group=DEFAULT_GROUP
+Content-Type: application/json
+
+###
+
+### 3. Search configs
+GET http://localhost:9090/api/nacos/configs/search?keyword=user
+Content-Type: application/json
+
+###
+
+### 4. Get all services
+GET http://localhost:9090/api/nacos/services
+Content-Type: application/json
+
+###
+
+### 5. Get service instances
+GET http://localhost:9090/api/nacos/service/instances?serviceName=user-service
+Content-Type: application/json
+
+###
+
+### 6. Compare config with template
+GET http://localhost:9090/api/nacos/config/compare?dataId=user-service.properties&group=DEFAULT_GROUP
+Content-Type: application/json
+
+###
