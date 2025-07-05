@@ -2,22 +2,26 @@
 
 ## 概述
 
-`management-service` 是专门为 AI 调用设计的 Nacos 配置和服务管理模块。它提供只读的 REST API 接口，用于获取 Nacos 上的配置信息和服务状态，同时支持本地配置模板管理。
+`management-service` 是专门为 AI 调用设计的 Nacos 配置和服务管理模块。它提供只读的 REST API 接口，用于获取 Nacos
+上的配置信息和服务状态，同时支持本地配置模板管理。
 
 ## 主要功能
 
 ### 1. 配置管理
+
 - 获取指定配置信息
 - 获取所有配置列表
 - 搜索配置内容
 - 比较 Nacos 配置与本地模板的差异
 
 ### 2. 服务管理
+
 - 获取服务实例信息
 - 获取所有注册服务列表
 - 检查服务健康状态
 
 ### 3. 系统监控
+
 - 检查 Nacos 服务器状态
 - 提供 API 使用说明
 
@@ -26,21 +30,25 @@
 ### 配置相关接口
 
 #### 获取指定配置
+
 ```
 GET /api/nacos/config?dataId={dataId}&group={group}&namespace={namespace}
 ```
 
 #### 获取所有配置
+
 ```
 GET /api/nacos/configs?namespace={namespace}
 ```
 
 #### 搜索配置
+
 ```
 GET /api/nacos/configs/search?keyword={keyword}&namespace={namespace}
 ```
 
 #### 比较配置与模板
+
 ```
 GET /api/nacos/config/compare?dataId={dataId}&group={group}&namespace={namespace}
 ```
@@ -48,16 +56,19 @@ GET /api/nacos/config/compare?dataId={dataId}&group={group}&namespace={namespace
 ### 服务相关接口
 
 #### 获取服务实例
+
 ```
 GET /api/nacos/service/instances?serviceName={serviceName}&groupName={groupName}&namespace={namespace}
 ```
 
 #### 获取所有服务
+
 ```
 GET /api/nacos/services?namespace={namespace}
 ```
 
 #### 获取服务健康状态
+
 ```
 GET /api/nacos/service/health?serviceName={serviceName}&namespace={namespace}
 ```
@@ -65,11 +76,13 @@ GET /api/nacos/service/health?serviceName={serviceName}&namespace={namespace}
 ### 系统相关接口
 
 #### 获取 Nacos 服务器状态
+
 ```
 GET /api/nacos/server/status
 ```
 
 #### 获取 API 帮助
+
 ```
 GET /api/nacos/help
 ```
@@ -81,13 +94,11 @@ GET /api/nacos/help
 ```properties
 # 服务端口
 server.port=9090
-
 # Nacos 连接配置
 nacos.server-addr=localhost:8848
 nacos.namespace=
 nacos.username=nacos
 nacos.password=nacos
-
 # 配置模板路径
 nacos.config.template-path=./config-templates
 ```
@@ -109,16 +120,19 @@ nacos.config.template-path=./config-templates
 ## AI 调用示例
 
 ### 获取用户服务配置
+
 ```bash
 curl "http://localhost:9090/api/nacos/config?dataId=user-service.properties&group=DEFAULT_GROUP"
 ```
 
 ### 检查服务健康状态
+
 ```bash
 curl "http://localhost:9090/api/nacos/service/health?serviceName=user-service"
 ```
 
 ### 搜索配置
+
 ```bash
 curl "http://localhost:9090/api/nacos/configs/search?keyword=database"
 ```

@@ -19,7 +19,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -72,11 +75,11 @@ public class NacosManagementServiceImpl implements NacosManagementService {
 
             // ���见的配置文件列表
             String[] commonConfigs = {
-                "application.properties",
-                "user-service.properties",
-                "order-service.properties",
-                "dubbo.properties",
-                "redis.properties"
+                    "application.properties",
+                    "user-service.properties",
+                    "order-service.properties",
+                    "dubbo.properties",
+                    "redis.properties"
             };
 
             for (String dataId : commonConfigs) {
@@ -108,7 +111,7 @@ public class NacosManagementServiceImpl implements NacosManagementService {
 
         return allConfigs.stream()
                 .filter(config -> config.getDataId().contains(keyword) ||
-                               config.getContent().contains(keyword))
+                        config.getContent().contains(keyword))
                 .collect(Collectors.toList());
     }
 

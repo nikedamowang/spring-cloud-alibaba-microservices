@@ -26,7 +26,8 @@ public class NacosServiceInstance {
     private LocalDateTime lastBeat;
 
     // 构造方法
-    public NacosServiceInstance() {}
+    public NacosServiceInstance() {
+    }
 
     // Getter 和 Setter 方法
     public String getServiceName() {

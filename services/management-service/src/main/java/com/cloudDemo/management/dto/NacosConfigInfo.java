@@ -22,7 +22,8 @@ public class NacosConfigInfo {
     private String description;
 
     // 构造方法
-    public NacosConfigInfo() {}
+    public NacosConfigInfo() {
+    }
 
     public NacosConfigInfo(String dataId, String group, String namespace) {
         this.dataId = dataId;

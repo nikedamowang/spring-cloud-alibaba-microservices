@@ -15,8 +15,8 @@ public interface NacosManagementService {
     /**
      * 获取指定配置的详细信息
      *
-     * @param dataId 配置ID
-     * @param group 配置组
+     * @param dataId    配置ID
+     * @param group     配置组
      * @param namespace 命名空间
      * @return 配置信息
      */
@@ -33,7 +33,7 @@ public interface NacosManagementService {
     /**
      * 搜索配置
      *
-     * @param keyword 关键词
+     * @param keyword   关键词
      * @param namespace 命名空间
      * @return 匹配的配置列表
      */
@@ -43,8 +43,8 @@ public interface NacosManagementService {
      * 获取指定服务的所有实例
      *
      * @param serviceName 服务名
-     * @param groupName 组名
-     * @param namespace 命名空间
+     * @param groupName   组名
+     * @param namespace   命名空间
      * @return 服务实例列表
      */
     List<NacosServiceInstance> getServiceInstances(String serviceName, String groupName, String namespace);
@@ -61,7 +61,7 @@ public interface NacosManagementService {
      * 获取服务健康状态
      *
      * @param serviceName 服务名
-     * @param namespace 命名空间
+     * @param namespace   命名空间
      * @return 健康状态信息
      */
     Map<String, Object> getServiceHealth(String serviceName, String namespace);
@@ -69,8 +69,8 @@ public interface NacosManagementService {
     /**
      * 比较配置与本地模板的差异
      *
-     * @param dataId 配置ID
-     * @param group 配置组
+     * @param dataId    配置ID
+     * @param group     配置组
      * @param namespace 命名空间
      * @return 差异信息
      */
