@@ -1,0 +1,43 @@
+### 测试远程调用功能的API接口
+
+# 1. 测试获取指定用户信息（远程调用）
+GET http://localhost:8000/orders/test/user/1
+Accept: application/json
+
+###
+
+# 2. 测试获取所有用户列表（远程调用）
+GET http://localhost:8000/orders/test/users
+Accept: application/json
+
+###
+
+# 3. 测试创建订单（包含用户验证的远程调用）
+POST http://localhost:8000/orders/create
+Content-Type: application/x-www-form-urlencoded
+
+userId = 1 &
+productName = iPhone 15 &
+amount = 8999.00
+
+###
+
+# 4. 测试根据用户ID查询订单（包含用户信息的远程调用）
+GET http://localhost:8000/orders/user/1
+Accept: application/json
+
+###
+
+# 5. 测试用户不存在的情况
+GET http://localhost:8000/orders/test/user/999
+Accept: application/json
+
+###
+
+# 6. 测试创建订单时用户不存在的情况
+POST http://localhost:8000/orders/create
+Content-Type: application/x-www-form-urlencoded
+
+userId = 999 &
+productName = 测试商品 &
+amount = 100.00
