@@ -1,0 +1,14 @@
+{
+  "data": {
+    "dataId": "management-service.properties",
+    "group": "DEFAULT_GROUP",
+    "namespace": "",
+    "content": "# 管理服务配置\r\n# DataID: management-service.properties\r\n# Group: DEFAULT_GROUP\r\n# 说明: 管理服务的完整配置\r\n\r\n# 服务基础配置\r\nspring.application.name=management-service\r\nserver.port=9090\r\n\r\n# 排除数据源配置（管理服务不需要数据库）\r\nspring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration\r\n\r\n# 管理服务特有配置\r\nnacos.config.template-path=./config-templates\r\n\r\n# Redis配置（管理服务用于��置缓存）\r\nspring.redis.host=localhost\r\nspring.redis.port=6379\r\nspring.redis.database=2\r\nspring.redis.lettuce.pool.max-active=50\r\nspring.redis.lettuce.pool.max-wait=-1ms\r\nspring.redis.lettuce.pool.max-idle=5\r\nspring.redis.lettuce.pool.min-idle=0\r\nspring.redis.timeout=2000ms\r\n\r\n# 缓存配置\r\nspring.cache.type=redis\r\nspring.cache.redis.time-to-live=1800000\r\nspring.cache.redis.cache-null-values=false\r\n\r\n# 业务日志配置\r\nlogging.level.com.cloudDemo.management=INFO\r\nlogging.level.org.springframework.web=INFO\r\nlogging.pattern.console=%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n\r\n\r\n# 文件日志配置（生产环境使用）\r\nlogging.file.name=logs/management-service.log\r\nlogging.logback.rollingpolicy.max-file-size=100MB\r\nlogging.logback.rollingpolicy.max-history=30\r\n\r\n# 健康检查配置\r\nmanagement.endpoints.web.exposure.include=health,info,metrics\r\nmanagement.endpoint.health.show-details=when_authorized\r\n",
+    "type": "properties",
+    "md5": "1318804636",
+    "lastModified": "2025-07-06 16:47:54",
+    "description": "从 Nacos 获取的配置信息"
+  },
+  "success": true,
+  "message": "配置获取成功"
+}
