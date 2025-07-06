@@ -1,0 +1,1 @@
+{"data":{"successConfigs":["user-service.properties","order-service.properties"],"failedCount":0,"success":true,"failedConfigs":[],"successCount":2,"totalConfigs":2,"message":"同步完成: 成功 2 个，失败 0 个"},"success":true,"message":"批量同步完成"}
