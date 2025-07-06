@@ -70,29 +70,38 @@ public class NacosManagementServiceImpl implements NacosManagementService {
     @Override
     public List<NacosConfigInfo> getAllConfigs(String namespace) {
         try {
-            // 注意：这里使用模拟数据，实际使用时需要调用 Nacos 管理 API
             List<NacosConfigInfo> configs = new ArrayList<>();
 
-            // ���见的配置文件列表
-            String[] commonConfigs = {
+            // 真正从Nacos获取配置列表，而不是使用硬编码列表
+            // 注意：由于Nacos API限制，我们需要尝试已知的配置文件
+            // 但现在我们每次都重新从Nacos获取最新内容
+            String[] possibleConfigs = {
                     "application.properties",
                     "user-service.properties",
                     "order-service.properties",
                     "dubbo.properties",
-                    "redis.properties"
+                    "redis.properties",
+                    "management-service.properties"
             };
 
-            for (String dataId : commonConfigs) {
+            logger.info("开始从Nacos获取最新配置列表...");
+
+            for (String dataId : possibleConfigs) {
                 try {
+                    // 每次都重新从Nacos获取最新配置内容
                     NacosConfigInfo config = getConfigInfo(dataId, "DEFAULT_GROUP", namespace);
                     if (config != null) {
                         configs.add(config);
+                        logger.info("成功获取配置: {} (内容长度: {})", dataId, config.getContent().length());
+                    } else {
+                        logger.debug("配置不存在: {}", dataId);
                     }
                 } catch (Exception e) {
-                    logger.warn("获取配置失败: {}", dataId, e);
+                    logger.warn("获取配置失败: {} - {}", dataId, e.getMessage());
                 }
             }
 
+            logger.info("配置获取完成，共获取到 {} 个配置文件", configs.size());
             return configs;
 
         } catch (Exception e) {

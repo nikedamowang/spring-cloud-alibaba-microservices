@@ -29,7 +29,7 @@ public class NacosController {
 
     /**
      * 获取指定配置信息
-     * AI 可以调用此接口获取特定配置的详细信息
+     * AI 可以调用此接口获取特定配置的详细信息,尽量使用下面的同步配置文件到本地的接口
      */
     @GetMapping("/config")
     public ResponseEntity<Map<String, Object>> getConfig(

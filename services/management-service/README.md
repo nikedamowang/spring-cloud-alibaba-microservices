@@ -105,11 +105,82 @@ nacos.config.template-path=./config-templates
 
 ### 配置模板管理
 
-在 `config-templates` 目录下维护配置模板文件，命名规则与 Nacos 中的 dataId 保持一致：
+在 `config-templates` 目录下维护从Nacos同步的配置文件，在 `config-templates-modified` 目录下维护待上传到Nacos的配置模板文件，命名规则与 Nacos 中的 dataId 保持一致：
 
-- `application.properties` - 应用基础配置模板
-- `user-service.properties` - 用户服务配置模板
-- `order-service.properties` - 订单服务配置模板
+**config-templates（Nacos同步目录）：**
+- `application.properties` - 从Nacos同步的应用基础配置
+- `user-service.properties` - 从Nacos同步的用户服务配置
+- `order-service.properties` - 从Nacos同步的订单服务配置
+
+**config-templates-modified（上传模板目录）：**
+- `application.properties` - 待上传的应用基础配置模板
+- `user-service.properties` - 待上传的用户服务配置模板
+- `order-service.properties` - 待上传的订单服务配置模板
+- `management-service.properties` - 待上传的管理服务配置模板
+
+## 配置管理最佳实践
+
+### 配置分离原则
+
+**本地配置文件应该只包含：**
+- 应用名称 (`spring.application.name`)
+- Nacos配置中心连接配置
+- Nacos服务发现配置
+- 基础框架日志配置（Spring Boot、Nacos连接相关）
+
+**Nacos配置应该包含：**
+- 所有业务相关配置（数据库、Redis、MQ等）
+- 框架详细配置（MyBatis Plus、Dubbo等）
+- 业务日志配置（具体包的日志级别）
+- 生产环境配置（文件日志、监控等）
+
+### 配置管理流程
+
+1. **获取现有配置**
+   ```bash
+   # 同步Nacos上的配置到本地
+   curl "http://localhost:9090/api/nacos/config/sync-all"
+   ```
+
+2. **配置对比分析**
+   - 比较本地配置文件与Nacos同步的配置文件
+   - 识别缺失的配置项和冗余配置
+
+3. **创建上传模板**
+   - 在 `config-templates-modified` 目录下创建合并后的完整配置
+   - 移除循环引用配置（如 `spring.config.import`）
+   - 移除Nacos连接配置（这些应该只在本地）
+
+4. **上传到Nacos**
+   - 将 `config-templates-modified` 中的配置文件内容复制到Nacos
+   - DataID设置为文件名，Group设置为 `DEFAULT_GROUP`
+
+5. **验证配置**
+   ```bash
+   # 重新同步验证
+   curl "http://localhost:9090/api/nacos/config/sync?dataId=user-service.properties"
+   ```
+
+### 日志配置策略
+
+**本地日志配置（基础框架）：**
+```properties
+logging.level.root=WARN
+logging.level.org.springframework.boot=WARN
+logging.level.com.alibaba.nacos=WARN
+logging.pattern.console=%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+```
+
+**Nacos日志配置（业务详细）：**
+```properties
+logging.level.com.cloudDemo=INFO
+logging.level.com.cloudDemo.userservice=INFO
+logging.level.com.baomidou.mybatisplus=DEBUG
+logging.level.org.apache.dubbo=WARN
+logging.file.name=logs/user-service.log
+logging.logback.rollingpolicy.max-file-size=100MB
+logging.logback.rollingpolicy.max-history=30
+```
 
 ## 启动方式
 
