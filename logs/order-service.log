@@ -1,0 +1,9 @@
+2025-07-06T16:23:42.739+08:00  WARN 39564 --- [order-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[order-service] & group[DEFAULT_GROUP]
+2025-07-06T16:23:42.751+08:00  INFO 39564 --- [order-service] [main] c.c.o.OrdersServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-07-06T16:23:43.263+08:00  WARN 39564 --- [order-service] [main] c.s.b.f.a.ServiceAnnotationPostProcessor :  [DUBBO] No class annotated by Dubbo @DubboService or @Service was found under package [com.cloudDemo.orderservice], ignore re-scanned classes: 0, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-28. This may be caused by No annotations were found on the class, go to https://dubbo.apache.org/faq/5/28 to find instructions. 
+2025-07-06T16:23:43.995+08:00 DEBUG 39564 --- [order-service] [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Property 'mapperLocations' was not specified.
+2025-07-06T16:23:44.236+08:00 DEBUG 39564 --- [order-service] [main] c.b.mybatisplus.core.toolkit.Sequence    : Get /192.168.157.1 network interface 
+2025-07-06T16:23:44.250+08:00 DEBUG 39564 --- [order-service] [main] c.b.mybatisplus.core.toolkit.Sequence    : Get network interface info: name:eth9 (VMware Virtual Ethernet Adapter for VMnet8)
+2025-07-06T16:23:44.258+08:00 DEBUG 39564 --- [order-service] [main] c.b.mybatisplus.core.toolkit.Sequence    : Initialization Sequence datacenterId:0 workerId:29
+2025-07-06T16:23:46.000+08:00  INFO 39564 --- [order-service] [main] m.e.s.MybatisPlusApplicationContextAware : Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@414f13fc
+2025-07-06T16:23:49.992+08:00  INFO 39564 --- [order-service] [main] c.c.o.OrdersServiceApplication           : Started OrdersServiceApplication in 11.431 seconds (process running for 11.939)
