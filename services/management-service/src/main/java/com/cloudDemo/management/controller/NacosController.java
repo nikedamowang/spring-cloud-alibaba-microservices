@@ -201,6 +201,52 @@ public class NacosController {
     }
 
     /**
+     * 同步所有配置到本地模板文件夹
+     * AI 可以调用此接口将 Nacos 上的所有配置同步到本地
+     */
+    @GetMapping("/config/sync-all")
+    public ResponseEntity<Map<String, Object>> syncAllConfigs(
+            @RequestParam(defaultValue = "") String namespace) {
+
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Map<String, Object> syncResult = nacosManagementService.syncConfigsToTemplate(namespace);
+            response.put("success", true);
+            response.put("data", syncResult);
+            response.put("message", "批量同步完成");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "批量同步失败: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 同步指定配置到本地模板文件夹
+     * AI 可以调用此接口将指定配置同步到本地
+     */
+    @GetMapping("/config/sync")
+    public ResponseEntity<Map<String, Object>> syncConfig(
+            @RequestParam String dataId,
+            @RequestParam(defaultValue = "DEFAULT_GROUP") String group,
+            @RequestParam(defaultValue = "") String namespace) {
+
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Map<String, Object> syncResult = nacosManagementService.syncConfigToTemplate(dataId, group, namespace);
+            response.put("success", true);
+            response.put("data", syncResult);
+            response.put("message", "配置同步完成");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "配置同步失败: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    /**
      * 获取 Nacos 服务器状态
      * AI 可以调用此接口检查 Nacos 服务器的运��状态
      */

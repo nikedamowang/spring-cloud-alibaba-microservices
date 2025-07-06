@@ -82,4 +82,22 @@ public interface NacosManagementService {
      * @return 服务器状态信息
      */
     Map<String, Object> getNacosServerStatus();
+
+    /**
+     * 同步所有配置到本地模板文件夹
+     *
+     * @param namespace 命名空间
+     * @return 同步结果信息
+     */
+    Map<String, Object> syncConfigsToTemplate(String namespace);
+
+    /**
+     * 同步指定配置到本地模板文件夹
+     *
+     * @param dataId    配置ID
+     * @param group     配置组
+     * @param namespace 命名空间
+     * @return 同步结果信息
+     */
+    Map<String, Object> syncConfigToTemplate(String dataId, String group, String namespace);
 }

@@ -356,4 +356,141 @@ public class NacosManagementServiceImpl implements NacosManagementService {
             return false;
         }
     }
+
+    @Override
+    public Map<String, Object> syncConfigsToTemplate(String namespace) {
+        Map<String, Object> result = new HashMap<>();
+        List<String> successConfigs = new ArrayList<>();
+        List<String> failedConfigs = new ArrayList<>();
+
+        try {
+            logger.info("开始同步所有配置到模板文件夹...");
+
+            // 获取所有配置
+            List<NacosConfigInfo> allConfigs = getAllConfigs(namespace);
+
+            for (NacosConfigInfo config : allConfigs) {
+                try {
+                    Map<String, Object> syncResult = syncConfigToTemplate(
+                            config.getDataId(), config.getGroup(), namespace);
+
+                    if ((Boolean) syncResult.get("success")) {
+                        successConfigs.add(config.getDataId());
+                    } else {
+                        failedConfigs.add(config.getDataId() + ": " + syncResult.get("message"));
+                    }
+                } catch (Exception e) {
+                    failedConfigs.add(config.getDataId() + ": " + e.getMessage());
+                    logger.error("同步配置失败: {}", config.getDataId(), e);
+                }
+            }
+
+            result.put("success", true);
+            result.put("totalConfigs", allConfigs.size());
+            result.put("successCount", successConfigs.size());
+            result.put("failedCount", failedConfigs.size());
+            result.put("successConfigs", successConfigs);
+            result.put("failedConfigs", failedConfigs);
+            result.put("message", String.format("同步完成: 成功 %d 个，失败 %d 个",
+                    successConfigs.size(), failedConfigs.size()));
+
+            logger.info("配置同步完成: 成功 {} 个，失败 {} 个",
+                    successConfigs.size(), failedConfigs.size());
+
+        } catch (Exception e) {
+            logger.error("批量同步配置失败", e);
+            result.put("success", false);
+            result.put("message", "批量同步失败: " + e.getMessage());
+        }
+
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> syncConfigToTemplate(String dataId, String group, String namespace) {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            logger.info("开始同步配置: dataId={}, group={}", dataId, group);
+
+            // 获取Nacos配置
+            NacosConfigInfo config = getConfigInfo(dataId, group, namespace);
+            if (config == null) {
+                result.put("success", false);
+                result.put("message", "配置在Nacos中不存在");
+                return result;
+            }
+
+            // 写入到模板文件夹
+            boolean writeSuccess = writeToTemplateFile(dataId, config.getContent());
+
+            if (writeSuccess) {
+                result.put("success", true);
+                result.put("dataId", dataId);
+                result.put("group", group);
+                result.put("namespace", namespace);
+                result.put("contentLength", config.getContent().length());
+                result.put("message", "配置同步成功");
+                logger.info("配置同步成功: {}", dataId);
+            } else {
+                result.put("success", false);
+                result.put("message", "写入模板文件失败");
+            }
+
+        } catch (Exception e) {
+            logger.error("同步配置失败: dataId={}", dataId, e);
+            result.put("success", false);
+            result.put("message", "同步失败: " + e.getMessage());
+        }
+
+        return result;
+    }
+
+    /**
+     * 将配置内容写入到模板文件
+     */
+    private boolean writeToTemplateFile(String dataId, String content) {
+        try {
+            // 确保模板目录存在
+            Path templateDir = getTemplateDirectory();
+            if (!Files.exists(templateDir)) {
+                Files.createDirectories(templateDir);
+                logger.info("创建模板目录: {}", templateDir.toAbsolutePath());
+            }
+
+            // 写入配置文件
+            Path templateFile = templateDir.resolve(dataId);
+            Files.writeString(templateFile, content);
+
+            logger.info("配置文件已写入: {}", templateFile.toAbsolutePath());
+            return true;
+
+        } catch (IOException e) {
+            logger.error("写入模板文件失败: {}", dataId, e);
+            return false;
+        }
+    }
+
+    /**
+     * 获取模板目录路径
+     */
+    private Path getTemplateDirectory() {
+        // 尝试多个可能的路径
+        Path[] possiblePaths = {
+                Paths.get(templatePath),
+                Paths.get(".", templatePath),
+                Paths.get(System.getProperty("user.dir"), templatePath),
+                Paths.get("services", "management-service", templatePath),
+                Paths.get(System.getProperty("user.dir"), "services", "management-service", templatePath)
+        };
+
+        for (Path path : possiblePaths) {
+            if (Files.exists(path) || path.isAbsolute()) {
+                return path;
+            }
+        }
+
+        // 如果都不存在，返回第一个作为默认路径
+        return possiblePaths[0];
+    }
 }
