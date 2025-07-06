@@ -484,22 +484,24 @@ public class NacosManagementServiceImpl implements NacosManagementService {
      * 获取模板目录路径
      */
     private Path getTemplateDirectory() {
-        // 尝试多个可能的路径
+        // 优先使用管理服务根目录下的config-templates（避免嵌套）
         Path[] possiblePaths = {
-                Paths.get(templatePath),
-                Paths.get(".", templatePath),
-                Paths.get(System.getProperty("user.dir"), templatePath),
-                Paths.get("services", "management-service", templatePath),
-                Paths.get(System.getProperty("user.dir"), "services", "management-service", templatePath)
+                Paths.get(templatePath), // ./config-templates (管理服务根目录下)
+                Paths.get(".", templatePath), // 当前目录的config-templates
+                Paths.get(System.getProperty("user.dir"), "services", "management-service", templatePath), // 绝对路径到管理服务
+                Paths.get(System.getProperty("user.dir"), templatePath) // 项目根目录的config-templates
         };
 
         for (Path path : possiblePaths) {
             if (Files.exists(path) || path.isAbsolute()) {
+                logger.debug("使用模板目录路径: {}", path.toAbsolutePath());
                 return path;
             }
         }
 
-        // 如果都不存在，返回第一个作为默认路径
-        return possiblePaths[0];
+        // 如果都不存在，返回管理服务根目录下的config-templates作为默认路径
+        Path defaultPath = Paths.get(templatePath);
+        logger.debug("使用默认模板目录路径: {}", defaultPath.toAbsolutePath());
+        return defaultPath;
     }
 }
