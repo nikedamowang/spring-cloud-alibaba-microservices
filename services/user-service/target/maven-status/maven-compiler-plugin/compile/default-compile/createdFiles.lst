@@ -1,6 +1,0 @@
-com\cloudDemo\userservice\service\AuthService.class
-com\cloudDemo\userservice\config\RedisConfig.class
-com\cloudDemo\userservice\controller\UserController.class
-com\cloudDemo\userservice\UserServiceApplication.class
-com\cloudDemo\userservice\entity\User.class
-com\cloudDemo\userservice\mapper\UserMapper.class

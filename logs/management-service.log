@@ -1,89 +1,147 @@
-2025-07-06T16:46:13.650+08:00  INFO 39340 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Starting ManagementServiceApplication using Java 17.0.12 with PID 39340 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
-2025-07-06T16:46:13.651+08:00  INFO 39340 --- [management-service] [main] c.c.m.ManagementServiceApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-07-06T16:46:19.635+08:00  WARN 39340 --- [management-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20880) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
-2025-07-06T16:46:19.877+08:00  INFO 39340 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Started ManagementServiceApplication in 8.57 seconds (process running for 8.967)
-2025-07-06T16:46:19.884+08:00  INFO 39340 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Management Service 已成功启动并准备提供管理服务
-2025-07-06T16:47:00.065+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-07-06T16:47:00.066+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-07-06T16:47:00.087+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=management-service.properties, group=DEFAULT_GROUP
-2025-07-06T16:47:00.098+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T16:47:00.098076500, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:47:00.101+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\.\config-templates\management-service.properties
-2025-07-06T16:47:00.101+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: management-service.properties
-2025-07-06T16:47:18.458+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步所有配置到模板文件夹...
-2025-07-06T16:47:18.459+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始从Nacos获取最新配置列表...
-2025-07-06T16:47:18.462+08:00  WARN 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置不存在: dataId=application.properties, group=DEFAULT_GROUP, namespace=
-2025-07-06T16:47:18.465+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='user-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='-1212121305', lastModified=2025-07-06T16:47:18.465152400, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:47:18.465+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置: user-service.properties (内容长度: 1682)
-2025-07-06T16:47:18.468+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='order-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1973479867', lastModified=2025-07-06T16:47:18.468545100, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:47:18.469+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置: order-service.properties (内容长度: 2237)
-2025-07-06T16:47:18.471+08:00  WARN 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置不存在: dataId=dubbo.properties, group=DEFAULT_GROUP, namespace=
-2025-07-06T16:47:18.472+08:00  WARN 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置不存在: dataId=redis.properties, group=DEFAULT_GROUP, namespace=
-2025-07-06T16:47:18.474+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T16:47:18.474767700, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:47:18.475+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置: management-service.properties (内容长度: 1321)
-2025-07-06T16:47:18.475+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置获取完成，共获取到 3 个配置文件
-2025-07-06T16:47:18.475+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=user-service.properties, group=DEFAULT_GROUP
-2025-07-06T16:47:18.665+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='user-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='-1212121305', lastModified=2025-07-06T16:47:18.665925100, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:47:18.666+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\.\config-templates\user-service.properties
-2025-07-06T16:47:18.667+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: user-service.properties
-2025-07-06T16:47:18.667+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=order-service.properties, group=DEFAULT_GROUP
-2025-07-06T16:47:18.670+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='order-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1973479867', lastModified=2025-07-06T16:47:18.670003400, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:47:18.670+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\.\config-templates\order-service.properties
-2025-07-06T16:47:18.670+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: order-service.properties
-2025-07-06T16:47:18.670+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=management-service.properties, group=DEFAULT_GROUP
-2025-07-06T16:47:18.673+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T16:47:18.673584100, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:47:18.674+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\.\config-templates\management-service.properties
-2025-07-06T16:47:18.674+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: management-service.properties
-2025-07-06T16:47:18.675+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步完成: 成功 3 个，失败 0 个
-2025-07-06T16:47:54.949+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-4] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T16:47:54.949505600, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:48:35.966+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-6] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=management-service.properties, group=DEFAULT_GROUP
-2025-07-06T16:48:35.970+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-6] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T16:48:35.970304700, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:48:35.970+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-6] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\.\config-templates\management-service.properties
-2025-07-06T16:48:35.970+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-6] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: management-service.properties
-2025-07-06T16:51:47.749+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-8] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=management-service.properties, group=DEFAULT_GROUP
-2025-07-06T16:51:47.754+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-8] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T16:51:47.754136400, description='从 Nacos 获取的配置信息'}
-2025-07-06T16:51:47.754+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-8] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\.\config-templates\management-service.properties
-2025-07-06T16:51:47.754+08:00  INFO 39340 --- [management-service] [http-nio-9090-exec-8] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: management-service.properties
-2025-07-06T16:56:03.387+08:00  WARN 39340 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
-2025-07-06T16:56:03.387+08:00  WARN 39340 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
-2025-07-06T16:56:03.388+08:00  WARN 39340 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
-2025-07-06T16:56:03.388+08:00  WARN 39340 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
-2025-07-06T16:56:05.907+08:00  WARN 39340 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
-2025-07-06T16:56:05.907+08:00  WARN 39340 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
-2025-07-06T16:56:05.907+08:00  WARN 39340 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
-2025-07-06T16:56:05.907+08:00  WARN 39340 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
-2025-07-06T16:59:46.981+08:00  INFO 36904 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Starting ManagementServiceApplication using Java 17.0.12 with PID 36904 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
-2025-07-06T16:59:46.982+08:00  INFO 36904 --- [management-service] [main] c.c.m.ManagementServiceApplication       : No active profile set, falling back to 1 default profile: "default"
-2025-07-06T16:59:52.969+08:00  WARN 36904 --- [management-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20880) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
-2025-07-06T16:59:53.211+08:00  INFO 36904 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Started ManagementServiceApplication in 8.568 seconds (process running for 8.974)
-2025-07-06T16:59:53.218+08:00  INFO 36904 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Management Service 已成功启动并准备提供管理服务
-2025-07-06T17:00:30.929+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-07-06T17:00:30.930+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2025-07-06T17:00:30.949+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=management-service.properties, group=DEFAULT_GROUP
-2025-07-06T17:00:30.959+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T17:00:30.959189400, description='从 Nacos 获取的配置信息'}
-2025-07-06T17:00:30.961+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\services\management-service\.\config-templates\management-service.properties
-2025-07-06T17:00:30.961+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-1] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: management-service.properties
-2025-07-06T17:00:53.608+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步所有配置到模板文件夹...
-2025-07-06T17:00:53.608+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始从Nacos获取最新配置列表...
-2025-07-06T17:00:53.612+08:00  WARN 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置不存在: dataId=application.properties, group=DEFAULT_GROUP, namespace=
-2025-07-06T17:00:53.615+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='user-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='-1212121305', lastModified=2025-07-06T17:00:53.615559700, description='从 Nacos 获取的配置信息'}
-2025-07-06T17:00:53.615+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置: user-service.properties (内容长度: 1682)
-2025-07-06T17:00:53.618+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='order-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1973479867', lastModified=2025-07-06T17:00:53.618303300, description='从 Nacos 获取的配置信息'}
-2025-07-06T17:00:53.618+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置: order-service.properties (内容长度: 2237)
-2025-07-06T17:00:53.620+08:00  WARN 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置不存在: dataId=dubbo.properties, group=DEFAULT_GROUP, namespace=
-2025-07-06T17:00:53.621+08:00  WARN 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置不存在: dataId=redis.properties, group=DEFAULT_GROUP, namespace=
-2025-07-06T17:00:53.623+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T17:00:53.623927, description='从 Nacos 获取的配置信息'}
-2025-07-06T17:00:53.623+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置: management-service.properties (内容长度: 1321)
-2025-07-06T17:00:53.623+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置获取完成，共获取到 3 个配置文件
-2025-07-06T17:00:53.623+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=user-service.properties, group=DEFAULT_GROUP
-2025-07-06T17:00:53.817+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='user-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='-1212121305', lastModified=2025-07-06T17:00:53.817890800, description='从 Nacos 获取的配置信息'}
-2025-07-06T17:00:53.818+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\services\management-service\.\config-templates\user-service.properties
-2025-07-06T17:00:53.818+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: user-service.properties
-2025-07-06T17:00:53.818+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=order-service.properties, group=DEFAULT_GROUP
-2025-07-06T17:00:53.821+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='order-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1973479867', lastModified=2025-07-06T17:00:53.821122900, description='从 Nacos 获取的配置信息'}
-2025-07-06T17:00:53.822+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\services\management-service\.\config-templates\order-service.properties
-2025-07-06T17:00:53.822+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: order-service.properties
-2025-07-06T17:00:53.822+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 开始同步配置: dataId=management-service.properties, group=DEFAULT_GROUP
-2025-07-06T17:00:53.824+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 成功获取配置信息: NacosConfigInfo{dataId='management-service.properties', group='DEFAULT_GROUP', namespace='', type='properties', md5='1318804636', lastModified=2025-07-06T17:00:53.824862100, description='从 Nacos 获取的配置信息'}
-2025-07-06T17:00:53.825+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置文件已写入: D:\WorkSpace\IDEA\cloudDemo\services\management-service\.\config-templates\management-service.properties
-2025-07-06T17:00:53.825+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步成功: management-service.properties
-2025-07-06T17:00:53.825+08:00  INFO 36904 --- [management-service] [http-nio-9090-exec-2] c.c.m.s.impl.NacosManagementServiceImpl  : 配置同步完成: 成功 3 个，失败 0 个
+2025-07-07T14:59:04.502+08:00  INFO 33772 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Starting ManagementServiceApplication using Java 17.0.12 with PID 33772 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
+2025-07-07T14:59:04.505+08:00  INFO 33772 --- [management-service] [main] c.c.m.ManagementServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-07T14:59:10.161+08:00  WARN 33772 --- [management-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20882) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
+2025-07-07T14:59:10.351+08:00  WARN 33772 --- [management-service] [main] o.a.d.qos.protocol.QosProtocolWrapper    :  [DUBBO] Fail to start qos server: , dubbo version: 3.2.15, current host: 192.168.244.1, error code: 7-4. This may be caused by , go to https://dubbo.apache.org/faq/7/4 to find instructions. 
+
+org.apache.dubbo.qos.server.QosBindException: qos-server can not bind localhost:22222
+	at org.apache.dubbo.qos.server.Server.start(Server.java:126) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.qos.protocol.QosProtocolWrapper.startQosServer(QosProtocolWrapper.java:134) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.qos.protocol.QosProtocolWrapper.export(QosProtocolWrapper.java:78) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.rpc.protocol.ProtocolSecurityWrapper.export(ProtocolSecurityWrapper.java:84) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.rpc.protocol.ProtocolListenerWrapper.export(ProtocolListenerWrapper.java:77) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.rpc.cluster.filter.ProtocolFilterWrapper.export(ProtocolFilterWrapper.java:61) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.rpc.protocol.ProtocolSerializationWrapper.export(ProtocolSerializationWrapper.java:50) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.rpc.protocol.InvokerCountWrapper.export(InvokerCountWrapper.java:42) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.rpc.Protocol$Adaptive.export(Protocol$Adaptive.java) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfig.doExportUrl(ServiceConfig.java:947) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfig.exportLocal(ServiceConfig.java:964) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfig.exportUrl(ServiceConfig.java:840) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfig.doExportUrlsFor1Protocol(ServiceConfig.java:602) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfig.doExportUrls(ServiceConfig.java:583) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfig.doExport(ServiceConfig.java:540) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfig.export(ServiceConfig.java:340) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.ServiceConfigBase.export(ServiceConfigBase.java:422) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.metadata.ConfigurableMetadataServiceExporter.export(ConfigurableMetadataServiceExporter.java:76) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.metadata.ExporterDeployListener.onModuleStarted(ExporterDeployListener.java:85) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.deploy.DefaultApplicationDeployer.exportMetadataService(DefaultApplicationDeployer.java:1266) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.deploy.DefaultApplicationDeployer.prepareApplicationInstance(DefaultApplicationDeployer.java:767) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.deploy.DefaultApplicationDeployer.checkState(DefaultApplicationDeployer.java:1152) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.deploy.DefaultApplicationDeployer.notifyModuleChanged(DefaultApplicationDeployer.java:1140) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.deploy.DefaultModuleDeployer.onModuleStarted(DefaultModuleDeployer.java:363) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.deploy.DefaultModuleDeployer.startSync(DefaultModuleDeployer.java:188) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.deploy.DefaultModuleDeployer.start(DefaultModuleDeployer.java:156) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.spring.context.DubboDeployApplicationListener.onContextRefreshedEvent(DubboDeployApplicationListener.java:157) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.spring.context.DubboDeployApplicationListener.onApplicationEvent(DubboDeployApplicationListener.java:143) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.apache.dubbo.config.spring.context.DubboDeployApplicationListener.onApplicationEvent(DubboDeployApplicationListener.java:52) ~[dubbo-3.2.15.jar:3.2.15]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:452) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:385) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:993) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.4.jar:3.3.4]
+	at com.cloudDemo.management.ManagementServiceApplication.main(ManagementServiceApplication.java:26) ~[classes/:na]
+Caused by: java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:555) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294) ~[na:na]
+	at io.netty.channel.socket.nio.NioServerSocketChannel.doBind(NioServerSocketChannel.java:141) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.bind(AbstractChannel.java:561) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.bind(DefaultChannelPipeline.java:1281) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeBind(AbstractChannelHandlerContext.java:600) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.bind(AbstractChannelHandlerContext.java:579) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.bind(DefaultChannelPipeline.java:922) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannel.bind(AbstractChannel.java:259) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:380) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:472) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2025-07-07T14:59:10.413+08:00  INFO 33772 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Started ManagementServiceApplication in 8.297 seconds (process running for 8.776)
+2025-07-07T14:59:10.421+08:00  INFO 33772 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Management Service 已成功启动并准备提供管理服务
+2025-07-07T15:00:00.250+08:00  WARN 33772 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-07T15:00:00.250+08:00  WARN 33772 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-07T15:00:00.250+08:00  WARN 33772 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-07T15:00:00.251+08:00  WARN 33772 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-07T15:00:02.697+08:00  WARN 33772 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-07T15:00:02.697+08:00  WARN 33772 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-07T15:00:02.697+08:00  WARN 33772 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-07T15:00:02.697+08:00  WARN 33772 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-07T15:03:31.619+08:00  INFO 32256 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Starting ManagementServiceApplication using Java 17.0.12 with PID 32256 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
+2025-07-07T15:03:31.620+08:00  INFO 32256 --- [management-service] [main] c.c.m.ManagementServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-07T15:03:35.623+08:00  WARN 32256 --- [management-service] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-07T15:03:35.632+08:00  WARN 32256 --- [management-service] [main] o.s.b.c.e.EventPublishingRunListener     : Error calling ApplicationEventListener
+
+java.lang.IllegalStateException: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@5580d62f has not been refreshed yet
+	at org.springframework.context.support.AbstractApplicationContext.assertBeanFactoryActive(AbstractApplicationContext.java:1230) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1242) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:392) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:354) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:237) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:168) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.boot.context.event.EventPublishingRunListener.failed(EventPublishingRunListener.java:130) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplicationRunListeners.callFailedListener(SpringApplicationRunListeners.java:94) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$failed$7(SpringApplicationRunListeners.java:85) ~[spring-boot-3.3.4.jar:3.3.4]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplicationRunListeners.failed(SpringApplicationRunListeners.java:84) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:810) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:345) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.4.jar:3.3.4]
+	at com.cloudDemo.management.ManagementServiceApplication.main(ManagementServiceApplication.java:26) ~[classes/:na]
+
+2025-07-07T15:03:35.643+08:00 ERROR 32256 --- [management-service] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 9090 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 9090 or configure this application to listen on another port.
+
+2025-07-07T15:03:35.643+08:00  WARN 32256 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-07T15:03:35.643+08:00  WARN 32256 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-07T15:03:35.643+08:00  WARN 32256 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-07T15:03:35.643+08:00  WARN 32256 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-07T15:03:55.582+08:00  INFO 34748 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Starting ManagementServiceApplication using Java 17.0.12 with PID 34748 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
+2025-07-07T15:03:55.584+08:00  INFO 34748 --- [management-service] [main] c.c.m.ManagementServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-07T15:04:01.258+08:00  WARN 34748 --- [management-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20882) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
+2025-07-07T15:04:01.497+08:00  INFO 34748 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Started ManagementServiceApplication in 8.188 seconds (process running for 8.577)
+2025-07-07T15:04:01.504+08:00  INFO 34748 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Management Service 已成功启动并准备提供管理服务
+2025-07-07T15:05:08.434+08:00  INFO 34748 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-07T15:05:08.435+08:00  INFO 34748 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-07-07T15:24:05.582+08:00  WARN 34748 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-07T15:24:05.582+08:00  WARN 34748 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-07T15:24:05.582+08:00  WARN 34748 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-07T15:24:05.582+08:00  WARN 34748 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-07T15:24:08.027+08:00  WARN 34748 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-07T15:24:08.027+08:00  WARN 34748 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-07T15:24:08.027+08:00  WARN 34748 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-07T15:24:08.027+08:00  WARN 34748 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-07T15:25:56.606+08:00  INFO 34536 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Starting ManagementServiceApplication using Java 17.0.12 with PID 34536 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
+2025-07-07T15:25:56.607+08:00  INFO 34536 --- [management-service] [main] c.c.m.ManagementServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-07T15:26:02.444+08:00  WARN 34536 --- [management-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20882) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
+2025-07-07T15:26:02.704+08:00  INFO 34536 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Started ManagementServiceApplication in 8.399 seconds (process running for 8.807)
+2025-07-07T15:26:02.711+08:00  INFO 34536 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Management Service 已成功启动并准备提供管理服务
