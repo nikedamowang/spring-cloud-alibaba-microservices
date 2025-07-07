@@ -1,6 +1,0 @@
-com\cloudDemo\api\dto\AuthRequest.class
-com\cloudDemo\api\dto\AuthResponse.class
-com\cloudDemo\api\dto\UserDTO.class
-com\cloudDemo\api\service\UserService.class
-com\cloudDemo\api\dto\Result.class
-com\cloudDemo\api\util\JwtUtil.class
