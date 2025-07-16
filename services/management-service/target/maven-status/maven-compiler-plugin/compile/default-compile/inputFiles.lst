@@ -1,4 +1,6 @@
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\LoadBalancerManager.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\NacosConfig.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\LoadBalancerController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\NacosController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\dto\NacosConfigInfo.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\dto\NacosServiceInstance.java

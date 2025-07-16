@@ -1,0 +1,90 @@
+# Dubbo负载均衡配置文件
+# 用于配置服务提供者的权重和健康检查
+
+# 服务提供者权重配置
+dubbo:
+  provider:
+    # 默认权重为100
+    weight: 100
+    # 启用健康检查
+    status: server
+    # 线程池配置
+    threads: 200
+    # 队列大小
+    queues: 0
+    # 线程池类型
+    threadpool: fixed
+
+  consumer:
+    # 消费者全局配置
+    timeout: 5000
+    retries: 2
+    loadbalance: roundrobin
+    cluster: failover
+    # 启用粘性连接
+    sticky: false
+    # 检查提供者是否存在
+    check: false
+
+  # 协议配置
+  protocol:
+    name: dubbo
+    port: -1
+    # 启用心跳检测
+    heartbeat: 60000
+
+  # 注册中心配置
+  registry:
+    # 启用健康检查
+    check: true
+    # 订阅失败时是否终止
+    subscribe: true
+    # 注册失败时是否终止
+    register: true
+
+  # 监控配置
+  monitor:
+    protocol: registry
+
+  # 应用配置
+  application:
+    # 启用QoS
+    qos-enable: true
+    qos-port: 22222
+    qos-accept-foreign-ip: false
+
+  # 元数据配置
+  metadata-report:
+    # 元数据同步
+    sync-report: true
+    # 重试次数
+    retry-times: 3
+    # 重试间隔
+    retry-period: 3000
+
+# 自定义负载均衡权重配置
+load-balancer:
+  # 权重配置示例
+  weights:
+    user-service:
+      # 实例1权重为100
+      192.168.1.100:20880: 100
+      # 实例2权重为200（处理能力更强）
+      192.168.1.101:20880: 200
+      # 实例3权重为50（性能较弱）
+      192.168.1.102:20880: 50
+
+    order-service:
+      192.168.1.100:20881: 100
+      192.168.1.101:20881: 150
+
+# 健康检查配置
+health-check:
+  # 健康检查间隔（秒）
+  interval: 30
+  # 健康检查超时（秒）
+  timeout: 5
+  # 连续失败次数达到此值时标记为不健康
+  fail-threshold: 3
+  # 连续成功次数达到此值时标记为健康
+  success-threshold: 2
