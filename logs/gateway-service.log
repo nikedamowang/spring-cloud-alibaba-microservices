@@ -177,3 +177,11 @@ Error has been observed at the following site(s):
 	*__checkpoint ⇢ HTTP POST "/user/login" [ExceptionHandlingWebHandler]
 Original Stack Trace:
 
+2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
