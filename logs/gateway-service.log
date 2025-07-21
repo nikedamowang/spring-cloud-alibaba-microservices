@@ -345,3 +345,68 @@ Update your application's configuration
 2025-07-21T20:43:27.893+08:00  WARN 33600 --- [gateway-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20880) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
 2025-07-21T20:43:28.139+08:00  INFO 33600 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Started GatewayServiceApplication in 13.959 seconds (process running for 14.509)
 2025-07-21T20:43:28.146+08:00  INFO 33600 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Gateway Service started successfully on port: 8080
+2025-07-21T20:45:46.838+08:00  WARN 33600 --- [gateway-service] [reactor-http-nio-4] r.netty.http.client.HttpClientConnect    : [336e6b34-1, L:/192.168.244.1:63958 - R:/192.168.244.1:20881] The connection observed an error
+
+java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
+	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:89) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpResponseDecoder.createMessage(HttpResponseDecoder.java:195) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpObjectDecoder.decode(HttpObjectDecoder.java:354) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpClientCodec$Decoder.decode(HttpClientCodec.java:320) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2025-07-21T20:45:46.842+08:00 ERROR 33600 --- [gateway-service] [reactor-http-nio-4] a.w.r.e.AbstractErrorWebExceptionHandler : [5712314c]  500 Server Error for HTTP GET "/user/health"
+
+java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
+	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ com.alibaba.csp.sentinel.adapter.spring.webflux.SentinelWebFluxFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/user/health" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+		at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:89) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpResponseDecoder.createMessage(HttpResponseDecoder.java:195) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpObjectDecoder.decode(HttpObjectDecoder.java:354) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpClientCodec$Decoder.decode(HttpClientCodec.java:320) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
