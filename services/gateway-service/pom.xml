@@ -61,6 +61,17 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Sentinel Gateway 熔断降级依赖 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+            <version>${spring-cloud-alibaba.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
         <!-- 直接排除从父模块继承的web starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

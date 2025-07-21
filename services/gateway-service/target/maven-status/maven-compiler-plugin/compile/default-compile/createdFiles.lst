@@ -1,1 +1,2 @@
 com\cloudDemo\gateway\GatewayServiceApplication.class
+com\cloudDemo\gateway\config\SentinelGatewayConfig.class

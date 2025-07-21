@@ -1,16 +1,39 @@
-2025-07-16T10:55:41.943+08:00  WARN 9716 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
-2025-07-16T10:55:41.957+08:00  WARN 9716 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service-default.properties] & group[DEFAULT_GROUP]
-2025-07-16T10:55:41.965+08:00  INFO 9716 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : The following 1 profile is active: "default"
-2025-07-16T10:55:42.754+08:00  WARN 9716 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2025-07-16T10:55:42.754+08:00  WARN 9716 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2025-07-16T10:55:42.755+08:00  WARN 9716 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2025-07-16T10:55:42.755+08:00  WARN 9716 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2025-07-16T10:55:42.756+08:00  WARN 9716 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2025-07-16T10:55:47.375+08:00  WARN 9716 --- [gateway-service] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2025-07-16T10:55:50.396+08:00  WARN 9716 --- [gateway-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20883) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
-2025-07-16T10:55:50.633+08:00  INFO 9716 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Started GatewayServiceApplication in 12.929 seconds (process running for 13.394)
-2025-07-16T10:55:50.639+08:00  INFO 9716 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Gateway Service started successfully on port: 8080
-2025-07-16T10:56:31.246+08:00  WARN 9716 --- [gateway-service] [reactor-http-nio-3] r.netty.http.client.HttpClientConnect    : [898cc9c5-1, L:/192.168.244.1:57737 - R:/192.168.244.1:20881] The connection observed an error
+2025-07-21T17:05:36.339+08:00  WARN 9740 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T17:05:36.352+08:00  WARN 9740 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T17:05:36.360+08:00  INFO 9740 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : The following 1 profile is active: "default"
+2025-07-21T17:05:36.704+08:00  WARN 9740 --- [gateway-service] [main] onfigReactiveWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'sentinelGatewayFilter' defined in class path resource [com/alibaba/cloud/sentinel/gateway/scg/SentinelSCGAutoConfiguration.class]: Cannot register bean definition [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=com.alibaba.cloud.sentinel.gateway.scg.SentinelSCGAutoConfiguration; factoryMethodName=sentinelGatewayFilter; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/alibaba/cloud/sentinel/gateway/scg/SentinelSCGAutoConfiguration.class]] for bean 'sentinelGatewayFilter' since there is already [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=sentinelGatewayConfig; factoryMethodName=sentinelGatewayFilter; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [com/cloudDemo/gateway/config/SentinelGatewayConfig.class]] bound.
+2025-07-21T17:05:36.725+08:00 ERROR 9740 --- [gateway-service] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The bean 'sentinelGatewayFilter', defined in class path resource [com/alibaba/cloud/sentinel/gateway/scg/SentinelSCGAutoConfiguration.class], could not be registered. A bean with that name has already been defined in class path resource [com/cloudDemo/gateway/config/SentinelGatewayConfig.class] and overriding is disabled.
+
+Action:
+
+Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+
+2025-07-21T17:05:36.726+08:00  WARN 9740 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-21T17:05:36.726+08:00  WARN 9740 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-21T17:05:36.726+08:00  WARN 9740 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-21T17:05:36.726+08:00  WARN 9740 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-21T18:35:51.344+08:00  WARN 33228 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T18:35:51.356+08:00  WARN 33228 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T18:35:51.364+08:00  INFO 33228 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : The following 1 profile is active: "default"
+2025-07-21T18:35:52.249+08:00  WARN 33228 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T18:35:52.250+08:00  WARN 33228 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T18:35:52.251+08:00  WARN 33228 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T18:35:52.252+08:00  WARN 33228 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T18:35:52.252+08:00  WARN 33228 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T18:35:57.254+08:00  WARN 33228 --- [gateway-service] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-07-21T18:35:59.845+08:00  WARN 33228 --- [gateway-service] [boundedElastic-10] c.a.n.client.utils.ConcurrentDiskUtil    : lock DEFAULT_GROUP%40%40gateway-service conflict;retry time: 1
+2025-07-21T18:36:00.367+08:00  WARN 33228 --- [gateway-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20880) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
+2025-07-21T18:36:00.614+08:00  INFO 33228 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Started GatewayServiceApplication in 13.518 seconds (process running for 14.042)
+2025-07-21T18:36:00.620+08:00  INFO 33228 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Gateway Service started successfully on port: 8090
+2025-07-21T18:36:58.796+08:00  WARN 33228 --- [gateway-service] [reactor-http-nio-2] r.netty.http.client.HttpClientConnect    : [3984e69b-1, L:/192.168.244.1:50140 - R:/192.168.244.1:20881] The connection observed an error
 
 java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
 	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
@@ -39,77 +62,14 @@ java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
 	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
 
-2025-07-16T10:56:31.261+08:00 ERROR 9716 --- [gateway-service] [reactor-http-nio-3] a.w.r.e.AbstractErrorWebExceptionHandler : [7b1f661b]  500 Server Error for HTTP POST "/user/login"
+2025-07-21T18:36:58.815+08:00 ERROR 33228 --- [gateway-service] [reactor-http-nio-2] a.w.r.e.AbstractErrorWebExceptionHandler : [1916f6dd]  500 Server Error for HTTP GET "/user/list"
 
 java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
 	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
 	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
-	*__checkpoint ⇢ HTTP POST "/user/login" [ExceptionHandlingWebHandler]
-Original Stack Trace:
-		at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:89) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.handler.codec.http.HttpResponseDecoder.createMessage(HttpResponseDecoder.java:195) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.handler.codec.http.HttpObjectDecoder.decode(HttpObjectDecoder.java:354) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.handler.codec.http.HttpClientCodec$Decoder.decode(HttpClientCodec.java:320) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
-		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
-		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
-
-2025-07-16T10:56:42.806+08:00  WARN 9716 --- [gateway-service] [reactor-http-nio-5] r.netty.http.client.HttpClientConnect    : [525d8739-1, L:/192.168.244.1:57744 - R:/192.168.244.1:20881] The connection observed an error
-
-java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
-	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:89) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.handler.codec.http.HttpResponseDecoder.createMessage(HttpResponseDecoder.java:195) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.handler.codec.http.HttpObjectDecoder.decode(HttpObjectDecoder.java:354) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.handler.codec.http.HttpClientCodec$Decoder.decode(HttpClientCodec.java:320) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
-	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
-
-2025-07-16T10:56:42.808+08:00 ERROR 9716 --- [gateway-service] [reactor-http-nio-5] a.w.r.e.AbstractErrorWebExceptionHandler : [62371924]  500 Server Error for HTTP GET "/user/list"
-
-java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
-	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
-	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
-Error has been observed at the following site(s):
-	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ com.alibaba.csp.sentinel.adapter.spring.webflux.SentinelWebFluxFilter [DefaultWebFilterChain]
 	*__checkpoint ⇢ HTTP GET "/user/list" [ExceptionHandlingWebHandler]
 Original Stack Trace:
 		at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
@@ -138,50 +98,250 @@ Original Stack Trace:
 		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
 		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
 
-2025-07-16T10:59:52.009+08:00  WARN 9716 --- [gateway-service] [reactor-http-nio-6] r.netty.http.client.HttpClientConnect    : [b5dfc411-1, L:/192.168.244.1:57748 ! R:/192.168.244.1:20881] The connection observed an error
+2025-07-21T20:04:15.034+08:00  WARN 33228 --- [gateway-service] [nacos.client.config.listener.task-0] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[null.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:04:15.035+08:00  WARN 33228 --- [gateway-service] [nacos.client.config.listener.task-0] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[null-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:05:07.753+08:00  WARN 33228 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-21T20:05:07.754+08:00  WARN 33228 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-21T20:05:07.754+08:00  WARN 33228 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-21T20:05:07.755+08:00  WARN 33228 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-21T20:05:12.507+08:00  WARN 33228 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-21T20:05:12.507+08:00  WARN 33228 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-21T20:05:12.507+08:00  WARN 33228 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-21T20:05:12.507+08:00  WARN 33228 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-21T20:05:20.489+08:00  WARN 37280 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T20:05:20.502+08:00  WARN 37280 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:05:20.511+08:00  INFO 37280 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : The following 1 profile is active: "default"
+2025-07-21T20:05:21.413+08:00  WARN 37280 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:05:21.414+08:00  WARN 37280 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:05:21.416+08:00  WARN 37280 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:05:21.416+08:00  WARN 37280 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:05:21.417+08:00  WARN 37280 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:05:26.667+08:00  WARN 37280 --- [gateway-service] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-07-21T20:05:26.706+08:00  WARN 37280 --- [gateway-service] [main] onfigReactiveWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-21T20:05:26.733+08:00 ERROR 37280 --- [gateway-service] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
 
-reactor.netty.http.client.PrematureCloseException: Connection prematurely closed BEFORE response
+***************************
+APPLICATION FAILED TO START
+***************************
 
-2025-07-16T10:59:52.010+08:00 ERROR 9716 --- [gateway-service] [reactor-http-nio-6] a.w.r.e.AbstractErrorWebExceptionHandler : [4d6b2448]  500 Server Error for HTTP POST "/user/login"
+Description:
 
-reactor.netty.http.client.PrematureCloseException: Connection prematurely closed BEFORE response
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-07-21T20:05:26.735+08:00  WARN 37280 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-21T20:05:26.735+08:00  WARN 37280 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-21T20:05:26.735+08:00  WARN 37280 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-21T20:05:26.735+08:00  WARN 37280 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-21T20:05:54.875+08:00  WARN 28676 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T20:05:54.885+08:00  WARN 28676 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:05:54.893+08:00  INFO 28676 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : The following 1 profile is active: "default"
+2025-07-21T20:05:55.777+08:00  WARN 28676 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:05:55.778+08:00  WARN 28676 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:05:55.779+08:00  WARN 28676 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:05:55.780+08:00  WARN 28676 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:05:55.781+08:00  WARN 28676 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:06:00.944+08:00  WARN 28676 --- [gateway-service] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-07-21T20:06:00.978+08:00  WARN 28676 --- [gateway-service] [main] onfigReactiveWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-21T20:06:01.002+08:00 ERROR 28676 --- [gateway-service] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-07-21T20:06:01.004+08:00  WARN 28676 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-21T20:06:01.004+08:00  WARN 28676 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-21T20:06:01.004+08:00  WARN 28676 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-21T20:06:01.004+08:00  WARN 28676 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-21T20:09:01.649+08:00  WARN 37424 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T20:09:01.659+08:00  WARN 37424 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:09:01.668+08:00  INFO 37424 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : The following 1 profile is active: "default"
+2025-07-21T20:09:02.556+08:00  WARN 37424 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:09:02.558+08:00  WARN 37424 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:09:02.560+08:00  WARN 37424 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:09:02.561+08:00  WARN 37424 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:09:02.562+08:00  WARN 37424 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:09:07.697+08:00  WARN 37424 --- [gateway-service] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-07-21T20:09:10.385+08:00  WARN 37424 --- [gateway-service] [boundedElastic-9] c.a.n.client.utils.ConcurrentDiskUtil    : lock DEFAULT_GROUP%40%40gateway-service conflict;retry time: 1
+2025-07-21T20:09:10.385+08:00  WARN 37424 --- [gateway-service] [boundedElastic-8] c.a.n.client.utils.ConcurrentDiskUtil    : lock DEFAULT_GROUP%40%40management-service conflict;retry time: 1
+2025-07-21T20:09:10.385+08:00  WARN 37424 --- [gateway-service] [boundedElastic-11] c.a.n.client.utils.ConcurrentDiskUtil    : lock DEFAULT_GROUP%40%40order-service conflict;retry time: 1
+2025-07-21T20:09:10.997+08:00  WARN 37424 --- [gateway-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20880) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
+2025-07-21T20:09:11.236+08:00  INFO 37424 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Started GatewayServiceApplication in 14.083 seconds (process running for 14.582)
+2025-07-21T20:09:11.242+08:00  INFO 37424 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Gateway Service started successfully on port: 8080
+2025-07-21T20:09:38.092+08:00  WARN 37424 --- [gateway-service] [reactor-http-nio-3] r.netty.http.client.HttpClientConnect    : [be7b7afa-1, L:/192.168.244.1:64103 - R:/192.168.244.1:20881] The connection observed an error
+
+java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
+	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:89) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpResponseDecoder.createMessage(HttpResponseDecoder.java:195) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpObjectDecoder.decode(HttpObjectDecoder.java:354) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.http.HttpClientCodec$Decoder.decode(HttpClientCodec.java:320) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+	at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
+
+2025-07-21T20:09:38.096+08:00 ERROR 37424 --- [gateway-service] [reactor-http-nio-3] a.w.r.e.AbstractErrorWebExceptionHandler : [47416132]  500 Server Error for HTTP POST "/user/login"
+
+java.lang.IllegalArgumentException: invalid version format: UNSUPPORTED
+	at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
 	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
 Error has been observed at the following site(s):
 	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ com.alibaba.csp.sentinel.adapter.spring.webflux.SentinelWebFluxFilter [DefaultWebFilterChain]
 	*__checkpoint ⇢ HTTP POST "/user/login" [ExceptionHandlingWebHandler]
 Original Stack Trace:
+		at io.netty.handler.codec.http.HttpVersion.<init>(HttpVersion.java:135) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpVersion.valueOf(HttpVersion.java:89) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpResponseDecoder.createMessage(HttpResponseDecoder.java:195) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpObjectDecoder.decode(HttpObjectDecoder.java:354) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.http.HttpClientCodec$Decoder.decode(HttpClientCodec.java:320) ~[netty-codec-http-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.decodeRemovalReentryProtection(ByteToMessageDecoder.java:530) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:469) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:290) ~[netty-codec-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.113.Final.jar:4.1.113.Final]
+		at java.base/java.lang.Thread.run(Thread.java:842) ~[na:na]
 
-2025-07-16T10:59:57.806+08:00  WARN 9716 --- [gateway-service] [reactor-http-nio-7] r.netty.http.client.HttpClientConnect    : [1fdce918-1, L:/192.168.244.1:57766 ! R:/192.168.244.1:20881] The connection observed an error
+2025-07-21T20:16:15.393+08:00  WARN 37424 --- [gateway-service] [nacos.client.config.listener.task-0] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[null.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:16:15.395+08:00  WARN 37424 --- [gateway-service] [nacos.client.config.listener.task-0] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[null-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:18:54.601+08:00  WARN 37424 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-21T20:18:54.601+08:00  WARN 37424 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-21T20:18:54.602+08:00  WARN 37424 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-21T20:18:54.602+08:00  WARN 37424 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-21T20:18:59.214+08:00  WARN 37424 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-21T20:18:59.214+08:00  WARN 37424 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-21T20:18:59.214+08:00  WARN 37424 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-21T20:18:59.214+08:00  WARN 37424 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-21T20:19:05.217+08:00  WARN 25364 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T20:19:05.231+08:00  WARN 25364 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service-default.properties] & group[DEFAULT_GROUP]
+2025-07-21T20:19:05.241+08:00  INFO 25364 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : The following 1 profile is active: "default"
+2025-07-21T20:19:06.138+08:00  WARN 25364 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:19:06.139+08:00  WARN 25364 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:19:06.141+08:00  WARN 25364 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:19:06.141+08:00  WARN 25364 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:19:06.142+08:00  WARN 25364 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:19:10.799+08:00  WARN 25364 --- [gateway-service] [main] onfigReactiveWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'gatewayControllerEndpoint' defined in class path resource [org/springframework/cloud/gateway/config/GatewayAutoConfiguration$GatewayActuatorConfiguration.class]: Unsatisfied dependency expressed through method 'gatewayControllerEndpoint' parameter 0: Error creating bean with name 'routingFilter' defined in class path resource [org/springframework/cloud/gateway/config/GatewayAutoConfiguration$NettyConfiguration.class]: Unsatisfied dependency expressed through method 'routingFilter' parameter 0: Error creating bean with name 'gatewayHttpClientFactory' defined in class path resource [org/springframework/cloud/gateway/config/GatewayAutoConfiguration$NettyConfiguration.class]: Unsatisfied dependency expressed through method 'gatewayHttpClientFactory' parameter 0: Error creating bean with name 'httpClientProperties': Could not bind properties to 'HttpClientProperties' : prefix=spring.cloud.gateway.httpclient, ignoreInvalidFields=false, ignoreUnknownFields=true
+2025-07-21T20:19:10.819+08:00 ERROR 25364 --- [gateway-service] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
 
-reactor.netty.http.client.PrematureCloseException: Connection prematurely closed BEFORE response
+***************************
+APPLICATION FAILED TO START
+***************************
 
-2025-07-16T10:59:57.807+08:00 ERROR 9716 --- [gateway-service] [reactor-http-nio-7] a.w.r.e.AbstractErrorWebExceptionHandler : [3dcce2bc]  500 Server Error for HTTP POST "/user/login"
+Description:
 
-reactor.netty.http.client.PrematureCloseException: Connection prematurely closed BEFORE response
-	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
-Error has been observed at the following site(s):
-	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
-	*__checkpoint ⇢ HTTP POST "/user/login" [ExceptionHandlingWebHandler]
-Original Stack Trace:
+Failed to bind properties under 'spring.cloud.gateway.httpclient.connect-timeout' to java.lang.Integer:
 
-2025-07-16T11:21:59.097+08:00  WARN 9716 --- [gateway-service] [reactor-http-nio-8] r.netty.http.client.HttpClientConnect    : [07f8e13f-1, L:/192.168.244.1:58667 ! R:/192.168.244.1:20881] The connection observed an error
+    Property: spring.cloud.gateway.httpclient.connect-timeout
+    Value: "3000ms"
+    Origin: "spring.cloud.gateway.httpclient.connect-timeout" from property source "bootstrapProperties-gateway-service.properties,DEFAULT_GROUP"
+    Reason: failed to convert java.lang.String to java.lang.Integer (caused by java.lang.NumberFormatException: For input string: "3000ms")
 
-reactor.netty.http.client.PrematureCloseException: Connection prematurely closed BEFORE response
+Action:
 
-2025-07-16T11:21:59.097+08:00 ERROR 9716 --- [gateway-service] [reactor-http-nio-8] a.w.r.e.AbstractErrorWebExceptionHandler : [4a3f9896]  500 Server Error for HTTP POST "/user/login"
+Update your application's configuration
 
-reactor.netty.http.client.PrematureCloseException: Connection prematurely closed BEFORE response
-	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
-Error has been observed at the following site(s):
-	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
-	*__checkpoint ⇢ HTTP POST "/user/login" [ExceptionHandlingWebHandler]
-Original Stack Trace:
+2025-07-21T20:19:10.821+08:00  WARN 25364 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-21T20:19:10.821+08:00  WARN 25364 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-21T20:19:10.821+08:00  WARN 25364 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-21T20:19:10.822+08:00  WARN 25364 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-21T20:37:51.842+08:00  WARN 26984 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T20:37:51.856+08:00  INFO 26984 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-07-21T20:37:52.734+08:00  WARN 26984 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:37:52.735+08:00  WARN 26984 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:37:52.737+08:00  WARN 26984 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:37:52.737+08:00  WARN 26984 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:37:52.738+08:00  WARN 26984 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:37:57.373+08:00  WARN 26984 --- [gateway-service] [main] onfigReactiveWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'httpClientSslConfigurer' defined in class path resource [org/springframework/cloud/gateway/config/GatewayAutoConfiguration$NettyConfiguration.class]: Unsatisfied dependency expressed through method 'httpClientSslConfigurer' parameter 1: Error creating bean with name 'httpClientProperties': Could not bind properties to 'HttpClientProperties' : prefix=spring.cloud.gateway.httpclient, ignoreInvalidFields=false, ignoreUnknownFields=true
+2025-07-21T20:37:57.395+08:00 ERROR 26984 --- [gateway-service] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
 
-2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
-2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
-2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-5] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
-2025-07-16T20:08:21.102+08:00  WARN 9716 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
-2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
-2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
-2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
-2025-07-16T20:08:25.846+08:00  WARN 9716 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.cloud.gateway.httpclient.connect-timeout' to java.lang.Integer:
+
+    Property: spring.cloud.gateway.httpclient.connect-timeout
+    Value: "3000ms"
+    Origin: "spring.cloud.gateway.httpclient.connect-timeout" from property source "bootstrapProperties-gateway-service.properties,DEFAULT_GROUP"
+    Reason: failed to convert java.lang.String to java.lang.Integer (caused by java.lang.NumberFormatException: For input string: "3000ms")
+
+Action:
+
+Update your application's configuration
+
+2025-07-21T20:37:57.396+08:00  WARN 26984 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-21T20:37:57.396+08:00  WARN 26984 --- [gateway-service] [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-21T20:37:57.396+08:00  WARN 26984 --- [gateway-service] [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-21T20:37:57.397+08:00  WARN 26984 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-21T20:43:18.604+08:00  WARN 33600 --- [gateway-service] [main] c.a.c.n.c.NacosPropertySourceBuilder     : Ignore the empty nacos configuration and get it based on dataId[gateway-service] & group[DEFAULT_GROUP]
+2025-07-21T20:43:18.617+08:00  INFO 33600 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-07-21T20:43:19.497+08:00  WARN 33600 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:43:19.498+08:00  WARN 33600 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:43:19.500+08:00  WARN 33600 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-21T20:43:19.501+08:00  WARN 33600 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:43:19.501+08:00  WARN 33600 --- [gateway-service] [main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [loadBalancerWebClientBuilderBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
+2025-07-21T20:43:24.310+08:00  INFO 33600 --- [gateway-service] [main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2025-07-21T20:43:24.327+08:00  INFO 33600 --- [gateway-service] [main] c.a.c.s.g.s.SentinelSCGAutoConfiguration : [Sentinel SpringCloudGateway] using AnonymousBlockRequestHandler, responseStatus: 429, responseBody: {"code":429,"message":"Request blocked by Sentinel"}
+2025-07-21T20:43:24.327+08:00  INFO 33600 --- [gateway-service] [main] c.a.c.s.g.s.SentinelSCGAutoConfiguration : [Sentinel SpringCloudGateway] register SentinelGatewayFilter with order: -2147483648
+2025-07-21T20:43:24.514+08:00  INFO 33600 --- [gateway-service] [main] c.a.c.s.SentinelWebFluxAutoConfiguration : [Sentinel Starter] register Sentinel SentinelWebFluxFilter
+2025-07-21T20:43:24.684+08:00  WARN 33600 --- [gateway-service] [main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-07-21T20:43:27.893+08:00  WARN 33600 --- [gateway-service] [main] org.apache.dubbo.config.ServiceConfig    :  [DUBBO] Use random available port(20880) for protocol dubbo, dubbo version: 3.2.15, current host: 192.168.244.1, error code: 5-8. This may be caused by , go to https://dubbo.apache.org/faq/5/8 to find instructions. 
+2025-07-21T20:43:28.139+08:00  INFO 33600 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Started GatewayServiceApplication in 13.959 seconds (process running for 14.509)
+2025-07-21T20:43:28.146+08:00  INFO 33600 --- [gateway-service] [main] c.c.gateway.GatewayServiceApplication    : Gateway Service started successfully on port: 8080

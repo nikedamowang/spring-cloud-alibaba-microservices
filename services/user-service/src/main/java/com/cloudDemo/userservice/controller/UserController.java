@@ -1,10 +1,12 @@
 package com.cloudDemo.userservice.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloudDemo.api.dto.AuthRequest;
 import com.cloudDemo.api.dto.AuthResponse;
 import com.cloudDemo.api.dto.Result;
 import com.cloudDemo.userservice.entity.User;
+import com.cloudDemo.userservice.fallback.UserServiceFallbackHandler;
 import com.cloudDemo.userservice.mapper.UserMapper;
 import com.cloudDemo.userservice.service.AuthService;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,11 @@ public class UserController {
      * 用户登录
      */
     @PostMapping("/login")
+    @SentinelResource(
+            value = "userLogin",
+            fallback = "userLoginFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
     public Result<AuthResponse> login(@RequestBody AuthRequest request) {
         return authService.login(request);
     }
@@ -60,6 +67,11 @@ public class UserController {
      * 用户注册
      */
     @PostMapping("/register")
+    @SentinelResource(
+            value = "userRegister",
+            fallback = "userRegisterFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
     public Result<String> register(@RequestBody AuthRequest request) {
         return authService.register(request);
     }
@@ -89,6 +101,11 @@ public class UserController {
      * 根据ID获取用户信息
      */
     @GetMapping("/id/{id}")
+    @SentinelResource(
+            value = "getUserInfo",
+            fallback = "getUserInfoFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
     public Result<User> getUserById(@PathVariable Integer id) {
         try {
             User user = userMapper.selectById(id);
@@ -121,5 +138,41 @@ public class UserController {
         } catch (Exception e) {
             return Result.error("获取用户信息失败：" + e.getMessage());
         }
+    }
+
+    /**
+     * Sentinel熔断降级测试接口
+     */
+    @GetMapping("/sentinel-test")
+    @SentinelResource(
+            value = "sentinelTest",
+            fallback = "sentinelTestFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
+    public Result<String> sentinelTest(@RequestParam(defaultValue = "0") int delay) {
+        try {
+            // 模拟业务处理时间
+            if (delay > 0) {
+                Thread.sleep(delay);
+            }
+            return Result.success("Sentinel测试成功，延迟: " + delay + "ms");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("业务处理被中断", e);
+        }
+    }
+
+    /**
+     * Sentinel快速失败测试接口
+     */
+    @GetMapping("/sentinel-fail")
+    @SentinelResource(
+            value = "sentinelFail",
+            fallback = "sentinelFailFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
+    public Result<String> sentinelFail() {
+        // 模拟业务异常
+        throw new RuntimeException("模拟业务异常，触发Sentinel熔断");
     }
 }

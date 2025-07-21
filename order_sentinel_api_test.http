@@ -1,0 +1,36 @@
+### 订单服务 Sentinel 熔断降级测试
+
+### 1. 订单查询测试 (带Sentinel保护)
+GET http://localhost:8000/order/123
+Accept: application/json
+
+### 2. 订单创建测试 (有随机异常，测试熔断)
+POST http://localhost:8000/order/create
+Content-Type: application/json
+
+{
+  "productId": 1001,
+  "quantity": 2,
+  "price": 99.99,
+  "userId": 1
+}
+
+### 3. 订单状态更新测试 (有随机异常，测试降级)
+PUT http://localhost:8000/order/456/status?status=shipped
+Accept: application/json
+
+### 4. 连续多次请求测试 - 触发熔断
+GET http://localhost:8000/order/789
+
+### 5. 无效参数测试 - 触发异常降级
+GET http://localhost:8000/order/0
+
+### 6. 空订单创建测试 - 触发异常降级
+POST http://localhost:8000/order/create
+Content-Type: application/json
+
+{}
+
+### 7. 无效状态更新测试
+PUT http://localhost:8000/order/123/status?status=
+Accept: application/json
