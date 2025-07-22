@@ -73,7 +73,7 @@ GET /api/nacos/service/instances?serviceName={name}      # 获取服务实例信
 
 - 更新各服务模块的本地配置文件
 - 路径：`services/{service}/src/main/resources/application.*`
-- 确保本地配置与即将上传的Nacos配置保持一致
+- 本地配置文件只保留必要的部分,不必要的部分全部上传至nacos
 - **注意**: 人工确认并手动上传配置到Nacos后，重启相关服务
 
 ### 配置文件路径说明
