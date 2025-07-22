@@ -1,10 +1,17 @@
 # Compiled class file
 *.class
 
-# Log file
+# Log file - 更全面的日志文件排除规则
 *.log
+*.log.*
+*.gz
 logs/
 logs/**
+**/logs/
+**/logs/**
+# 各个服务的日志文件
+services/*/logs/
+services/*/logs/**
 
 # BlueJ files
 *.ctxt

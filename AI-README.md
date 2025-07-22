@@ -23,6 +23,10 @@
 - Nacos Discovery/Config + Dubbo 3.2.15 + Sentinel
 - MyBatis Plus + Redis + JWT
 
+### 终端
+
+- PowerShell 7.5.2
+
 ## AI专用接口 (management-service:9090)
 
 ### 配置管理
