@@ -1,3 +1,159 @@
-cloudDemo是父项目,services是父模块,子模块有user-service和order-service,test是测试模块
+# CloudDemo 微服务项目说明文档
 
-我的nacos端口是8848,版本是2.5,已经使用它作为注册中心和配置中心.
+## 1. 项目架构说明
+
+**cloudDemo** 是基于Spring Boot + Spring Cloud Alibaba技术栈构建的分布式微服务学习项目。
+
+### 项目结构
+- **cloudDemo**: 父项目，管理整体依赖和配置
+- **services**: 父模块，包含所有微服务子模块
+  - **user-service**: 用户服务模块 (端口: 9000)
+    - 提供用户注册、登录、信息查询等功能
+    - 集成JWT认证、Redis缓存、Sentinel熔断降级
+    - 支持Dubbo RPC调用和负载均衡
+  - **order-service**: 订单服务模块 (端口: 8000)
+    - 提供订单创建、查询、状态更新等功能
+    - 集成Sentinel熔断降级和随机异常模拟
+    - 支持分布式服务调用
+  - **gateway-service**: API网关服务 (端口: 8090)
+    - 统一路由转发和请求入口
+    - 集成Sentinel网关层限流
+    - 支持服务发现和负载均衡
+  - **management-service**: 管理服务模块 (端口: 8001)
+    - 提供系统配置管理和监控功能
+    - 集成Nacos配置同步API
+    - 提供专供AI使用的接口
+  - **common-api**: 公共API模块
+    - 定义通用的数据传输对象(DTO)
+    - 共享接口定义和工具类
+- **test**: 测试模块，包含各种测试用例和API测试文件
+
+### 技术栈
+- **服务注册发现**: Nacos Discovery
+- **配置中心**: Nacos Config (端口: 8848, 版本: 2.5)
+- **RPC框架**: Apache Dubbo 3.2.15
+- **熔断降级**: Spring Cloud Alibaba Sentinel
+- **API网关**: Spring Cloud Gateway
+- **缓存**: Redis (分布式缓存和会话管理)
+- **认证**: JWT Token认证
+- **数据库**: MySQL + MyBatis Plus
+- **监控**: Sentinel Dashboard (端口: 8080)
+
+## 2. AI专用接口列表
+
+管理服务(management-service)提供了专门的API接口供AI使用，以下是可用的接口路径及作用：
+
+### 配置管理接口
+```
+基础路径: http://localhost:8001
+```
+
+#### 配置同步接口
+- **GET** `/api/config/sync-all`
+  - **作用**: 同步所有服务的Nacos配置到本地
+  - **返回**: 同步结果和配置文件列表
+  - **用途**: 获取当前所有服务的配置信息
+
+- **GET** `/api/config/sync/{serviceName}`
+  - **作用**: 同步指定服务的Nacos配置到本地
+  - **参数**: serviceName (服务名称，如user-service)
+  - **返回**: 指定服务的配置内容
+  - **用途**: 获取特定服务的配置信息
+
+#### 配置查询接口
+- **GET** `/api/config/list`
+  - **作用**: 获取所有已同步的配置文件列表
+  - **返回**: 配置文件名称和最后更新时间
+  - **用途**: 查看当前可用的配置文件
+
+- **GET** `/api/config/content/{serviceName}`
+  - **作用**: 获取指定服务的配置文件内容
+  - **参数**: serviceName (服务名称)
+  - **返回**: 配置文件的具体内容
+  - **用途**: 查看服务的详细配置
+
+#### 服务状态接口
+- **GET** `/api/services/status`
+  - **作用**: 获取所有微服务的运行状态
+  - **返回**: 服务列表、端口、健康状态等信息
+  - **用途**: 监控服务运行情况
+
+- **GET** `/api/services/nacos-status`
+  - **作用**: 获取Nacos中注册的服务信息
+  - **返回**: 服务注册详情、实例信息
+  - **用途**: 查看服务注册状态
+
+#### 系统信息接口
+- **GET** `/api/system/info`
+  - **作用**: 获取系统基础信息
+  - **返回**: JVM信息、系统环境、项目版本等
+  - **用途**: 了解运行环境和系统状态
+
+- **GET** `/api/health`
+  - **作用**: 健康检查接口
+  - **返回**: 服务健康状态
+  - **用途**: 验证管理服务是否正常运行
+
+### 使用示例
+```bash
+# 同步所有配置
+curl -X GET "http://localhost:8001/api/config/sync-all"
+
+# 获取用户服务配置
+curl -X GET "http://localhost:8001/api/config/content/user-service"
+
+# 查看服务状态
+curl -X GET "http://localhost:8001/api/services/status"
+```
+
+## 3. 配置文件修改流程规范
+
+**重要提醒**: 为确保配置一致性和避免配置冲突，修改任何服务配置时必须严格遵循以下流程：
+
+### 标准操作流程
+
+#### 第一步：配置同步
+- **必须**首先调用管理服务API将Nacos上的配置文件同步到本地
+- 同步路径：`services/management-service/config-templates/`
+- 执行同步：`GET /api/config/sync-all` 或 `GET /api/config/sync/{serviceName}`
+
+#### 第二步：差异对比
+- 对比本地同步的Nacos配置文件与项目中的本地配置文件
+- 识别需要更新的配置项和潜在冲突
+- 确定最终需要上传到Nacos的配置内容
+
+#### 第三步：配置验证
+- **必须**检查准备上传的配置文件是否存在语法问题
+- 验证配置项的格式和数值是否正确
+- 确认配置修改不会导致服务启动失败或功能异常
+
+#### 第四步：人工确认上传
+- **禁止**AI私自修改Nacos上的配置文件
+- AI应列出准备执行的配置更新命令
+- **必须**等待人工确认并手动上传配置文件到Nacos
+- 上传完成后由人工执行AI提供的后续操作命令
+
+### 配置文件路径说明
+```
+本地配置同步目录：
+- services/management-service/config-templates/          # Nacos同步的配置
+- services/management-service/config-templates-modified/ # 修改后的配置
+
+各服务本地配置：
+- services/user-service/src/main/resources/application.properties
+- services/order-service/src/main/resources/application.properties
+- services/gateway-service/src/main/resources/application.yml
+- services/management-service/src/main/resources/application.properties
+```
+
+### 安全注意事项
+- 配置修改涉及服务的核心参数，错误配置可能导致服务无法启动
+- Nacos作为配置中心，其配置具有最高优先级，会覆盖本地配置
+- 多服务共享配置时，修改需要考虑对其他服务的影响
+- 建议在测试环境验证配置修改后再应用到生产环境
+
+---
+
+**本文档更新时间**: 2025年7月21日
+**项目状态**: 开发中
+**联系方式**: 如有疑问请查阅项目README或相关技术文档

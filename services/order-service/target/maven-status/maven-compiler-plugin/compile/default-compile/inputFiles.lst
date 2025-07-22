@@ -1,5 +1,8 @@
+D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\config\SentinelConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\controller\OrdersController.java
+D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\controller\OrderSentinelController.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\entity\Orders.java
+D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\fallback\OrderServiceFallbackHandler.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\mapper\OrdersMapper.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\OrdersServiceApplication.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\service\impl\OrderServiceImpl.java
