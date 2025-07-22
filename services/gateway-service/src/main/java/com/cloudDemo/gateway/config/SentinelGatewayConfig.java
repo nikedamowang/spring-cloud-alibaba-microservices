@@ -17,7 +17,6 @@ import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.result.view.ViewResolver;
-
 import java.util.*;
 
 /**
@@ -26,22 +25,17 @@ import java.util.*;
 @Configuration
 public class SentinelGatewayConfig {
 
-    private final List<ViewResolver> viewResolvers;
-    private final ServerCodecConfigurer serverCodecConfigurer;
-
-    public SentinelGatewayConfig(ObjectProvider<List<ViewResolver>> viewResolversProvider,
-                                 ServerCodecConfigurer serverCodecConfigurer) {
-        this.viewResolvers = viewResolversProvider.getIfAvailable(Collections::emptyList);
-        this.serverCodecConfigurer = serverCodecConfigurer;
-    }
-
     /**
      * 配置SentinelGatewayBlockExceptionHandler，限流后异常处理
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
-        return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
+    public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler(
+            ObjectProvider<List<ViewResolver>> viewResolversProvider,
+            ServerCodecConfigurer serverCodecConfigurer) {
+        return new SentinelGatewayBlockExceptionHandler(
+                viewResolversProvider.getIfAvailable(Collections::emptyList),
+                serverCodecConfigurer);
     }
 
     /**
