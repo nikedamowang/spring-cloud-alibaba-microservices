@@ -27,6 +27,10 @@
 
 - PowerShell 7.5.2
 - 通过 netstat 查找端口（如 443） netstat -ano | Select-String ":443\s"
+- 当通过命令行没有得到想要的结果的时候,可以将命令行输出重定向到文件中,然后在文件中查看
+- 这个文件应该使用同一个文件避免产生大量多余的文件
+- 或者说你干脆一开始就将输出重定向到文件中然后直接读取这个文件
+- 使用同步接口之后需要到对应的文件夹读取同步到本地的配置文件
 
 ## AI专用接口 (management-service:9090)
 
@@ -76,6 +80,13 @@ GET /api/nacos/service/instances?serviceName={name}      # 获取服务实例信
 - 路径：`services/{service}/src/main/resources/application.*`
 - 本地配置文件只保留必要的部分,不必要的部分全部上传至nacos
 - **注意**: 人工确认并手动上传配置到Nacos后，重启相关服务
+
+#### 第五步：提供需要上传到nacos的配置文件(假如需要修改的话)
+
+- 将修改后的配置文件放入`services/management-service/config-templates-modified/`
+- 确保该目录只包含修改后的配置文件
+- 禁止存放其他类型的文件（如.json、.log等）
+- **注意**: 该目录的内容将被上传到Nacos
 
 ### 配置文件路径说明
 
