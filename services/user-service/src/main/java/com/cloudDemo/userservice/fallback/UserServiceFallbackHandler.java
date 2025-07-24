@@ -3,20 +3,43 @@ package com.cloudDemo.userservice.fallback;
 import com.cloudDemo.api.dto.AuthRequest;
 import com.cloudDemo.api.dto.AuthResponse;
 import com.cloudDemo.api.dto.Result;
+import com.cloudDemo.api.dto.SessionInfo;
 import com.cloudDemo.userservice.entity.User;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 
 /**
- * 用户服务Sentinel降级处理器
+ * 用户服务Sentinel降级处理器 - 升级版分布式会话管理
  */
 @Component
 public class UserServiceFallbackHandler {
 
     /**
-     * 用户登录降级处理
+     * 用户登录降级处理 - 升级版
      */
-    public static Result<AuthResponse> userLoginFallback(AuthRequest request, Throwable ex) {
+    public static Result<AuthResponse> userLoginFallback(AuthRequest request, HttpServletRequest httpRequest, Throwable ex) {
         return Result.error("用户登录服务暂时不可用，请稍后重试");
+    }
+
+    /**
+     * 用户登录降级处理 - 简化版本
+     */
+    public static Result<AuthResponse> userLoginSimpleFallback(AuthRequest request, Throwable ex) {
+        return Result.error("用户登录服务暂时不可用，请稍后重试");
+    }
+
+    /**
+     * 用户注销降级处理 - 新增
+     */
+    public static Result<String> userLogoutFallback(String sessionId, Throwable ex) {
+        return Result.error("用户注销服务暂时不可用，请稍后重试");
+    }
+
+    /**
+     * Token验证降级处理 - 新增
+     */
+    public static Result<SessionInfo> validateTokenFallback(String sessionId, Throwable ex) {
+        return Result.error("Token验证服务暂时不可用，请稍后重试");
     }
 
     /**

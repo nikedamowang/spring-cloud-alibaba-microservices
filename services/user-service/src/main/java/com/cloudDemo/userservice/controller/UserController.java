@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloudDemo.api.dto.AuthRequest;
 import com.cloudDemo.api.dto.AuthResponse;
 import com.cloudDemo.api.dto.Result;
+import com.cloudDemo.api.dto.SessionInfo;
 import com.cloudDemo.userservice.entity.User;
 import com.cloudDemo.userservice.fallback.UserServiceFallbackHandler;
 import com.cloudDemo.userservice.mapper.UserMapper;
 import com.cloudDemo.userservice.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +32,7 @@ public class UserController {
     }
 
     /**
-     * 用户登录
+     * 用户登录 - 升级版分布式会话管理
      */
     @PostMapping("/login")
     @SentinelResource(
@@ -38,8 +40,47 @@ public class UserController {
             fallback = "userLoginFallback",
             fallbackClass = UserServiceFallbackHandler.class
     )
-    public Result<AuthResponse> login(@RequestBody AuthRequest request) {
+    public Result<AuthResponse> login(@RequestBody AuthRequest request, HttpServletRequest httpRequest) {
+        return authService.login(request, httpRequest);
+    }
+
+    /**
+     * 用户登录 - 兼容版本（不带HttpServletRequest，用于Sentinel降级）
+     */
+    @PostMapping("/login-simple")
+    @SentinelResource(
+            value = "userLoginSimple",
+            fallback = "userLoginSimpleFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
+    public Result<AuthResponse> loginSimple(@RequestBody AuthRequest request) {
         return authService.login(request);
+    }
+
+    /**
+     * 用户注销 - 升级版
+     */
+    @PostMapping("/logout")
+    @SentinelResource(
+            value = "userLogout",
+            fallback = "userLogoutFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
+    public Result<String> logout(@RequestParam String sessionId) {
+        return authService.logout(sessionId);
+    }
+
+    /**
+     * 验证Token - 升级版
+     */
+    @PostMapping("/validate")
+    @SentinelResource(
+            value = "validateToken",
+            fallback = "validateTokenFallback",
+            fallbackClass = UserServiceFallbackHandler.class
+    )
+    public Result<SessionInfo> validateToken(@RequestParam String sessionId) {
+        return authService.validateSession(sessionId);
     }
 
     /**
@@ -48,53 +89,6 @@ public class UserController {
     @PostMapping("/test-login")
     public String testLogin(@RequestBody String body) {
         return "Received: " + body;
-    }
-
-    /**
-     * 用户注销
-     */
-    @PostMapping("/logout")
-    public Result<String> logout(@RequestHeader("Authorization") String authorization) {
-        // 从Header中提取token（去掉"Bearer "前缀）
-        String token = null;
-        if (authorization != null && authorization.startsWith("Bearer ")) {
-            token = authorization.substring(7);
-        }
-        return authService.logout(token);
-    }
-
-    /**
-     * 用户注册
-     */
-    @PostMapping("/register")
-    @SentinelResource(
-            value = "userRegister",
-            fallback = "userRegisterFallback",
-            fallbackClass = UserServiceFallbackHandler.class
-    )
-    public Result<String> register(@RequestBody AuthRequest request) {
-        return authService.register(request);
-    }
-
-    /**
-     * 验证token
-     */
-    @PostMapping("/validate")
-    public Result<User> validateToken(@RequestHeader("Authorization") String authorization) {
-        // 从Header中提取token（去掉"Bearer "前缀）
-        String token = null;
-        if (authorization != null && authorization.startsWith("Bearer ")) {
-            token = authorization.substring(7);
-        }
-        return authService.validateToken(token);
-    }
-
-    /**
-     * 刷新token
-     */
-    @PostMapping("/refresh")
-    public Result<AuthResponse> refreshToken(@RequestBody String refreshToken) {
-        return authService.refreshToken(refreshToken);
     }
 
     /**

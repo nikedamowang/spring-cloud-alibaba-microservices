@@ -1,37 +1,96 @@
 package com.cloudDemo.userservice.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.cloudDemo.api.dto.AuthRequest;
-import com.cloudDemo.api.dto.AuthResponse;
-import com.cloudDemo.api.dto.Result;
-import com.cloudDemo.api.util.JwtUtil;
+import com.cloudDemo.api.dto.*;
+import com.cloudDemo.api.service.SessionService;
 import com.cloudDemo.userservice.entity.User;
 import com.cloudDemo.userservice.mapper.UserMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.concurrent.TimeUnit;
-
 /**
- * 用户认证服务
+ * 用户认证服务 - 升级版分布式会话管理
  */
 @Slf4j
 @Service
 public class AuthService {
 
-    private static final String TOKEN_PREFIX = "user:token:";
-    private static final String REFRESH_TOKEN_PREFIX = "user:refresh:";
-    private static final String USER_INFO_PREFIX = "user:info:";
     @Autowired
     private UserMapper userMapper;
+
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    @Qualifier("sessionService")  // 明确指定注入的Bean名称
+    private SessionService sessionService;
 
     /**
-     * 用户登录
+     * 用户登录 - 升级版分布式会话管理
+     */
+    public Result<AuthResponse> login(AuthRequest request, HttpServletRequest httpRequest) {
+        try {
+            // 参数验证
+            if (!StringUtils.hasText(request.getUsername()) || !StringUtils.hasText(request.getPassword())) {
+                return Result.error("用户名和密码不能为空");
+            }
+
+            // 查询用户
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", request.getUsername());
+            User user = userMapper.selectOne(queryWrapper);
+
+            if (user == null) {
+                return Result.error("用户不存在");
+            }
+
+            // 验证密码
+            if (!request.getPassword().equals(user.getPassword())) {
+                return Result.error("密码错误");
+            }
+
+            // 检查用户状态
+            if (!"active".equals(user.getStatus())) {
+                return Result.error("用户已被禁用");
+            }
+
+            // 获取设备和IP信息
+            String deviceInfo = getDeviceInfo(httpRequest);
+            String ipAddress = getClientIpAddress(httpRequest);
+            String userAgent = httpRequest.getHeader("User-Agent");
+
+            // 创建分布式会话
+            Result<SessionInfo> sessionResult = sessionService.createSession(
+                    user.getId().longValue(), deviceInfo, ipAddress, userAgent);
+
+            if (!sessionResult.isSuccess()) {
+                return Result.error("创建会话失败：" + sessionResult.getMessage());
+            }
+
+            SessionInfo sessionInfo = sessionResult.getData();
+
+            // 构建响应
+            AuthResponse response = new AuthResponse(
+                    sessionInfo.getAccessToken(),
+                    sessionInfo.getRefreshToken(),
+                    sessionInfo.getUserId(),
+                    sessionInfo.getUsername(),
+                    sessionInfo.getExpireTime().toInstant(java.time.ZoneOffset.of("+8")).toEpochMilli()
+            );
+
+            log.info("用户登录成功: username={}, sessionId={}, device={}",
+                    user.getUsername(), sessionInfo.getSessionId(), deviceInfo);
+            return Result.success(response);
+
+        } catch (Exception e) {
+            log.error("用户登录失败", e);
+            return Result.error("登录失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 用户登录 - 向后兼容版本（不带HttpServletRequest参数）
      */
     public Result<AuthResponse> login(AuthRequest request) {
         try {
@@ -49,37 +108,37 @@ public class AuthService {
                 return Result.error("用户不存在");
             }
 
-            // 验证密码（直接使用明文密码比较）
+            // 验证密码
             if (!request.getPassword().equals(user.getPassword())) {
                 return Result.error("密码错误");
             }
 
-            // 检查用户状态 - 修复：status现在是String类型
+            // 检查用户状态
             if (!"active".equals(user.getStatus())) {
                 return Result.error("用户已被禁用");
             }
 
-            // 生成token - 修复：id现在是Integer类型
-            String token = JwtUtil.generateToken(String.valueOf(user.getId()), user.getUsername());
-            String refreshToken = JwtUtil.generateRefreshToken(String.valueOf(user.getId()));
+            // 创建分布式会话（使用默认设备信息）
+            Result<SessionInfo> sessionResult = sessionService.createSession(
+                    user.getId().longValue(), "Unknown", "Unknown", "Unknown");
 
-            // 将token存储到Redis中，设置过期时间
-            redisTemplate.opsForValue().set(TOKEN_PREFIX + user.getId(), token, 24, TimeUnit.HOURS);
-            redisTemplate.opsForValue().set(REFRESH_TOKEN_PREFIX + user.getId(), refreshToken, 7, TimeUnit.DAYS);
+            if (!sessionResult.isSuccess()) {
+                return Result.error("创建会话失败：" + sessionResult.getMessage());
+            }
 
-            // 缓存用户信息到Redis
-            redisTemplate.opsForValue().set(USER_INFO_PREFIX + user.getId(), user, 24, TimeUnit.HOURS);
+            SessionInfo sessionInfo = sessionResult.getData();
 
             // 构建响应
             AuthResponse response = new AuthResponse(
-                    token,
-                    refreshToken,
-                    user.getId().longValue(), // 修复：将Integer转换为Long
-                    user.getUsername(),
-                    JwtUtil.getExpirationTime()
+                    sessionInfo.getAccessToken(),
+                    sessionInfo.getRefreshToken(),
+                    sessionInfo.getUserId(),
+                    sessionInfo.getUsername(),
+                    sessionInfo.getExpireTime().toInstant(java.time.ZoneOffset.of("+8")).toEpochMilli()
             );
 
-            log.info("用户登录成功: {}", user.getUsername());
+            log.info("用户登录成功: username={}, sessionId={}",
+                    user.getUsername(), sessionInfo.getSessionId());
             return Result.success(response);
 
         } catch (Exception e) {
@@ -89,27 +148,36 @@ public class AuthService {
     }
 
     /**
-     * 用户注销
+     * 用户注销 - 升级版
      */
-    public Result<String> logout(String token) {
+    public Result<String> logout(String sessionId) {
         try {
-            if (!StringUtils.hasText(token)) {
-                return Result.error("Token不能为空");
+            if (!StringUtils.hasText(sessionId)) {
+                return Result.error("会话ID不能为空");
             }
 
-            // 解析token获取用户ID
-            String userId = JwtUtil.getUserIdFromToken(token);
-            if (userId == null) {
-                return Result.error("无效的Token");
+            // 首先验证会话是否存在
+            Result<SessionInfo> validateResult = sessionService.validateSession(sessionId);
+            if (!validateResult.isSuccess()) {
+                // 如果会话验证失败，说明会话不存在或已失效
+                return Result.error("会话不存在或已失效，无法注销");
             }
 
-            // 从Redis中删除token和用户信息
-            redisTemplate.delete(TOKEN_PREFIX + userId);
-            redisTemplate.delete(REFRESH_TOKEN_PREFIX + userId);
-            redisTemplate.delete(USER_INFO_PREFIX + userId);
+            SessionInfo sessionInfo = validateResult.getData();
+            if (!"ACTIVE".equals(sessionInfo.getStatus())) {
+                return Result.error("会话已失效，无需重复注销");
+            }
 
-            log.info("用户注销成功: userId={}", userId);
-            return Result.success("注销成功");
+            // 销毁分布式会话
+            Result<String> result = sessionService.destroySession(sessionId);
+
+            if (result.isSuccess()) {
+                log.info("用户注销成功: userId={}, sessionId={}", sessionInfo.getUserId(), sessionId);
+                return Result.success("注销成功");
+            } else {
+                log.warn("用户注销失败: sessionId={}, reason={}", sessionId, result.getMessage());
+                return result;
+            }
 
         } catch (Exception e) {
             log.error("用户注销失败", e);
@@ -118,103 +186,36 @@ public class AuthService {
     }
 
     /**
-     * 验证token是否有效
+     * 验证会话是否有效 - 升级版
      */
-    public Result<User> validateToken(String token) {
+    public Result<SessionInfo> validateSession(String sessionId) {
         try {
-            if (!StringUtils.hasText(token)) {
-                return Result.error("Token不能为空");
+            if (!StringUtils.hasText(sessionId)) {
+                return Result.error("会话ID不能为空");
             }
 
-            // 验证JWT token
-            if (!JwtUtil.validateToken(token)) {
-                return Result.error("Token无效或已过期");
+            // 验证分布式会话
+            Result<SessionInfo> result = sessionService.validateSession(sessionId);
+
+            if (result.isSuccess()) {
+                // 更新会话活跃时间
+                sessionService.updateSessionActivity(sessionId);
             }
 
-            // 获取用户ID
-            String userId = JwtUtil.getUserIdFromToken(token);
-            if (userId == null) {
-                return Result.error("Token中没有用户信息");
-            }
-
-            // 检查Redis中是否存在该token
-            String cachedToken = (String) redisTemplate.opsForValue().get(TOKEN_PREFIX + userId);
-            if (!token.equals(cachedToken)) {
-                return Result.error("Token已失效");
-            }
-
-            // 从Redis获取用户信息
-            User user = (User) redisTemplate.opsForValue().get(USER_INFO_PREFIX + userId);
-            if (user == null) {
-                // 如果Redis中没有，从数据库查询 - 修复：使用Integer.valueOf
-                user = userMapper.selectById(Integer.valueOf(userId));
-                if (user != null) {
-                    // 重新缓存到Redis
-                    redisTemplate.opsForValue().set(USER_INFO_PREFIX + userId, user, 24, TimeUnit.HOURS);
-                }
-            }
-
-            if (user == null) {
-                return Result.error("用户不存在");
-            }
-
-            return Result.success(user);
+            return result;
 
         } catch (Exception e) {
-            log.error("Token验证失败", e);
-            return Result.error("Token验证失败：" + e.getMessage());
+            log.error("验证会话失败", e);
+            return Result.error("验证会话失败：" + e.getMessage());
         }
     }
 
     /**
-     * 刷新token
+     * 刷新Token - 新增功能
      */
-    public Result<AuthResponse> refreshToken(String refreshToken) {
+    public Result<AuthResponse> refreshToken(TokenRefreshRequest request) {
         try {
-            if (!StringUtils.hasText(refreshToken)) {
-                return Result.error("RefreshToken不能为空");
-            }
-
-            // 验证refresh token
-            if (!JwtUtil.validateToken(refreshToken)) {
-                return Result.error("RefreshToken无效或已过期");
-            }
-
-            String userId = JwtUtil.getUserIdFromToken(refreshToken);
-            if (userId == null) {
-                return Result.error("RefreshToken中没有用户信息");
-            }
-
-            // 检查Redis中的refresh token
-            String cachedRefreshToken = (String) redisTemplate.opsForValue().get(REFRESH_TOKEN_PREFIX + userId);
-            if (!refreshToken.equals(cachedRefreshToken)) {
-                return Result.error("RefreshToken已失效");
-            }
-
-            // 获取用户信息 - 修复：使用Integer.valueOf
-            User user = userMapper.selectById(Integer.valueOf(userId));
-            if (user == null) {
-                return Result.error("用户不存在");
-            }
-
-            // 生成新的token
-            String newToken = JwtUtil.generateToken(userId, user.getUsername());
-            String newRefreshToken = JwtUtil.generateRefreshToken(userId);
-
-            // 更新Redis中的token
-            redisTemplate.opsForValue().set(TOKEN_PREFIX + userId, newToken, 24, TimeUnit.HOURS);
-            redisTemplate.opsForValue().set(REFRESH_TOKEN_PREFIX + userId, newRefreshToken, 7, TimeUnit.DAYS);
-
-            AuthResponse response = new AuthResponse(
-                    newToken,
-                    newRefreshToken,
-                    user.getId().longValue(), // 修复：将Integer转换为Long
-                    user.getUsername(),
-                    JwtUtil.getExpirationTime()
-            );
-
-            return Result.success(response);
-
+            return sessionService.refreshToken(request);
         } catch (Exception e) {
             log.error("刷新Token失败", e);
             return Result.error("刷新Token失败：" + e.getMessage());
@@ -222,52 +223,88 @@ public class AuthService {
     }
 
     /**
-     * 用户注册
+     * 踢出用户 - 新增功能
      */
-    public Result<String> register(AuthRequest request) {
+    public Result<String> kickOutUser(Long userId) {
         try {
-            // 参数验证
-            if (!StringUtils.hasText(request.getUsername()) || !StringUtils.hasText(request.getPassword())) {
-                return Result.error("用户名和密码不能为空");
-            }
-
-            if (request.getUsername().length() < 3 || request.getUsername().length() > 20) {
-                return Result.error("用户名长度必须在3-20个字符之间");
-            }
-
-            if (request.getPassword().length() < 6) {
-                return Result.error("密码长度不能少于6个字符");
-            }
-
-            // 检查用户名是否已存在
-            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("username", request.getUsername());
-            User existingUser = userMapper.selectOne(queryWrapper);
-
-            if (existingUser != null) {
-                return Result.error("用户名已存在");
-            }
-
-            // 创建新用户
-            User user = new User();
-            user.setUsername(request.getUsername());
-            user.setPassword(request.getPassword()); // 直接存储明文密码
-            user.setStatus("active"); // 修复：使用String类型，默认为active状态
-            user.setCreateTime(java.time.LocalDateTime.now());
-            user.setUpdateTime(java.time.LocalDateTime.now());
-
-            // 保存到数据库
-            int result = userMapper.insert(user);
-            if (result > 0) {
-                log.info("用户注册成功: {}", user.getUsername());
-                return Result.success("注册成功");
-            } else {
-                return Result.error("注册失败");
-            }
-
+            return sessionService.kickOutUser(userId);
         } catch (Exception e) {
-            log.error("用户注册失败", e);
-            return Result.error("注册失败：" + e.getMessage());
+            log.error("踢出用户失败", e);
+            return Result.error("踢出用户失败：" + e.getMessage());
         }
+    }
+
+    /**
+     * 获取用户所有会话 - 新增功能
+     */
+    public Result<java.util.List<SessionInfo>> getUserSessions(Long userId) {
+        try {
+            return sessionService.getUserSessions(userId);
+        } catch (Exception e) {
+            log.error("获取用户会话失败", e);
+            return Result.error("获取用户会话失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 检查用户是否在线 - 新增功能
+     */
+    public Result<Boolean> isUserOnline(Long userId) {
+        try {
+            return sessionService.isUserOnline(userId);
+        } catch (Exception e) {
+            log.error("检查用户在线状态失败", e);
+            return Result.error("检查在线状态失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 获取所有在线用户 - 新增功能
+     */
+    public Result<java.util.List<OnlineUserInfo>> getOnlineUsers() {
+        try {
+            return sessionService.getOnlineUsers();
+        } catch (Exception e) {
+            log.error("获取在线用户失败", e);
+            return Result.error("获取在线用户失败：" + e.getMessage());
+        }
+    }
+
+    // 私有辅助方法
+
+    /**
+     * 获取设备信息
+     */
+    private String getDeviceInfo(HttpServletRequest request) {
+        String userAgent = request.getHeader("User-Agent");
+        if (userAgent == null) {
+            return "Unknown";
+        }
+
+        // 简单的设备识别逻辑
+        if (userAgent.contains("Mobile") || userAgent.contains("Android") || userAgent.contains("iPhone")) {
+            return "Mobile";
+        } else if (userAgent.contains("Tablet") || userAgent.contains("iPad")) {
+            return "Tablet";
+        } else {
+            return "Desktop";
+        }
+    }
+
+    /**
+     * 获取客户端真实IP地址
+     */
+    private String getClientIpAddress(HttpServletRequest request) {
+        String xForwardedFor = request.getHeader("X-Forwarded-For");
+        if (StringUtils.hasText(xForwardedFor) && !"unknown".equalsIgnoreCase(xForwardedFor)) {
+            return xForwardedFor.split(",")[0].trim();
+        }
+
+        String xRealIp = request.getHeader("X-Real-IP");
+        if (StringUtils.hasText(xRealIp) && !"unknown".equalsIgnoreCase(xRealIp)) {
+            return xRealIp;
+        }
+
+        return request.getRemoteAddr();
     }
 }
