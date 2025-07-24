@@ -26,8 +26,7 @@
 ### 终端
 
 - PowerShell 7.5.2
-- 查询指定端口（如 3306）的所有占用连接 Get-NetTCPConnection -LocalPort 3306 -ErrorAction SilentlyContinue
-- 检查本地端口是否被监听（如 8080） Test-NetConnection -ComputerName localhost -Port 8080
+- 通过 netstat 查找端口（如 443） netstat -ano | Select-String ":443\s"
 
 ## AI专用接口 (management-service:9090)
 
