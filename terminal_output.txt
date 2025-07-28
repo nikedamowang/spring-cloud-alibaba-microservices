@@ -2,5 +2,5 @@
                                  Dload  Upload   Total   Spent    Left  Speed
 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   298    0   298    0     0    980      0 --:--:-- --:--:-- --:--:--   980
+100   298    0   298    0     0   1386      0 --:--:-- --:--:-- --:--:--  1392
 {"data":{"successConfigs":["user-service.properties","order-service.properties","management-service.properties"],"failedCount":0,"success":true,"failedConfigs":[],"successCount":3,"totalConfigs":3,"message":"鍚屾瀹屾垚: 鎴愬姛 3 涓紝澶辫触 0 涓?},"success":true,"message":"鎵归噺鍚屾瀹屾垚"}
