@@ -22,10 +22,6 @@ public class UserServiceApplication {
     private String serverPort;
 
     public static void main(String[] args) {
-        // 显式启用Sentinel - 这是关键的工作方案！
-        System.setProperty("csp.sentinel.dashboard.server", "localhost:8090");
-        System.setProperty("csp.sentinel.api.port", "8719");
-        System.setProperty("project.name", "user-service");
 
         try {
             SpringApplication.run(UserServiceApplication.class, args);
