@@ -2,5 +2,5 @@
                                  Dload  Upload   Total   Spent    Left  Speed
 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   298    0   298    0     0   1386      0 --:--:-- --:--:-- --:--:--  1392
-{"data":{"successConfigs":["user-service.properties","order-service.properties","management-service.properties"],"failedCount":0,"success":true,"failedConfigs":[],"successCount":3,"totalConfigs":3,"message":"鍚屾瀹屾垚: 鎴愬姛 3 涓紝澶辫触 0 涓?},"success":true,"message":"鎵归噺鍚屾瀹屾垚"}
+100   763    0   763    0     0   260k      0 --:--:-- --:--:-- --:--:--  372k
+{"demoRequest":{"userId":1001,"productName":"娴嬭瘯鍟嗗搧-鐘舵€佹満婕旂ず","amount":99.99,"shippingAddress":"鍖椾含甯傛湞闃冲尯娴嬭瘯澶ц123鍙?,"paymentType":"ALIPAY"},"success":true,"orderStatuses":["PENDING","PAID","SHIPPED","COMPLETED","CANCELLED"],"apiGuide":{"2. 鏀粯璁㈠崟":"POST /api/order/state/pay/{orderNo}","6. 鏀粯鍥炶皟":"POST /api/order/state/payment-callback?orderNo={orderNo}&paymentResult=SUCCESS","3. 鍙戣揣":"POST /api/order/state/ship/{orderNo}?trackingNumber=TRK123456","5. 鍙栨秷璁㈠崟":"POST /api/order/state/cancel/{orderNo}?reason=娴嬭瘯鍙栨秷","4. 瀹屾垚璁㈠崟":"POST /api/order/state/complete/{orderNo}","7. 鏌ョ湅鐘舵€?:"GET /api/order/state/next-statuses/{orderNo}","1. 鍒涘缓璁㈠崟":"POST /api/order/test/create-test-order"}}
