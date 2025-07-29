@@ -10,3 +10,9 @@ D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudD
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\ManagementServiceApplication.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\impl\NacosManagementServiceImpl.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\NacosManagementService.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\managementservice\controller\IntelligentConfigController.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\managementservice\entity\ConfigAuditLog.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\managementservice\entity\ConfigTemplate.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\managementservice\entity\ConfigVersion.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\managementservice\service\impl\IntelligentConfigServiceImpl.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\managementservice\service\IntelligentConfigService.java
