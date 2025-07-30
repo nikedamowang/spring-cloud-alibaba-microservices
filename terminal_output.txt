@@ -1,6 +1,1 @@
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   147    0   131  100    16  10105   1234 --:--:-- --:--:-- --:--:-- 12250
-{"success":true,"impact":{"riskLevel":"HIGH","hasChanges":true,"affectedService":"user-service.properties","requiresRestart":true}}
+{"dataId":"test-config.properties","success":true,"message":"配置热更新成功","operator":"admin"}

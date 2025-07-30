@@ -35,12 +35,91 @@ public class IntelligentConfigController {
     @Operation(summary = "动态配置热更新", description = "无需重启服务即可更新配置")
     public Map<String, Object> hotUpdateConfig(
             @Parameter(description = "配置文件标识") @RequestParam String dataId,
-            @Parameter(description = "新配置内容") @RequestBody String content,
             @Parameter(description = "操作人员") @RequestParam String operator,
-            @Parameter(description = "变更描述") @RequestParam(required = false) String changeDescription) {
+            @Parameter(description = "变更描述") @RequestParam(required = false) String changeDescription,
+            @RequestBody String content) {
 
         Map<String, Object> result = new HashMap<>();
+
         try {
+            // 参数验证
+            if (dataId == null || dataId.trim().isEmpty()) {
+                result.put("success", false);
+                result.put("message", "dataId参数不能为空");
+                return result;
+            }
+
+            if (operator == null || operator.trim().isEmpty()) {
+                result.put("success", false);
+                result.put("message", "operator参数不能为空");
+                return result;
+            }
+
+            if (content == null || content.trim().isEmpty()) {
+                result.put("success", false);
+                result.put("message", "配置内容不能为空");
+                return result;
+            }
+
+            log.info("接收到配置热更新请求: dataId={}, operator={}, contentLength={}",
+                    dataId, operator, content.length());
+
+            boolean success = intelligentConfigService.updateConfigWithHotReload(
+                    dataId, content.trim(), operator, changeDescription);
+
+            result.put("success", success);
+            result.put("message", success ? "配置热更新成功" : "配置热更新失败");
+            result.put("dataId", dataId);
+            result.put("operator", operator);
+
+            log.info("配置热更新请求处理完成: dataId={}, operator={}, result={}", dataId, operator, success);
+
+        } catch (Exception e) {
+            log.error("配置热更新异常: {}", e.getMessage(), e);
+            result.put("success", false);
+            result.put("message", "配置热更新异常: " + e.getMessage());
+        }
+
+        return result;
+    }
+
+    /**
+     * 动态配置热更新 - JSON版本
+     */
+    @PostMapping("/hot-update-json")
+    @Operation(summary = "动态配置热更新-JSON版本", description = "使用JSON格式的配置热更新接口")
+    public Map<String, Object> hotUpdateConfigJson(@RequestBody Map<String, Object> request) {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            // 从JSON获取参数
+            String dataId = (String) request.get("dataId");
+            String operator = (String) request.get("operator");
+            String changeDescription = (String) request.get("changeDescription");
+            String content = (String) request.get("content");
+
+            // 参数验证
+            if (dataId == null || dataId.trim().isEmpty()) {
+                result.put("success", false);
+                result.put("message", "dataId参数不能为空");
+                return result;
+            }
+
+            if (operator == null || operator.trim().isEmpty()) {
+                result.put("success", false);
+                result.put("message", "operator参数不能为空");
+                return result;
+            }
+
+            if (content == null || content.trim().isEmpty()) {
+                result.put("success", false);
+                result.put("message", "配置内容不能为空");
+                return result;
+            }
+
+            log.info("接收到JSON格式配置热更新请求: dataId={}, operator={}, contentLength={}",
+                    dataId, operator, content.length());
+
             boolean success = intelligentConfigService.updateConfigWithHotReload(
                     dataId, content, operator, changeDescription);
 
@@ -49,10 +128,10 @@ public class IntelligentConfigController {
             result.put("dataId", dataId);
             result.put("operator", operator);
 
-            log.info("配置热更新请求: dataId={}, operator={}, result={}", dataId, operator, success);
+            log.info("JSON格式配置热更新请求处理完成: dataId={}, operator={}, result={}", dataId, operator, success);
 
         } catch (Exception e) {
-            log.error("配置热更新异常: {}", e.getMessage(), e);
+            log.error("JSON格式配置热更新异常: {}", e.getMessage(), e);
             result.put("success", false);
             result.put("message", "配置热更新异常: " + e.getMessage());
         }

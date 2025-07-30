@@ -14,7 +14,7 @@ import org.springframework.context.event.EventListener;
  * 提供系统管理和监控功能，包括 Nacos 配置信息获取
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.cloudDemo.management")
 @EnableDiscoveryClient
 public class ManagementServiceApplication {
 

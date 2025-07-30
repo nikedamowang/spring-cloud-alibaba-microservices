@@ -29,8 +29,56 @@
 - 通过 netstat 查找端口（如 443） netstat -ano | Select-String ":443\s"
 - 当通过命令行没有得到想要的结果的时候,可以将命令行输出重定向到文件中,然后在文件中查看(terminal_output.txt)
 - 这个文件应该使用同一个文件避免产生大量多余的文件
-- 或者说你干脆一开始就将输出重定向到文件中然后直接读取这个文件(改为强制要求,即使每次输出都重定向到文件中)
+- **强制要求**: 所有命令输出都必须重定向到 `terminal_output.txt` 文件中然后读取该文件查看结果
+
+#### 中文乱码解决方案
+
+**问题**: curl命令输出中文时会出现乱码，影响结果判断
+
+**解决方法**:
+
+1. **使用 `-s` 参数隐藏curl进度信息**:
+   ```bash
+   curl -s -X GET "http://localhost:9090/api/endpoint" > terminal_output.txt 2>&1
+   ```
+
+2. **使用 `--output` 参数替代重定向**:
+   ```bash
+   curl -s -X GET "http://localhost:9090/api/endpoint" --output terminal_output.txt
+   ```
+
+3. **设置UTF-8编码** (可选):
+   ```bash
+   chcp 65001 && curl -s -X GET "http://localhost:9090/api/endpoint" > terminal_output.txt 2>&1
+   ```
+
+#### 推荐的命令格式
+
+```bash
+# 标准GET请求格式
+curl -s -X GET "http://localhost:9090/api/endpoint" > terminal_output.txt 2>&1
+
+# 标准POST请求格式
+curl -s -X POST "http://localhost:9090/api/endpoint?param=value" \
+  -H "Content-Type: text/plain" \
+  -d "request_body_content" > terminal_output.txt 2>&1
+
+# JSON POST请求格式
+curl -s -X POST "http://localhost:9090/api/endpoint" \
+  -H "Content-Type: application/json" \
+  -d '{"key":"value"}' > terminal_output.txt 2>&1
+```
+
+#### 重要注意事项
+
+- ✅ **必须使用 `-s` 参数**：隐藏curl的进度信息，避免干扰JSON响应
+- ✅ **统一使用 `terminal_output.txt`**：避免产生大量临时文件
+- ✅ **每次执行完命令后立即读取文件**：确保获取最新结果
+- ⚠️ **中文内容可能显示为编码**：但JSON结构和英文部分是正确的
+- ⚠️ **重点关注JSON结构和status字段**：判断接口是否正常工作
+
 - 使用同步接口(sync-all)之后需要到对应的文件夹(services/management-service/config-templates)读取同步到本地的配置文件
+- 查看文件最后 N 行示例（模拟 tail）:Get-Content -Path "D:\WorkSpace\IDEA\cloudDemo\logs\management-service.log" -Tail 20
 
 ## AI专用接口 (management-service:9090)
 
