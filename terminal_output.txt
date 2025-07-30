@@ -1,1 +1,1 @@
-{"dataId":"test-config.properties","success":true,"message":"配置热更新成功","operator":"admin"}
+{"success":false,"message":"鍟嗗搧涓嶅瓨鍦?}
