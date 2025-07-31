@@ -20,17 +20,20 @@ import java.util.*;
  * 实现企业级配置管理的核心功能
  */
 @Slf4j
-@Service
+@Service("intelligentConfigService")
 public class IntelligentConfigServiceImpl implements IntelligentConfigService {
 
     // 模拟数据存储 (实际项目中应使用数据库)
     private final Map<String, List<ConfigVersion>> versionStorage = new HashMap<>();
     private final List<ConfigAuditLog> auditStorage = new ArrayList<>();
     private final Map<Long, ConfigTemplate> templateStorage = new HashMap<>();
+
     // 直接使用Nacos ConfigService
     private ConfigService configService;
+
     @Value("${nacos.server-addr:localhost:8848}")
     private String serverAddr;
+
     private Long templateIdCounter = 1L;
 
     @PostConstruct
@@ -41,7 +44,8 @@ public class IntelligentConfigServiceImpl implements IntelligentConfigService {
             this.configService = NacosFactory.createConfigService(properties);
             log.info("Nacos ConfigService初始化成功");
         } catch (Exception e) {
-            log.error("Nacos ConfigService初始化失败", e);
+            log.warn("Nacos ConfigService初始化失败，但服务仍可启动: {}", e.getMessage());
+            // 不抛出异常，允许服务在Nacos不可用时也能启动
         }
     }
 
@@ -49,6 +53,16 @@ public class IntelligentConfigServiceImpl implements IntelligentConfigService {
     public boolean updateConfigWithHotReload(String dataId, String content, String operator, String changeDescription) {
         try {
             log.info("开始执行配置热更新: dataId={}, operator={}", dataId, operator);
+
+            // 检查Nacos连接
+            if (configService == null) {
+                log.warn("Nacos ConfigService未初始化，尝试重新初始化");
+                init();
+                if (configService == null) {
+                    log.error("Nacos服务不可用，无法执行配置热更新");
+                    return false;
+                }
+            }
 
             // 1. 配置语法验证
             Map<String, Object> validationResult = validateConfigSyntax(content, "properties");
@@ -99,11 +113,15 @@ public class IntelligentConfigServiceImpl implements IntelligentConfigService {
             // 记录失败审计日志
             ConfigAuditLog failedLog = new ConfigAuditLog();
             failedLog.setDataId(dataId);
+            failedLog.setGroupName("DEFAULT_GROUP");
             failedLog.setOperationType("UPDATE");
             failedLog.setOperator(operator);
+            failedLog.setOperatorIp(getClientIp());
             failedLog.setOperationTime(LocalDateTime.now());
+            failedLog.setChangeDescription(changeDescription);
             failedLog.setOperationResult("FAILED");
-            failedLog.setFailureReason(e.getMessage());
+            failedLog.setRequestSource("INTELLIGENT_CONFIG_SYSTEM");
+            failedLog.setEnvironment("PRODUCTION");
             recordAuditLog(failedLog);
 
             return false;

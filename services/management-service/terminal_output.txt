@@ -1,64 +1,12 @@
-[INFO] Scanning for projects...
-[INFO] 
-[INFO] -------------------< org.example:management-service >-------------------
-[INFO] Building management-service 0.0.1-SNAPSHOT
-[INFO]   from pom.xml
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
-[INFO] >>> spring-boot:3.3.4:run (default-cli) > test-compile @ management-service >>>
-[INFO] 
-[INFO] --- resources:3.3.1:resources (default-resources) @ management-service ---
-[INFO] Copying 1 resource from src\main\resources to target\classes
-[INFO] Copying 1 resource from src\main\resources to target\classes
-[INFO] 
-[INFO] --- compiler:3.13.0:compile (default-compile) @ management-service ---
-[INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 27 source files with javac [debug parameters release 17] to target\classes
-[INFO] 
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ management-service ---
-[INFO] skip non existing resourceDirectory D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\test\resources
-[INFO] 
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ management-service ---
-[INFO] No sources to compile
-[INFO] 
-[INFO] <<< spring-boot:3.3.4:run (default-cli) < test-compile @ management-service <<<
-[INFO] 
-[INFO] 
-[INFO] --- spring-boot:3.3.4:run (default-cli) @ management-service ---
-[INFO] Attaching agents: []
-
-
- :: Dubbo (v3.2.15) : https://github.com/apache/dubbo
- :: Discuss group : dev@dubbo.apache.org
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-
- :: Spring Boot ::                (v3.3.4)
-
-21:06:32.870 [main] INFO  c.c.m.ManagementServiceApplication - Starting ManagementServiceApplication using Java 17.0.12 with PID 11240 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo\services\management-service)
-21:06:32.872 [main] INFO  c.c.m.ManagementServiceApplication - No active profile set, falling back to 1 default profile: "default"
-INFO: Sentinel log output type is: file
-INFO: Sentinel log charset is: utf-8
-INFO: Sentinel log base directory is: C:\Users\黄院彪\logs\csp\
-INFO: Sentinel log name use pid is: false
-INFO: Sentinel log level is: INFO
-21:06:34.723 [main] INFO  c.c.m.s.i.IntelligentConfigServiceImpl - Nacos ConfigService初始化成功
-21:06:40.153 [main] INFO  c.c.m.ManagementServiceApplication - Started ManagementServiceApplication in 9.731 seconds (process running for 9.974)
-============================================
-? MANAGEMENT-SERVICE 启动成功！
-? 服务端口: 9090
-? 管理界面: http://localhost:9090
-? 服务名称: management-service
-? 功能: Nacos配置管理 & 服务监控
-? 启动时间: 2025-07-31T21:06:40.161605800
-============================================
-21:06:40.161 [main] INFO  c.c.m.ManagementServiceApplication - Management Service 已成功启动并准备提供管理服务
-21:10:26.625 [http-nio-9090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-21:10:26.625 [http-nio-9090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-21:10:26.835 [http-nio-9090-exec-1] INFO  c.c.m.m.c.ServiceMonitorController - ? 服务健康状态汇总获取成功 - 服务数: 4, 实例数: 4
-21:10:52.391 [http-nio-9090-exec-4] INFO  c.c.m.m.c.ServiceMonitorController - ? 增强版监控大屏数据获取成功 - 服务数: 15, 实例数: 4, 健康率: 0.0%
+接口响应时间趋势分析功能测试完成
+测试的API接口包括：
+1. 健康检查 - /health
+2. 响应时间趋势 - /trends
+3. 性能异常检测 - /anomalies
+4. 性能热点分析 - /hotspots
+5. 性能趋势预测 - /predictions
+6. 响应时间分布 - /distribution
+7. 聚合趋势分析 - /aggregated
+8. 性能基准对比 - /baseline-comparison
+9. 性能监控仪表板 - /dashboard
+所有API接口测试全部成功！

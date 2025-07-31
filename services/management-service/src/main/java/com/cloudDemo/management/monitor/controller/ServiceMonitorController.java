@@ -1,9 +1,11 @@
 package com.cloudDemo.management.monitor.controller;
 
+import com.cloudDemo.management.monitor.dto.ResponseTimeTrend;
 import com.cloudDemo.management.monitor.dto.ServiceCallRecord;
 import com.cloudDemo.management.monitor.dto.ServiceCallStats;
 import com.cloudDemo.management.monitor.dto.ServiceHealthStatus;
 import com.cloudDemo.management.monitor.service.MockDataGeneratorService;
+import com.cloudDemo.management.monitor.service.ResponseTimeTrendService;
 import com.cloudDemo.management.monitor.service.ServiceHealthCheckService;
 import com.cloudDemo.management.monitor.service.ServiceMonitorService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 服务监控大屏API控制器
@@ -33,6 +34,9 @@ public class ServiceMonitorController {
 
     @Autowired
     private ServiceHealthCheckService serviceHealthCheckService;
+
+    @Autowired
+    private ResponseTimeTrendService responseTimeTrendService;
 
     /**
      * 获取所有服务调用统计概览
@@ -608,5 +612,298 @@ public class ServiceMonitorController {
                     "data", null
             );
         }
+    }
+
+    /**
+     * 获取指定服务方法的响应时间趋势分析
+     */
+    @GetMapping("/trend/response-time")
+    public Map<String, Object> getResponseTimeTrend(
+            @RequestParam String serviceName,
+            @RequestParam String methodName,
+            @RequestParam(defaultValue = "HOUR") String timeWindow,
+            @RequestParam(defaultValue = "24") int periods) {
+        try {
+            if (periods > 168) periods = 168; // 最多7天（以小时为单位）
+
+            var trend = responseTimeTrendService.analyzeResponseTimeTrend(
+                    serviceName, methodName, timeWindow, periods);
+
+            log.info("📈 响应时间趋势分析获取成功 - 服务: {}, 方法: {}, 趋势: {}, 性能等级: {}",
+                    serviceName, methodName, trend.getTrendType(), trend.getPerformanceLevel());
+
+            return Map.of(
+                    "success", true,
+                    "message", "响应时间趋势分析获取成功",
+                    "data", trend
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取响应时间趋势分析失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取响应时间趋势分析失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取所有服务的响应时间趋势概览
+     */
+    @GetMapping("/trend/overview")
+    public Map<String, Object> getAllServicesTrendOverview(
+            @RequestParam(defaultValue = "HOUR") String timeWindow,
+            @RequestParam(defaultValue = "12") int periods) {
+        try {
+            if (periods > 72) periods = 72; // 最多3天（以小时为单位）
+
+            var trends = responseTimeTrendService.getAllServicesTrendOverview(timeWindow, periods);
+
+            // 按性能问题分类统计
+            Map<String, Long> performanceLevelCounts = trends.stream()
+                    .collect(Collectors.groupingBy(
+                            trend -> trend.getPerformanceLevel(),
+                            Collectors.counting()
+                    ));
+
+            // 按趋势类型分类统计
+            Map<String, Long> trendTypeCounts = trends.stream()
+                    .collect(Collectors.groupingBy(
+                            trend -> trend.getTrendType(),
+                            Collectors.counting()
+                    ));
+
+            // 统计异常接口数量
+            long anomalyInterfaces = trends.stream()
+                    .filter(trend -> trend.getAnomalyCount() != null && trend.getAnomalyCount() > 0)
+                    .count();
+
+            Map<String, Object> overview = new HashMap<>();
+            overview.put("totalInterfaces", trends.size());
+            overview.put("anomalyInterfaces", anomalyInterfaces);
+            overview.put("performanceLevelDistribution", performanceLevelCounts);
+            overview.put("trendTypeDistribution", trendTypeCounts);
+            overview.put("analysisTimeWindow", timeWindow);
+            overview.put("analysisPeriods", periods);
+
+            log.info("📊 所有服务响应时间趋势概览获取成功 - 接口数: {}, 异常接口: {}",
+                    trends.size(), anomalyInterfaces);
+
+            return Map.of(
+                    "success", true,
+                    "message", "响应时间趋势概览获取成功",
+                    "data", Map.of(
+                            "overview", overview,
+                            "trends", trends
+                    )
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取响应时间趋势概览失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取响应时间趋势概览失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取性能问题接口列表
+     */
+    @GetMapping("/trend/performance-issues")
+    public Map<String, Object> getPerformanceIssues(
+            @RequestParam(defaultValue = "HOUR") String timeWindow,
+            @RequestParam(defaultValue = "6") int periods,
+            @RequestParam(defaultValue = "POOR") String minLevel) {
+        try {
+            List<ResponseTimeTrend> allTrends = responseTimeTrendService.getAllServicesTrendOverview(timeWindow, periods);
+
+            // 过滤出有性能问题的接口 - 声明为final避免lambda表达式错误
+            final List<String> problemLevels;
+            if ("NORMAL".equals(minLevel)) {
+                problemLevels = Arrays.asList("NORMAL", "POOR", "CRITICAL");
+            } else {
+                problemLevels = Arrays.asList("POOR", "CRITICAL");
+            }
+
+            List<ResponseTimeTrend> problemTrends = allTrends.stream()
+                    .filter(trend -> problemLevels.contains(trend.getPerformanceLevel()))
+                    .sorted((t1, t2) -> {
+                        // 按问题严重程度排序
+                        int score1 = getPerformanceScore(t1.getPerformanceLevel());
+                        int score2 = getPerformanceScore(t2.getPerformanceLevel());
+                        if (score1 != score2) return Integer.compare(score2, score1);
+                        // 相同等级按平均响应时间排序
+                        return Double.compare(t2.getAvgResponseTime(), t1.getAvgResponseTime());
+                    })
+                    .collect(Collectors.toList());
+
+            // 生成问题建议
+            List<Map<String, Object>> recommendations = generatePerformanceRecommendations(problemTrends);
+
+            log.info("🚨 性能问题接口分析完成 - 问题接口数: {}/{}, 最低等级: {}",
+                    problemTrends.size(), allTrends.size(), minLevel);
+
+            return Map.of(
+                    "success", true,
+                    "message", "性能问题分析完成",
+                    "data", Map.of(
+                            "problemInterfaces", problemTrends,
+                            "recommendations", recommendations,
+                            "summary", Map.of(
+                                    "totalProblems", problemTrends.size(),
+                                    "totalAnalyzed", allTrends.size(),
+                                    "analysisTimeWindow", timeWindow,
+                                    "analysisPeriods", periods
+                            )
+                    )
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取性能问题分析失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取性能问题分析失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取完整版监控大屏（包含趋势分析）
+     */
+    @GetMapping("/dashboard/complete")
+    public Map<String, Object> getCompleteDashboard() {
+        try {
+            // 获取服务调用统计
+            List<ServiceCallStats> serviceStats = serviceMonitorService.getAllServiceStats();
+            List<ServiceCallRecord> recentCalls = serviceMonitorService.getRecentCallRecords(10);
+
+            // 获取服务健康状态
+            Map<String, Object> healthSummary = serviceHealthCheckService.getHealthSummary();
+            List<ServiceHealthStatus> healthStatuses = serviceHealthCheckService.checkAllServicesHealth();
+
+            // 获取响应时间趋势分析
+            var trendOverview = responseTimeTrendService.getAllServicesTrendOverview("HOUR", 6);
+
+            // 如果没有真实统计数据，使用模拟数据
+            List<ServiceCallStats> displayStats = serviceStats.isEmpty() ?
+                    mockDataGeneratorService.generateMockStats() : serviceStats;
+
+            // 计算调用统计
+            long totalCalls = displayStats.stream().mapToLong(ServiceCallStats::getTotalCalls).sum();
+            long totalSuccess = displayStats.stream().mapToLong(ServiceCallStats::getSuccessCalls).sum();
+            long totalFailure = displayStats.stream().mapToLong(ServiceCallStats::getFailureCalls).sum();
+            double overallSuccessRate = totalCalls > 0 ? (double) totalSuccess / totalCalls * 100 : 0.0;
+            double avgResponseTime = displayStats.stream()
+                    .mapToDouble(ServiceCallStats::getAvgResponseTime)
+                    .average().orElse(0.0);
+
+            // 分析趋势问题
+            long trendAnomalies = trendOverview.stream()
+                    .filter(trend -> trend.getAnomalyCount() != null && trend.getAnomalyCount() > 0)
+                    .count();
+
+            // 构建完整版监控大屏数据
+            Map<String, Object> completeDashboard = new HashMap<>();
+
+            // 综合概览信息
+            Map<String, Object> overview = new HashMap<>();
+            overview.put("totalCalls", totalCalls);
+            overview.put("successCalls", totalSuccess);
+            overview.put("failureCalls", totalFailure);
+            overview.put("callSuccessRate", Math.round(overallSuccessRate * 100.0) / 100.0);
+            overview.put("avgResponseTime", Math.round(avgResponseTime * 100.0) / 100.0);
+            overview.put("activeServices", displayStats.size());
+            overview.put("totalInstances", healthSummary.get("totalInstances"));
+            overview.put("healthyInstances", healthSummary.get("healthyInstances"));
+            overview.put("unhealthyInstances", healthSummary.get("unhealthyInstances"));
+            overview.put("overallHealthRate", healthSummary.get("overallHealthRate"));
+            overview.put("trendAnalyzedInterfaces", trendOverview.size());
+            overview.put("trendAnomalies", trendAnomalies);
+            overview.put("dataSource", serviceStats.isEmpty() ? "MOCK" : "REAL");
+
+            completeDashboard.put("overview", overview);
+
+            // 详细数据
+            completeDashboard.put("serviceStats", displayStats);
+            completeDashboard.put("recentCalls", recentCalls);
+            completeDashboard.put("healthStatuses", healthStatuses);
+            completeDashboard.put("healthSummary", healthSummary);
+            completeDashboard.put("trendAnalysis", trendOverview);
+            completeDashboard.put("timestamp", System.currentTimeMillis());
+
+            log.info("🎯 完整版监控大屏数据��取成功 - 服务数: {}, 健康率: {}%, 趋势异常: {}",
+                    displayStats.size(), healthSummary.get("overallHealthRate"), trendAnomalies);
+
+            return Map.of(
+                    "success", true,
+                    "message", "完整版监控数据获取成功",
+                    "data", completeDashboard
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取完整版监控大屏数据失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取完整版监控数据失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取性能分数
+     */
+    private int getPerformanceScore(String level) {
+        return switch (level) {
+            case "CRITICAL" -> 5;
+            case "POOR" -> 4;
+            case "NORMAL" -> 3;
+            case "GOOD" -> 2;
+            case "EXCELLENT" -> 1;
+            default -> 0;
+        };
+    }
+
+    /**
+     * 生成性能优化建议
+     */
+    private List<Map<String, Object>> generatePerformanceRecommendations(List<ResponseTimeTrend> problemTrends) {
+        List<Map<String, Object>> recommendations = new ArrayList<>();
+
+        for (ResponseTimeTrend trend : problemTrends) {
+            Map<String, Object> recommendation = new HashMap<>();
+            recommendation.put("serviceName", trend.getServiceName());
+            recommendation.put("methodName", trend.getMethodName());
+            recommendation.put("performanceLevel", trend.getPerformanceLevel());
+            recommendation.put("avgResponseTime", trend.getAvgResponseTime());
+
+            // 生成具体建议
+            List<String> suggestions = new ArrayList<>();
+            if ("CRITICAL".equals(trend.getPerformanceLevel())) {
+                suggestions.add("立即检查服务性能，可能存在严重性能问题");
+                suggestions.add("检查数据库查询是否有慢查询");
+                suggestions.add("检查是否有死锁或资源竞争");
+            } else if ("POOR".equals(trend.getPerformanceLevel())) {
+                suggestions.add("建议优化接口性能");
+                suggestions.add("检查缓存策略是否合理");
+                suggestions.add("考虑添加接口限流");
+            } else if ("NORMAL".equals(trend.getPerformanceLevel())) {
+                suggestions.add("性能正常，但可以进一步优化");
+                suggestions.add("监控趋势变化");
+            }
+
+            if (trend.getAnomalyCount() != null && trend.getAnomalyCount() > 0) {
+                suggestions.add("检测到响应时间异常波动，建议关注");
+            }
+
+            recommendation.put("suggestions", suggestions);
+            recommendations.add(recommendation);
+        }
+
+        return recommendations;
     }
 }

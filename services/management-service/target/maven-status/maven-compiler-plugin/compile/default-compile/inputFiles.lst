@@ -6,6 +6,7 @@ D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudD
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\LoadBalancerController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\ManagementSentinelController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\NacosController.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\ResponseTimeTrendsController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\dto\NacosConfigInfo.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\dto\NacosServiceInstance.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\entity\ConfigAuditLog.java
@@ -14,14 +15,18 @@ D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudD
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\fallback\ManagementServiceFallbackHandler.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\ManagementServiceApplication.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\controller\ServiceMonitorController.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\dto\ResponseTimeTrend.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\dto\ServiceCallRecord.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\dto\ServiceCallStats.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\dto\ServiceHealthStatus.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\filter\ServiceCallStatsFilter.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\service\MockDataGeneratorService.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\service\ResponseTimeTrendService.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\service\ServiceHealthCheckService.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\service\ServiceMonitorService.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\impl\IntelligentConfigServiceImpl.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\impl\NacosManagementServiceImpl.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\impl\ResponseTimeTrendsServiceImpl.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\IntelligentConfigService.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\NacosManagementService.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\ResponseTimeTrendsService.java
