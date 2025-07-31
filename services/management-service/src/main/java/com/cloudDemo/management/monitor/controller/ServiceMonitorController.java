@@ -2,12 +2,15 @@ package com.cloudDemo.management.monitor.controller;
 
 import com.cloudDemo.management.monitor.dto.ServiceCallRecord;
 import com.cloudDemo.management.monitor.dto.ServiceCallStats;
+import com.cloudDemo.management.monitor.dto.ServiceHealthStatus;
 import com.cloudDemo.management.monitor.service.MockDataGeneratorService;
+import com.cloudDemo.management.monitor.service.ServiceHealthCheckService;
 import com.cloudDemo.management.monitor.service.ServiceMonitorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +30,9 @@ public class ServiceMonitorController {
 
     @Autowired
     private MockDataGeneratorService mockDataGeneratorService;
+
+    @Autowired
+    private ServiceHealthCheckService serviceHealthCheckService;
 
     /**
      * 获取所有服务调用统计概览
@@ -390,6 +396,215 @@ public class ServiceMonitorController {
             return Map.of(
                     "success", false,
                     "message", "获取Demo监控数据失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取所有服务的健康状态
+     */
+    @GetMapping("/health/status")
+    public Map<String, Object> getAllServicesHealthStatus() {
+        try {
+            List<ServiceHealthStatus> healthStatuses = serviceHealthCheckService.checkAllServicesHealth();
+
+            log.info("🏥 服务健康状态检查完成 - 检查实例数: {}", healthStatuses.size());
+
+            return Map.of(
+                    "success", true,
+                    "message", "服务健康状态获取成功",
+                    "data", healthStatuses,
+                    "count", healthStatuses.size(),
+                    "timestamp", System.currentTimeMillis()
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取服务健康状态失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取服务健康状态失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取服务健康状态汇总
+     */
+    @GetMapping("/health/summary")
+    public Map<String, Object> getHealthSummary() {
+        try {
+            Map<String, Object> summary = serviceHealthCheckService.getHealthSummary();
+
+            log.info("📊 服务健康状态汇总获取成功 - 服务数: {}, 实例数: {}",
+                    summary.get("totalServices"), summary.get("totalInstances"));
+
+            return Map.of(
+                    "success", true,
+                    "message", "服务健康状态汇总获取成功",
+                    "data", summary
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取服务健康状态汇总失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取服务健康状态汇总失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取指定服务的健康状态
+     */
+    @GetMapping("/health/service/{serviceName}")
+    public Map<String, Object> getServiceHealthStatus(@PathVariable String serviceName) {
+        try {
+            List<ServiceHealthStatus> healthStatuses = serviceHealthCheckService.checkServiceHealth(serviceName);
+
+            if (healthStatuses.isEmpty()) {
+                return Map.of(
+                        "success", false,
+                        "message", "未找到服务 " + serviceName + " 的健康状态信息",
+                        "data", null
+                );
+            }
+
+            // 计算服务级别的统计信息
+            long healthyCount = healthStatuses.stream()
+                    .filter(status -> "HEALTHY".equals(status.getHealthStatus()))
+                    .count();
+
+            double healthRate = (double) healthyCount / healthStatuses.size() * 100.0;
+
+            Map<String, Object> serviceHealth = new HashMap<>();
+            serviceHealth.put("serviceName", serviceName);
+            serviceHealth.put("instances", healthStatuses);
+            serviceHealth.put("totalInstances", healthStatuses.size());
+            serviceHealth.put("healthyInstances", healthyCount);
+            serviceHealth.put("healthRate", Math.round(healthRate * 100.0) / 100.0);
+            serviceHealth.put("lastCheckTime", LocalDateTime.now());
+
+            log.info("🔍 服务健康状态获取成功 - 服务: {}, 实例数: {}, 健康率: {}%",
+                    serviceName, healthStatuses.size(), Math.round(healthRate * 100.0) / 100.0);
+
+            return Map.of(
+                    "success", true,
+                    "message", "服务健康状态获取成功",
+                    "data", serviceHealth
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取服务 {} 健康状态失败: {}", serviceName, e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取服务健康状态失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 强制刷新所有服务健康状态检查
+     */
+    @PostMapping("/health/refresh")
+    public Map<String, Object> refreshHealthStatus() {
+        try {
+            List<ServiceHealthStatus> healthStatuses = serviceHealthCheckService.checkAllServicesHealth();
+            Map<String, Object> summary = serviceHealthCheckService.getHealthSummary();
+
+            log.info("🔄 强制刷新健康状态完成 - 检查实例数: {}", healthStatuses.size());
+
+            return Map.of(
+                    "success", true,
+                    "message", "健康状态刷新成功",
+                    "data", Map.of(
+                            "refreshTime", LocalDateTime.now(),
+                            "checkedInstances", healthStatuses.size(),
+                            "summary", summary
+                    )
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 刷新健康状态失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "刷新健康状态失败: " + e.getMessage(),
+                    "data", null
+            );
+        }
+    }
+
+    /**
+     * 获取增强版监控大屏（包含健康状态）
+     */
+    @GetMapping("/dashboard/enhanced")
+    public Map<String, Object> getEnhancedDashboard() {
+        try {
+            // 获取服务调用统计
+            List<ServiceCallStats> serviceStats = serviceMonitorService.getAllServiceStats();
+            List<ServiceCallRecord> recentCalls = serviceMonitorService.getRecentCallRecords(10);
+
+            // 获取服务健康状态
+            Map<String, Object> healthSummary = serviceHealthCheckService.getHealthSummary();
+            List<ServiceHealthStatus> healthStatuses = serviceHealthCheckService.checkAllServicesHealth();
+
+            // 如果没有真实统计数据，使用模拟数据
+            List<ServiceCallStats> displayStats = serviceStats.isEmpty() ?
+                    mockDataGeneratorService.generateMockStats() : serviceStats;
+
+            // 计算调用统计
+            long totalCalls = displayStats.stream().mapToLong(ServiceCallStats::getTotalCalls).sum();
+            long totalSuccess = displayStats.stream().mapToLong(ServiceCallStats::getSuccessCalls).sum();
+            long totalFailure = displayStats.stream().mapToLong(ServiceCallStats::getFailureCalls).sum();
+            double overallSuccessRate = totalCalls > 0 ? (double) totalSuccess / totalCalls * 100 : 0.0;
+            double avgResponseTime = displayStats.stream()
+                    .mapToDouble(ServiceCallStats::getAvgResponseTime)
+                    .average().orElse(0.0);
+
+            // 构建增强版监控大屏数据
+            Map<String, Object> enhancedDashboard = new HashMap<>();
+
+            // 概览信息（包含健康状态）- 使用HashMap避免Map.of()参数限制
+            Map<String, Object> overview = new HashMap<>();
+            overview.put("totalCalls", totalCalls);
+            overview.put("successCalls", totalSuccess);
+            overview.put("failureCalls", totalFailure);
+            overview.put("callSuccessRate", Math.round(overallSuccessRate * 100.0) / 100.0);
+            overview.put("avgResponseTime", Math.round(avgResponseTime * 100.0) / 100.0);
+            overview.put("activeServices", displayStats.size());
+            overview.put("totalInstances", healthSummary.get("totalInstances"));
+            overview.put("healthyInstances", healthSummary.get("healthyInstances"));
+            overview.put("unhealthyInstances", healthSummary.get("unhealthyInstances"));
+            overview.put("overallHealthRate", healthSummary.get("overallHealthRate"));
+            overview.put("dataSource", serviceStats.isEmpty() ? "MOCK" : "REAL");
+
+            enhancedDashboard.put("overview", overview);
+
+            // 详细数据
+            enhancedDashboard.put("serviceStats", displayStats);
+            enhancedDashboard.put("recentCalls", recentCalls);
+            enhancedDashboard.put("healthStatuses", healthStatuses);
+            enhancedDashboard.put("healthSummary", healthSummary);
+            enhancedDashboard.put("timestamp", System.currentTimeMillis());
+
+            log.info("📊 增强版监控大屏数据获取成功 - 服务数: {}, 实例数: {}, 健康率: {}%",
+                    displayStats.size(), healthSummary.get("totalInstances"),
+                    healthSummary.get("overallHealthRate"));
+
+            return Map.of(
+                    "success", true,
+                    "message", "增强版监控数据获取成功",
+                    "data", enhancedDashboard
+            );
+
+        } catch (Exception e) {
+            log.error("❌ 获取增强版监控大屏数据失败: {}", e.getMessage(), e);
+            return Map.of(
+                    "success", false,
+                    "message", "获取增强版监控数据失败: " + e.getMessage(),
                     "data", null
             );
         }
