@@ -1,1 +1,60 @@
-{"success":false,"message":"鍟嗗搧涓嶅瓨鍦?}
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< org.example:management-service >-------------------
+[INFO] Building management-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.4:run (default-cli) > test-compile @ management-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ management-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ management-service ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 25 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ management-service ---
+[INFO] skip non existing resourceDirectory D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ management-service ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.3.4:run (default-cli) < test-compile @ management-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.4:run (default-cli) @ management-service ---
+[INFO] Attaching agents: []
+
+
+ :: Dubbo (v3.2.15) : https://github.com/apache/dubbo
+ :: Discuss group : dev@dubbo.apache.org
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+10:06:10.835 [main] INFO  c.c.m.ManagementServiceApplication - Starting ManagementServiceApplication using Java 17.0.12 with PID 31616 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo\services\management-service)
+10:06:10.838 [main] INFO  c.c.m.ManagementServiceApplication - No active profile set, falling back to 1 default profile: "default"
+INFO: Sentinel log output type is: file
+INFO: Sentinel log charset is: utf-8
+INFO: Sentinel log base directory is: C:\Users\黄院彪\logs\csp\
+INFO: Sentinel log name use pid is: false
+INFO: Sentinel log level is: INFO
+10:06:12.708 [main] INFO  c.c.m.s.i.IntelligentConfigServiceImpl - Nacos ConfigService初始化成功
+10:06:18.231 [main] INFO  c.c.m.ManagementServiceApplication - Started ManagementServiceApplication in 9.863 seconds (process running for 10.1)
+============================================
+? MANAGEMENT-SERVICE 启动成功！
+? 服务端口: 9090
+? 管理界面: http://localhost:9090
+? 服务名称: management-service
+? 功能: Nacos配置管理 & 服务监控
+? 启动时间: 2025-07-31T10:06:18.239483
+============================================
+10:06:18.239 [main] INFO  c.c.m.ManagementServiceApplication - Management Service 已成功启动并准备提供管理服务

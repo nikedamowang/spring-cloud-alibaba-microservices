@@ -1,5 +1,6 @@
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\LoadBalancerManager.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\NacosConfig.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\RedisConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\SentinelConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\IntelligentConfigController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\LoadBalancerController.java
@@ -12,6 +13,12 @@ D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudD
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\entity\ConfigVersion.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\fallback\ManagementServiceFallbackHandler.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\ManagementServiceApplication.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\controller\ServiceMonitorController.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\dto\ServiceCallRecord.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\dto\ServiceCallStats.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\filter\ServiceCallStatsFilter.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\service\MockDataGeneratorService.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\monitor\service\ServiceMonitorService.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\impl\IntelligentConfigServiceImpl.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\impl\NacosManagementServiceImpl.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\service\IntelligentConfigService.java
