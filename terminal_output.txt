@@ -1,1 +1,1 @@
-{"timestamp":"2025-07-31T14:07:15.419+00:00","status":404,"error":"Not Found","path":"/api/performance/response-times/trends"}
+{"fileName":"user-import-template.xlsx","failedCount":0,"fileSize":3791,"successRate":100.0,"success":true,"successCount":1,"totalRows":1,"message":"Excel瀵煎叆瀹屾垚","errors":[],"importTime":"2025-07-31T23:59:03.5590504"}

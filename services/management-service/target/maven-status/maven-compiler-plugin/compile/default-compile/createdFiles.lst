@@ -13,8 +13,11 @@ META-INF\spring-configuration-metadata.json
 com\cloudDemo\management\service\impl\NacosManagementServiceImpl.class
 com\cloudDemo\management\ManagementServiceApplication.class
 com\cloudDemo\management\monitor\dto\ServiceHealthStatus$ServiceHealthStatusBuilder.class
+com\cloudDemo\management\controller\ExcelDemoController$UserImportDto.class
 com\cloudDemo\management\controller\ManagementSentinelController.class
 com\cloudDemo\management\monitor\dto\ResponseTimeTrend.class
+com\cloudDemo\management\controller\ExcelDemoController$OrderExportDto.class
+com\cloudDemo\management\controller\ExcelDemoController.class
 com\cloudDemo\management\controller\NacosController.class
 com\cloudDemo\management\service\impl\ResponseTimeTrendsServiceImpl$ResponseTimeRecord.class
 com\cloudDemo\management\config\NacosConfig.class
@@ -34,6 +37,7 @@ com\cloudDemo\management\config\LoadBalancerManager.class
 com\cloudDemo\management\entity\ConfigAuditLog.class
 com\cloudDemo\management\entity\ConfigTemplate.class
 com\cloudDemo\management\fallback\ManagementServiceFallbackHandler.class
+com\cloudDemo\management\controller\ExcelDemoController$UserImportListener.class
 com\cloudDemo\management\monitor\dto\ServiceCallRecord$ServiceCallRecordBuilder.class
 com\cloudDemo\management\service\impl\ResponseTimeTrendsServiceImpl$PerformanceBaseline.class
 com\cloudDemo\management\monitor\dto\ServiceCallRecord.class

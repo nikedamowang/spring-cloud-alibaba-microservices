@@ -1,0 +1,20 @@
+2025-07-31T22:50:35.343+08:00  INFO 30716 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Management Service 已成功启动并准备提供管理服务
+2025-07-31T22:51:53.135+08:00  INFO 30716 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-31T22:51:53.135+08:00  INFO 30716 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-07-31T22:55:53.180+08:00  INFO 30716 --- [management-service] [http-nio-9090-exec-10] c.c.m.s.i.ResponseTimeTrendsServiceImpl  : 获取接口响应时间趋势成功: user-service.getUserList
+2025-07-31T23:01:40.442+08:00  INFO 30716 --- [management-service] [http-nio-9090-exec-10] c.c.m.s.i.ResponseTimeTrendsServiceImpl  : 获取接口响应时间趋势成功: user-service.getUserList
+2025-07-31T23:31:22.187+08:00  WARN 30716 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Start destroying Publisher
+2025-07-31T23:31:22.187+08:00  WARN 30716 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-07-31T23:31:22.187+08:00  WARN 30716 --- [management-service] [Thread-6] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-07-31T23:31:22.188+08:00  WARN 30716 --- [management-service] [Thread-1] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-07-31T23:31:24.777+08:00  WARN 30716 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-31T23:31:24.777+08:00  WARN 30716 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-31T23:31:24.777+08:00  WARN 30716 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-07-31T23:31:24.777+08:00  WARN 30716 --- [management-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-07-31T23:48:12.125+08:00  INFO 34104 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Starting ManagementServiceApplication using Java 17.0.12 with PID 34104 (D:\WorkSpace\IDEA\cloudDemo\services\management-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
+2025-07-31T23:48:12.126+08:00  INFO 34104 --- [management-service] [main] c.c.m.ManagementServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2025-07-31T23:48:14.049+08:00  INFO 34104 --- [management-service] [main] c.c.m.s.i.IntelligentConfigServiceImpl   : Nacos ConfigService初始化成功
+2025-07-31T23:48:19.570+08:00  INFO 34104 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Started ManagementServiceApplication in 9.871 seconds (process running for 10.368)
+2025-07-31T23:48:19.577+08:00  INFO 34104 --- [management-service] [main] c.c.m.ManagementServiceApplication       : Management Service 已成功启动并准备提供管理服务
+2025-07-31T23:50:21.852+08:00  INFO 34104 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-31T23:50:21.853+08:00  INFO 34104 --- [management-service] [http-nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
