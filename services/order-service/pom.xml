@@ -149,6 +149,16 @@
             <artifactId>easyexcel</artifactId>
             <version>3.3.2</version>
         </dependency>
+
+        <!-- Flyway数据库版本管理 -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,26 +1,10 @@
-/*
- Navicat Premium Dump SQL
+-- Flyway数据库版本管理 - 订单表初始化
+-- 版本：V1
+-- 描述：创建订单表结构
+-- 作者：CloudDemo项目
+-- 日期：2025-08-01
 
- Source Server         : MySQL
- Source Server Type    : MySQL
- Source Server Version : 80042 (8.0.42)
- Source Host           : localhost:3306
- Source Schema         : demo
-
- Target Server Type    : MySQL
- Target Server Version : 80042 (8.0.42)
- File Encoding         : 65001
-
- Date: 01/08/2025 15:17:52
-*/
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for orders
--- ----------------------------
-DROP TABLE IF EXISTS `orders`;
+-- 创建订单表
 CREATE TABLE `orders`
 (
     `id`               bigint                                                                                                     NOT NULL AUTO_INCREMENT COMMENT '订单ID',
@@ -33,13 +17,12 @@ CREATE TABLE `orders`
     `shipping_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci                                              NULL     DEFAULT NULL COMMENT '收货地址',
     `create_time`      datetime                                                                                                   NOT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE INDEX `order_no` (`order_no` ASC) USING BTREE,
-    INDEX `idx_user_id` (`user_id` ASC) USING BTREE,
-    INDEX `idx_create_time` (`create_time` ASC) USING BTREE
+    UNIQUE INDEX `order_no` (`order_no` ASC) USING BTREE COMMENT '订单编号唯一索引',
+    INDEX `idx_user_id` (`user_id` ASC) USING BTREE COMMENT '用户ID索引',
+    INDEX `idx_create_time` (`create_time` ASC) USING BTREE COMMENT '创建时间索引'
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 78132
+  AUTO_INCREMENT = 1
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci COMMENT = '订单表'
+  COLLATE = utf8mb4_0900_ai_ci
+    COMMENT = '订单表'
   ROW_FORMAT = Dynamic;
-
-SET FOREIGN_KEY_CHECKS = 1;
