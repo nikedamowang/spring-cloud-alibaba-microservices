@@ -1,2 +1,4 @@
 com\cloudDemo\gateway\GatewayServiceApplication.class
 com\cloudDemo\gateway\config\SentinelGatewayConfig.class
+com\cloudDemo\gateway\test\LoggingTestClass.class
+com\cloudDemo\gateway\filter\GlobalLoggingFilter.class

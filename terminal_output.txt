@@ -1,1 +1,10 @@
-{"reason":"management-service浣滀负閰嶇疆绠＄悊鏈嶅姟锛屼笉鐩存帴鎿嶄綔涓氬姟鏁版嵁搴?,"message":"鏁版嵁婧愭湭閰嶇疆锛孎lyway鍔熻兘宸茬鐢?,"status":"DISABLED"}
+2025-08-01T18:35:05.952+08:00  WARN 34992 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
+2025-08-01T18:35:05.952+08:00  WARN 34992 --- [gateway-service] [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
+2025-08-01T18:35:05.953+08:00  WARN 34992 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
+2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
+2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
+2025-08-01 20:25:46.876 [,] INFO  [main] com.cloudDemo.gateway.GatewayServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-01 20:25:56.488 [,] INFO  [main] com.cloudDemo.gateway.GatewayServiceApplication - Started GatewayServiceApplication in 14.25 seconds (process running for 14.763)
+2025-08-01 20:25:56.493 [,] INFO  [main] com.cloudDemo.gateway.GatewayServiceApplication - Gateway Service started successfully on port: 8080

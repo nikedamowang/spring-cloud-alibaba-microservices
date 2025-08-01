@@ -1,2 +1,4 @@
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\config\SentinelGatewayConfig.java
+D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\filter\GlobalLoggingFilter.java
 D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\GatewayServiceApplication.java
+D:\WorkSpace\IDEA\cloudDemo\services\gateway-service\src\main\java\com\cloudDemo\gateway\test\LoggingTestClass.java

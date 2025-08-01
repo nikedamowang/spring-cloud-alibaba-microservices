@@ -3,6 +3,7 @@ D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudD
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\RedisConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\config\SentinelConfig.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\ExcelDemoController.java
+D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\FlywayManagementController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\IntelligentConfigController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\LoadBalancerController.java
 D:\WorkSpace\IDEA\cloudDemo\services\management-service\src\main\java\com\cloudDemo\management\controller\ManagementSentinelController.java
