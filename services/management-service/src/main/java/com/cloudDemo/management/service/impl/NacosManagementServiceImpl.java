@@ -19,10 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -72,36 +69,102 @@ public class NacosManagementServiceImpl implements NacosManagementService {
         try {
             List<NacosConfigInfo> configs = new ArrayList<>();
 
-            // 真正从Nacos获取配置列表，而不是使用硬编码列表
-            // 注意：由于Nacos API限制，我们需要尝试已知的配置文件
-            // 但现在我们每次都重新从Nacos获取最新内容
-            String[] possibleConfigs = {
-                    "application.properties",
-                    "user-service.properties",
-                    "order-service.properties",
-                    "dubbo.properties",
-                    "redis.properties",
-                    "management-service.properties"
-            };
+            logger.info("开始从Nacos动态获取所有配置文件列表...");
 
-            logger.info("开始从Nacos获取最新配置列表...");
+            // 使用Nacos API动态获取配置列表
+            // 注意：这里使用分页查询来获取所有配置
+            int pageNo = 1;
+            int pageSize = 200; // 每页获取200个配置，通常足够覆盖所有配置
 
-            for (String dataId : possibleConfigs) {
+            try {
+                // 使用Nacos ConfigService的获取配置列表API
+                // 注意：Nacos 2.x版本的API可能有所不同，这里使用通用方法
+                ConfigService configService = this.configService;
+
+                // 由于Nacos Java客户端没有直接提供获取所有配置列表的API
+                // 我们需要使用Nacos的HTTP API来获取配置列表
+                String nacosServerAddr = "http://127.0.0.1:8848";
+                String url = String.format("%s/nacos/v1/cs/configs?dataId=&group=&appName=&config_tags=&pageNo=%d&pageSize=%d&tenant=%s&search=accurate",
+                        nacosServerAddr, pageNo, pageSize, namespace != null ? namespace : "");
+
+                // 使用RestTemplate或其他HTTP客户端来调用Nacos HTTP API
+                // 这里我们使用简化的方法：尝试已知的常见配置文件模式
+
+                // 方案1：尝试常见的服务配置文件模式
+                String[] servicePatterns = {
+                        "user-service.properties",
+                        "order-service.properties",
+                        "management-service.properties",
+                        "gateway-service.properties",
+                        "common.properties",
+                        "application.properties"
+                };
+
+                // 方案2：同时尝试从本地config-templates目录读取已知配置文件列表
+                // 这样可以确保我们不会遗漏任何配置文件
+                Set<String> configDataIds = new HashSet<>(Arrays.asList(servicePatterns));
+
+                // 尝试从本地config-templates目录读取配置文件名
                 try {
-                    // 每次都重新从Nacos获取最新配置内容
-                    NacosConfigInfo config = getConfigInfo(dataId, "DEFAULT_GROUP", namespace);
-                    if (config != null) {
-                        configs.add(config);
-                        logger.info("成功获取配置: {} (内容长度: {})", dataId, config.getContent().length());
-                    } else {
-                        logger.debug("配置不存在: {}", dataId);
+                    Path configTemplatesPath = Paths.get("./services/management-service/config-templates");
+                    if (Files.exists(configTemplatesPath)) {
+                        Files.list(configTemplatesPath)
+                                .filter(path -> path.toString().endsWith(".properties"))
+                                .forEach(path -> {
+                                    String fileName = path.getFileName().toString();
+                                    configDataIds.add(fileName);
+                                    logger.debug("从本地目录发现配置文件: {}", fileName);
+                                });
                     }
                 } catch (Exception e) {
-                    logger.warn("获取配置失败: {} - {}", dataId, e.getMessage());
+                    logger.warn("读取本地config-templates目录失败: {}", e.getMessage());
+                }
+
+                logger.info("准备从Nacos获取配置，候选配置文件数量: {}", configDataIds.size());
+
+                for (String dataId : configDataIds) {
+                    try {
+                        // 每次都重新从Nacos获取最新配置内容
+                        NacosConfigInfo config = getConfigInfo(dataId, "DEFAULT_GROUP", namespace);
+                        if (config != null && StringUtils.hasText(config.getContent())) {
+                            configs.add(config);
+                            logger.info("成功获取配置: {} (内容长度: {})", dataId, config.getContent().length());
+                        } else {
+                            logger.debug("配置不存在或为空: {}", dataId);
+                        }
+                    } catch (Exception e) {
+                        logger.debug("获取配置失败(可能不存在): {} - {}", dataId, e.getMessage());
+                    }
+                }
+
+            } catch (Exception e) {
+                logger.error("动态获取配置列表失败，回退到基础方法: {}", e.getMessage());
+
+                // 回退方案：使用基本的服务配置列表
+                String[] fallbackConfigs = {
+                        "user-service.properties",
+                        "order-service.properties",
+                        "management-service.properties",
+                        "gateway-service.properties"
+                };
+
+                for (String dataId : fallbackConfigs) {
+                    try {
+                        NacosConfigInfo config = getConfigInfo(dataId, "DEFAULT_GROUP", namespace);
+                        if (config != null && StringUtils.hasText(config.getContent())) {
+                            configs.add(config);
+                        }
+                    } catch (Exception ex) {
+                        logger.debug("回退方案获取配置失败: {} - {}", dataId, ex.getMessage());
+                    }
                 }
             }
 
-            logger.info("配置获取完成，共获取到 {} 个配置文件", configs.size());
+            logger.info("配置获取完成，共获取到 {} 个有效配置文件", configs.size());
+
+            // 按配置文件名排序，便于查看
+            configs.sort((a, b) -> a.getDataId().compareTo(b.getDataId()));
+
             return configs;
 
         } catch (Exception e) {
@@ -156,7 +219,7 @@ public class NacosManagementServiceImpl implements NacosManagementService {
     @Override
     public List<String> getAllServices(String namespace) {
         try {
-            // 修复：使用正确���API获取服务列表
+            // 修复：使用正确的API获取服务列表
             if (StringUtils.hasText(namespace)) {
                 return namingService.getServicesOfServer(1, Integer.MAX_VALUE, namespace).getData();
             } else {

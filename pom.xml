@@ -28,6 +28,114 @@
         <flyway.version>10.17.0</flyway.version>
     </properties>
 
+    <!-- Maven Profile环境配置 - 企业级多环境部署方案 -->
+    <profiles>
+        <!-- 开发环境配置 -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 环境标识 -->
+                <env>dev</env>
+                <spring.profiles.active>dev</spring.profiles.active>
+
+                <!-- 数据库配置 -->
+                <db.url>jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</db.url>
+                <db.username>root</db.username>
+                <db.password>123456</db.password>
+
+                <!-- Redis配置 -->
+                <redis.host>localhost</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.database>0</redis.database>
+
+                <!-- Nacos配置 -->
+                <nacos.server-addr>127.0.0.1:8848</nacos.server-addr>
+                <nacos.namespace></nacos.namespace>
+
+                <!-- 日志级别 -->
+                <log.level.root>INFO</log.level.root>
+                <log.level.com.cloudDemo>DEBUG</log.level.com.cloudDemo>
+
+                <!-- 服务端口配置 -->
+                <user.service.port>9000</user.service.port>
+                <order.service.port>8000</order.service.port>
+                <gateway.service.port>8080</gateway.service.port>
+                <management.service.port>9090</management.service.port>
+            </properties>
+        </profile>
+
+        <!-- 测试环境配置 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <!-- 环境标识 -->
+                <env>test</env>
+                <spring.profiles.active>test</spring.profiles.active>
+
+                <!-- 数据库配置 -->
+                <db.url>jdbc:mysql://test-db-server:3306/demo_test?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</db.url>
+                <db.username>test_user</db.username>
+                <db.password>test_password</db.password>
+
+                <!-- Redis配置 -->
+                <redis.host>test-redis-server</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.database>1</redis.database>
+
+                <!-- Nacos配置 -->
+                <nacos.server-addr>test-nacos-server:8848</nacos.server-addr>
+                <nacos.namespace>test</nacos.namespace>
+
+                <!-- 日志级别 -->
+                <log.level.root>INFO</log.level.root>
+                <log.level.com.cloudDemo>INFO</log.level.com.cloudDemo>
+
+                <!-- 服务端口配置 -->
+                <user.service.port>9000</user.service.port>
+                <order.service.port>8000</order.service.port>
+                <gateway.service.port>8080</gateway.service.port>
+                <management.service.port>9090</management.service.port>
+            </properties>
+        </profile>
+
+        <!-- 生产环境配置 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <!-- 环境标识 -->
+                <env>prod</env>
+                <spring.profiles.active>prod</spring.profiles.active>
+
+                <!-- 数据库配置 -->
+                <db.url>jdbc:mysql://prod-db-cluster:3306/demo_prod?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;useSSL=true</db.url>
+                <db.username>root</db.username>
+                <db.password>123456</db.password>
+
+                <!-- Redis配置 -->
+                <redis.host>prod-redis-cluster</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.database>0</redis.database>
+
+                <!-- Nacos配置 -->
+                <nacos.server-addr>prod-nacos-cluster:8848</nacos.server-addr>
+                <nacos.namespace>prod</nacos.namespace>
+
+                <!-- 日志级别 -->
+                <log.level.root>WARN</log.level.root>
+                <log.level.com.cloudDemo>INFO</log.level.com.cloudDemo>
+
+                <!-- 服务端口配置 -->
+                <user.service.port>9000</user.service.port>
+                <order.service.port>8000</order.service.port>
+                <gateway.service.port>8080</gateway.service.port>
+                <management.service.port>9090</management.service.port>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

@@ -116,6 +116,7 @@ public class LogContextManager {
 
     /**
      * 继承已有的链路追踪ID
+     *
      * @param traceId 已有的链路追踪ID
      */
     public static void inheritTrace(String traceId) {
