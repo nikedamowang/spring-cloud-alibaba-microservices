@@ -1,10 +1,12 @@
-2025-08-01T18:35:05.952+08:00  WARN 34992 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Start destroying common HttpClient
-2025-08-01T18:35:05.952+08:00  WARN 34992 --- [gateway-service] [Thread-4] c.a.nacos.common.notify.NotifyCenter     : [NotifyCenter] Destruction of the end
-2025-08-01T18:35:05.953+08:00  WARN 34992 --- [gateway-service] [Thread-2] c.a.n.common.http.HttpClientBeanHolder   : [HttpClientBeanHolder] Destruction of the end
-2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
-2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
-2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Start destroying NacosRestTemplate
-2025-08-01T18:35:08.436+08:00  WARN 34992 --- [gateway-service] [SpringApplicationShutdownHook] com.alibaba.nacos.client.naming          : [NamingHttpClientManager] Destruction of the end
-2025-08-01 20:25:46.876 [,] INFO  [main] com.cloudDemo.gateway.GatewayServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-08-01 20:25:56.488 [,] INFO  [main] com.cloudDemo.gateway.GatewayServiceApplication - Started GatewayServiceApplication in 14.25 seconds (process running for 14.763)
-2025-08-01 20:25:56.493 [,] INFO  [main] com.cloudDemo.gateway.GatewayServiceApplication - Gateway Service started successfully on port: 8080
+=== 日志功能全面测试 ===
+检查用户服务日志文件...
+2025-08-04 15:20:39.518 [bb6915455a1b4b79b6cf8a475a7d21bd,e43e670d88e4418d] INFO  [http-nio-9000-exec-8] c.c.userservice.interceptor.LoggingInterceptor - Request started: GET /user/list
+2025-08-04 15:20:39.520 [bb6915455a1b4b79b6cf8a475a7d21bd,e43e670d88e4418d] INFO  [http-nio-9000-exec-8] c.c.userservice.interceptor.LoggingInterceptor - Request completed: GET /user/list - Status: 200 - Time: 3ms
+2025-08-04 15:20:39.541 [be7b4ba5dff94e66b0aeb72c3d232d5d,7b9233c957424c07] INFO  [http-nio-9000-exec-9] c.c.userservice.interceptor.LoggingInterceptor - Request started: GET /user/list
+2025-08-04 15:20:39.543 [be7b4ba5dff94e66b0aeb72c3d232d5d,7b9233c957424c07] INFO  [http-nio-9000-exec-9] c.c.userservice.interceptor.LoggingInterceptor - Request completed: GET /user/list - Status: 200 - Time: 2ms
+2025-08-04 15:20:39.563 [129beedd4fee48859f861d77bcda3d4f,bc7b21ea2d2b4673] INFO  [http-nio-9000-exec-10] c.c.userservice.interceptor.LoggingInterceptor - Request started: GET /user/list
+2025-08-04 15:20:39.565 [129beedd4fee48859f861d77bcda3d4f,bc7b21ea2d2b4673] INFO  [http-nio-9000-exec-10] c.c.userservice.interceptor.LoggingInterceptor - Request completed: GET /user/list - Status: 200 - Time: 2ms
+2025-08-04 15:20:39.585 [bf70de435bc247ef95a6d12de9d3947e,a8962186839544f8] INFO  [http-nio-9000-exec-1] c.c.userservice.interceptor.LoggingInterceptor - Request started: GET /user/list
+2025-08-04 15:20:39.587 [bf70de435bc247ef95a6d12de9d3947e,a8962186839544f8] INFO  [http-nio-9000-exec-1] c.c.userservice.interceptor.LoggingInterceptor - Request completed: GET /user/list - Status: 200 - Time: 2ms
+2025-08-04 15:20:39.606 [b7bc5ac2f61a4b5684555b50bd73a13d,cf9fd2aab5af4f15] INFO  [http-nio-9000-exec-2] c.c.userservice.interceptor.LoggingInterceptor - Request started: GET /user/list
+2025-08-04 15:20:39.608 [b7bc5ac2f61a4b5684555b50bd73a13d,cf9fd2aab5af4f15] INFO  [http-nio-9000-exec-2] c.c.userservice.interceptor.LoggingInterceptor - Request completed: GET /user/list - Status: 200 - Time: 2ms

@@ -106,6 +106,7 @@ public class LogContextManager {
 
     /**
      * 初始化新的链路追踪
+     * 生成新的traceId和spanId
      */
     public static void initTrace() {
         String traceId = generateTraceId();
@@ -114,24 +115,32 @@ public class LogContextManager {
     }
 
     /**
-     * 继承父级链路追踪ID，生成新的Span ID
+     * 继承已有的链路追踪ID
+     * @param traceId 已有的链路追踪ID
      */
-    public static void inheritTrace(String parentTraceId) {
+    public static void inheritTrace(String traceId) {
         String spanId = generateSpanId();
-        setTraceInfo(parentTraceId, spanId);
+        setTraceInfo(traceId, spanId);
     }
 
     /**
-     * 清理所有MDC信息
+     * 清理所有MDC上下文
      */
     public static void clear() {
         MDC.clear();
     }
 
     /**
-     * 清理指定的MDC键
+     * 获取当前用户ID
      */
-    public static void remove(String key) {
-        MDC.remove(key);
+    public static String getCurrentUserId() {
+        return MDC.get(USER_ID);
+    }
+
+    /**
+     * 获取当前请求ID
+     */
+    public static String getCurrentRequestId() {
+        return MDC.get(REQUEST_ID);
     }
 }
