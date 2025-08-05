@@ -25,6 +25,7 @@ D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\o
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\fallback\OrderServiceFallbackHandler.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\mapper\OrdersMapper.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\mapper\ProductInventoryMapper.java
+D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\metrics\OrderServiceMetrics.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\OrdersServiceApplication.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\service\DistributedLockService.java
 D:\WorkSpace\IDEA\cloudDemo\services\order-service\src\main\java\com\cloudDemo\orderservice\service\impl\OrderIdempotentServiceImpl.java

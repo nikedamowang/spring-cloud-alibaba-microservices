@@ -9,6 +9,7 @@ META-INF\spring-configuration-metadata.json
 com\cloudDemo\management\monitor\dto\ServiceHealthStatus$ServiceHealthStatusBuilder.class
 com\cloudDemo\management\controller\ManagementSentinelController.class
 com\cloudDemo\management\monitor\dto\ResponseTimeTrend.class
+com\cloudDemo\managementservice\metrics\ManagementServiceMetrics.class
 com\cloudDemo\management\controller\ExcelDemoController.class
 com\cloudDemo\management\controller\NacosController.class
 com\cloudDemo\management\config\NacosConfig.class
