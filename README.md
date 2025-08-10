@@ -600,7 +600,6 @@ cd apache-jmeter-5.5/bin
 # 
 # 正确的响应示例：
 # {"success":true,"message":"查询成功","data":{"id":1,"username":"alice",...}}
-# 改为300线程跑30秒,实测所得7250/sec
 ```
 
 #### 订单服务性能测试
@@ -631,7 +630,6 @@ cd apache-jmeter-5.5/bin
 #
 # 正确的响应示例：
 # {"success":true,"message":"订单创建成功","data":{"id":78133,...}}
-# 实测所得21500/sec?这里是不是没有实际去数据库创建订单所以才这么高?
 ```
 
 #### 订单详情查询性能测试
@@ -653,7 +651,6 @@ cd apache-jmeter-5.5/bin
 #
 # 正确的响应示例：
 # {"success":true,"message":"查询成功","data":{"id":78132,"orderNo":"ORDER-...",...}}
-# 我改为300线程跑30秒,实测所得7750/sec
 ```
 
 #### 参数校验错误测试
