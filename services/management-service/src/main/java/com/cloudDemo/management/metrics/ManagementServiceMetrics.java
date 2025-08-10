@@ -1,4 +1,4 @@
-package com.cloudDemo.managementservice.metrics;
+package com.cloudDemo.management.metrics;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;

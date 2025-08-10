@@ -1,5 +1,6 @@
 package com.cloudDemo.userservice.controller;
 
+import com.cloudDemo.common.dto.PerformanceApiResponse;
 import com.cloudDemo.userservice.dto.validation.CreateUserRequest;
 import com.cloudDemo.userservice.dto.validation.SimpleCreateUserRequest;
 import com.cloudDemo.userservice.dto.validation.UpdateUserRequest;
@@ -98,9 +99,10 @@ public class UserValidationController {
      */
     @PostMapping("/create-simple")
     @Operation(summary = "创建用户(简化校验)", description = "创建新用户，使用简化的参数校验进行测试")
-    public ResponseEntity<Map<String, Object>> createUserSimple(
+    public ResponseEntity<PerformanceApiResponse<User>> createUserSimple(
             @Valid @RequestBody SimpleCreateUserRequest request) {
 
+        long startTime = System.currentTimeMillis();
         log.info("🔧 开始创建用户(简化版)，用户名: {}", request.getUsername());
 
         try {
@@ -117,28 +119,31 @@ public class UserValidationController {
             // 保存用户
             int result = userMapper.insert(user);
 
-            Map<String, Object> response = new HashMap<>();
             if (result > 0) {
                 user.setPassword(null);
-                response.put("success", true);
-                response.put("message", "用户创建成功");
-                response.put("data", user);
+
+                PerformanceApiResponse<User> response = PerformanceApiResponse
+                        .<User>success("User created successfully", user)
+                        .withDuration(startTime);
 
                 log.info("✅ 用户创建成功，ID: {}, 用户名: {}", user.getId(), user.getUsername());
                 return ResponseEntity.ok(response);
             } else {
-                response.put("success", false);
-                response.put("message", "用户创建失败");
-                return ResponseEntity.badRequest().body(response);
+                PerformanceApiResponse<User> response = PerformanceApiResponse
+                        .<User>clientError("Failed to create user")
+                        .withDuration(startTime);
+
+                return ResponseEntity.status(400).body(response);
             }
 
         } catch (Exception e) {
             log.error("❌ 创建用户异常: {}", e.getMessage(), e);
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", false);
-            response.put("message", "创建用户失败: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(response);
+            PerformanceApiResponse<User> response = PerformanceApiResponse
+                    .<User>serverError("Failed to create user: " + e.getMessage())
+                    .withDuration(startTime);
+
+            return ResponseEntity.status(500).body(response);
         }
     }
 
@@ -202,44 +207,46 @@ public class UserValidationController {
     }
 
     /**
-     * 获取用户详情 - 带路径参数校验
+     * 获取用户详情 - 带路径参数校验 (性能测试接口)
      */
     @GetMapping("/detail/{id}")
-    @Operation(summary = "获取用户详情", description = "根据用户ID获取用户详细信息")
-    public ResponseEntity<Map<String, Object>> getUserDetail(
+    @Operation(summary = "获取用户详情", description = "根据用户ID获取用户详细信息 - 性能测试专用接口")
+    public ResponseEntity<PerformanceApiResponse<User>> getUserDetail(
             @Parameter(description = "用户ID", example = "1")
             @PathVariable @NotNull(message = "用户ID不能为空") @Min(value = 1, message = "用户ID必须大于0") Integer id) {
 
+        long startTime = System.currentTimeMillis();
         log.info("🔍 查询用户详情，ID: {}", id);
 
         try {
             User user = userMapper.selectById(id);
 
-            Map<String, Object> response = new HashMap<>();
             if (user != null) {
                 user.setPassword(null); // 隐藏密码
 
-                response.put("success", true);
-                response.put("message", "查询成功");
-                response.put("data", user);
+                PerformanceApiResponse<User> response = PerformanceApiResponse
+                        .<User>success("User retrieved successfully", user)
+                        .withDuration(startTime);
 
                 log.info("✅ 用户查询成功，ID: {}, 用户名: {}", user.getId(), user.getUsername());
                 return ResponseEntity.ok(response);
             } else {
-                response.put("success", false);
-                response.put("message", "用户不存在");
+                PerformanceApiResponse<User> response = PerformanceApiResponse
+                        .<User>clientError("User not found")
+                        .withDuration(startTime);
 
                 log.warn("⚠️ 用户不存在，ID: {}", id);
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.status(400).body(response);
             }
 
         } catch (Exception e) {
             log.error("❌ 查询用户异常: {}", e.getMessage(), e);
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", false);
-            response.put("message", "查询用户失败: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(response);
+            PerformanceApiResponse<User> response = PerformanceApiResponse
+                    .<User>serverError("Failed to retrieve user: " + e.getMessage())
+                    .withDuration(startTime);
+
+            return ResponseEntity.status(500).body(response);
         }
     }
 

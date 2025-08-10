@@ -40,6 +40,12 @@
             <version>2.1.0</version>
         </dependency>
 
+        <!-- 依赖公共API模块 -->
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>common-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!-- Nacos Discovery -->
         <dependency>
@@ -77,13 +83,6 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <version>3.5.12</version>
-        </dependency>
-
-        <!-- Common API -->
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>common-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <!-- Spring Boot Test -->

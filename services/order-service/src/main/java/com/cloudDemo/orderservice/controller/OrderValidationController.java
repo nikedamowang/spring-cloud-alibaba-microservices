@@ -1,5 +1,6 @@
 package com.cloudDemo.orderservice.controller;
 
+import com.cloudDemo.common.dto.PerformanceApiResponse;
 import com.cloudDemo.orderservice.dto.validation.CreateOrderRequest;
 import com.cloudDemo.orderservice.dto.validation.SimpleCreateOrderRequest;
 import com.cloudDemo.orderservice.dto.validation.UpdateOrderRequest;
@@ -89,13 +90,14 @@ public class OrderValidationController {
     }
 
     /**
-     * 创建订单 - 简化版校验测试
+     * 创建订单 - 简化版校验测试 (性能测试接口)
      */
     @PostMapping("/create-simple")
     @Operation(summary = "创建订单(简化校验)", description = "创建新订单，使用简化的参数校验进行测试")
-    public ResponseEntity<Map<String, Object>> createOrderSimple(
+    public ResponseEntity<PerformanceApiResponse<Orders>> createOrderSimple(
             @Valid @RequestBody SimpleCreateOrderRequest request) {
 
+        long startTime = System.currentTimeMillis();
         log.info("🛒 开始创建订单(简化版)，用户ID: {}, 总金额: {}", request.getUserId(), request.getTotalAmount());
 
         try {
@@ -112,27 +114,30 @@ public class OrderValidationController {
             // 保存订单
             int result = ordersMapper.insert(order);
 
-            Map<String, Object> response = new HashMap<>();
             if (result > 0) {
-                response.put("success", true);
-                response.put("message", "订单创建成功");
-                response.put("data", order);
+                PerformanceApiResponse<Orders> response = PerformanceApiResponse
+                        .<Orders>success("Order created successfully", order)
+                        .withDuration(startTime);
 
                 log.info("✅ 订单创建成功，ID: {}, 订单号: {}", order.getId(), order.getOrderNo());
                 return ResponseEntity.ok(response);
             } else {
-                response.put("success", false);
-                response.put("message", "订单创建失败");
-                return ResponseEntity.badRequest().body(response);
+                PerformanceApiResponse<Orders> response = PerformanceApiResponse
+                        .<Orders>clientError("Failed to create order")
+                        .withDuration(startTime);
+
+                log.error("❌ 订单创建失败，数据库插入返回0");
+                return ResponseEntity.status(400).body(response);
             }
 
         } catch (Exception e) {
             log.error("❌ 创建订单异常: {}", e.getMessage(), e);
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", false);
-            response.put("message", "创建订单失败: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(response);
+            PerformanceApiResponse<Orders> response = PerformanceApiResponse
+                    .<Orders>serverError("Failed to create order: " + e.getMessage())
+                    .withDuration(startTime);
+
+            return ResponseEntity.status(500).body(response);
         }
     }
 
@@ -194,42 +199,44 @@ public class OrderValidationController {
     }
 
     /**
-     * 获取订单详情 - 带路径参数校验
+     * 获取订单详情 - 带路径参数校验 (性能测试接口)
      */
     @GetMapping("/detail/{id}")
-    @Operation(summary = "获取订单详情", description = "根据订单ID获取订单详细信息")
-    public ResponseEntity<Map<String, Object>> getOrderDetail(
-            @Parameter(description = "订单ID", example = "1")
-            @PathVariable @NotNull(message = "订单ID不能为空") @Min(value = 1, message = "订单ID必须大于0") Long id) {
+    @Operation(summary = "获取订单详情", description = "根据订单ID获取订单详细信息 - 性能测试专用接口")
+    public ResponseEntity<PerformanceApiResponse<Orders>> getOrderDetail(
+            @Parameter(description = "订单ID", example = "78132")
+            @PathVariable @NotNull(message = "订单ID不能为空") @Min(value = 1, message = "订单ID必须大于0") Integer id) {
 
+        long startTime = System.currentTimeMillis();
         log.info("🔍 查询订单详情，ID: {}", id);
 
         try {
             Orders order = ordersMapper.selectById(id);
 
-            Map<String, Object> response = new HashMap<>();
             if (order != null) {
-                response.put("success", true);
-                response.put("message", "查询成功");
-                response.put("data", order);
+                PerformanceApiResponse<Orders> response = PerformanceApiResponse
+                        .<Orders>success("Order retrieved successfully", order)
+                        .withDuration(startTime);
 
                 log.info("✅ 订单查询成功，ID: {}, 订单号: {}", order.getId(), order.getOrderNo());
                 return ResponseEntity.ok(response);
             } else {
-                response.put("success", false);
-                response.put("message", "订单不存在");
+                PerformanceApiResponse<Orders> response = PerformanceApiResponse
+                        .<Orders>clientError("Order not found")
+                        .withDuration(startTime);
 
                 log.warn("⚠️ 订单不存在，ID: {}", id);
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.status(400).body(response);
             }
 
         } catch (Exception e) {
             log.error("❌ 查询订单异常: {}", e.getMessage(), e);
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", false);
-            response.put("message", "查询订单失败: " + e.getMessage());
-            return ResponseEntity.internalServerError().body(response);
+            PerformanceApiResponse<Orders> response = PerformanceApiResponse
+                    .<Orders>serverError("Failed to retrieve order: " + e.getMessage())
+                    .withDuration(startTime);
+
+            return ResponseEntity.status(500).body(response);
         }
     }
 
