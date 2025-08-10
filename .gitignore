@@ -98,3 +98,76 @@ yarn-error.log*
 # 配置模板文件中的敏感信息
 config-templates-modified/
 config-templates/*.local
+
+# ===========================================
+# AI协作痕迹文件和个人文档（保留本地，不推送到远程）
+# ===========================================
+
+# AI参考文档
+AI-README.md
+GITHUB_PREPARATION.md
+CONFIG_TEMPLATE.md
+
+# AI生成的报告文档
+*完成报告.md
+*实施完成报告.md
+*配置验证完成报告.md
+*集成完成报告.md
+*优化完成报告.md
+*修复完成报告.md
+
+# AI生成的指南文档
+*使用指南.md
+*测试与使用指南.md
+*部署说明.md
+*准备指南.md
+
+# 技术方案和计划书
+技术组件集成计划书*.md
+*优化方案.md
+*扩展方案.md
+业务功能扩展方案.md
+生产就绪优化方案.md
+微服务各组件深度使用方案.md
+认证授权功能增强建议.md
+
+# 个人简历和面试相关文档
+java*.md
+*简历*.md
+面试准备指南.md
+
+# 测试脚本和API测试文件
+*.ps1
+*_test.ps1
+*_validation_test.ps1
+*_pressure_test.ps1
+simple_sentinel_test.ps1
+sentinel_test.http
+sentinel_validation_test.ps1
+api_test.http
+test_*.http
+*_test.http
+session_management_test.http
+intelligent_config_*.http
+order_sentinel_api_test.http
+
+# 临时文件和输出文件
+terminal_output.txt
+test_config.properties
+build-scripts.ps1
+test_apis.ps1
+
+# 第三方jar包和工具
+sentinel-dashboard-*.jar
+
+# 备份和固定文件
+pom_fixed.xml
+*_fixed.*
+
+# Excel模板文件
+*-template.xlsx
+user-import-template.xlsx
+
+# 项目说明和文档整理相关
+项目说明.txt
+项目文档与代码整理*.md
