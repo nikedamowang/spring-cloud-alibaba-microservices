@@ -1,9 +1,0 @@
-=== 开始日志功能测试 ===
-{"data":{"overview":{"successCalls":0,"avgResponseTime":0.0,"failureCalls":0,"totalCalls":0,"successRate":0.0,"activeServices":0},"serviceStats":[],"recentCalls":[],"timestamp":1754291329050},"success":true,"message":"鐩戞帶鏁版嵁鑾峰彇鎴愬姛"}
-=== 测试用户服务接口 ===
-{"timestamp":"2025-08-04T07:09:10.967+00:00","path":"/user/list","status":500,"error":"Internal Server Error","requestId":"74793f30"}
-=== 检查用户服务日志 ===
-2025-08-04 15:06:58.576 [,] INFO  [main] com.cloudDemo.userservice.UserServiceApplication - Starting UserServiceApplication using Java 17.0.12 with PID 31000 (D:\WorkSpace\IDEA\cloudDemo\services\user-service\target\classes started by 黄院彪 in D:\WorkSpace\IDEA\cloudDemo)
-2025-08-04 15:06:58.579 [,] INFO  [main] com.cloudDemo.userservice.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-08-04 15:07:07.302 [,] INFO  [main] com.cloudDemo.userservice.UserServiceApplication - Started UserServiceApplication in 11.417 seconds (process running for 11.947)
-2025-08-04 15:07:07.305 [,] INFO  [main] com.cloudDemo.userservice.UserServiceApplication - User Service 已成功启动并准备接收请求

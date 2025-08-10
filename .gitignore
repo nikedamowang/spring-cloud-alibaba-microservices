@@ -50,33 +50,51 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# Gradle
-.gradle
-/build/
-gradle-app.setting
-!gradle-wrapper.jar
-!gradle-wrapper.properties
-/gradlew
-/gradlew.bat
+# 敏感信息和配置文件
+*.properties.local
+*.yml.local
+application-dev.properties
+application-prod.properties
+application-test.properties
 
-# Spring Boot
-spring-boot-*.log
+# 测试和临时文件
+*.tmp
+*.temp
+*_output.txt
+terminal_output.txt
+test_output.txt
+log_test_output.txt
 
-# OS
+# API测试文件（可能包含敏感数据）
+*.http.local
+login_data.json
+login_test.json
+management_config_test.json
+nacos_user_config.json
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 操作系统相关
 .DS_Store
 Thumbs.db
 
-# Temporary files
-*.tmp
-*.temp
-temp/
+# 临时脚本输出
+*.ps1.log
 
-# Application specific
-*.pid
-*.out
+# Node.js (如果项目中有前端部分)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Nacos local config cache
-nacos/
+# 备份文件
+*.bak
+*.backup
+*~
 
-# Redis dump
-dump.rdb
+# 配置模板文件中的敏感信息
+config-templates-modified/
+config-templates/*.local
